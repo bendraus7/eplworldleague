@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {editor,writeAllowed,validateBio,exactIdentity,historyFor} from '../lib/player-core.mjs';
+import {editor,writeAllowed,validateBio,exactIdentity,historyFor,competitionFor} from '../lib/player-core.mjs';
 test('only trusted identified allowlisted organizers can edit',()=>{
   const env={EPL_EDITOR_EMAILS:'owner@example.test'};
   assert.equal(editor(new Request('https://epl.test'),env),null);
@@ -32,4 +32,15 @@ test('history counts completed games and expands series without counting aggrega
   assert.equal(history[0].phase,'Bracket · Game 1');
   assert.equal(history[0].partner,'Partner');assert.equal(history[0].opponents,'B / C');
   assert.equal(historyFor('MISSING',events).length,0);
+  assert.ok(history.every(m=>m.competition==='elite'));
+  assert.ok(historyFor('ABC123',events,['/elitepickleball/tournaments/7']).every(m=>m.competition==='world-league'));
+});
+test('league classification uses exact BracketMesh event identity, not a suggestive name',()=>{
+  const paths=['/elitepickleball/tournaments/123'];
+  assert.equal(competitionFor({name:'EPL World League',publicUrl:'/elitepickleball/tournaments/7'},paths),'elite');
+  assert.equal(competitionFor({publicUrl:'/elitepickleball/tournaments/123/'},paths),'world-league');
+  assert.equal(competitionFor({publicUrl:'https://bracketmesh.com/elitepickleball/tournaments/123?view=results'},paths),'world-league');
+  assert.equal(competitionFor({publicUrl:'/otherclub/tournaments/123'},paths),'elite');
+  assert.equal(competitionFor({publicUrl:'https://other.test/elitepickleball/tournaments/123'},paths),'elite');
+  assert.equal(competitionFor({publicUrl:'/elitepickleball/tournaments/123'}),'elite');
 });

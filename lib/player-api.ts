@@ -1,6 +1,7 @@
 import roster from '../data/roster.json';
 import identities from '../data/identities.json';
 import pendingIdentities from '../data/pending-identities.json';
+import worldLeagueEvents from '../data/world-league-events.json';
 import { editor, writeAllowed, validateBio, exactIdentity, historyFor } from './player-core.mjs';
 
 type Env = { DB?: D1Database; EPL_EDITOR_EMAILS?: string };
@@ -93,12 +94,12 @@ export async function playerApi(request:Request, env:Env) {
         (async()=>{
           const feed=await source(env,'elite-feed','/api/tournaments?organization=elite');
           const events=(feed.tournaments||[]).filter((e:any)=>e.released&&!e.practice&&e.publicUrl?.startsWith('/elitepickleball/')&&Date.parse(e.date||e.startDate||'')<=Date.now());
-          // Public Elite history is separate from the inaugural EPL season.
+          // League event paths are explicitly configured once the events exist.
           const snapshots=await Promise.allSettled(events.map(async(event:any)=>({event,snapshot:await source(env,`elite-${event.publicId}`,`/api/organizations/elite/tournaments/${event.publicId}?bootstrap=1`)})));
           historyUnavailable=snapshots.some(r=>r.status==='rejected')||feed.stale;
           const successful=snapshots.filter(r=>r.status==='fulfilled').map(r=>(r as PromiseFulfilledResult<any>).value);
           historyUnavailable ||= successful.some(r=>r.snapshot.stale);
-          return historyFor(match.duprCode,successful);
+          return historyFor(match.duprCode,successful,worldLeagueEvents.tournamentPaths);
         })()
       ]);
       if(results[0].status==='fulfilled') {

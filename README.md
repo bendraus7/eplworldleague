@@ -30,6 +30,8 @@ Identity requires an exact DUPR code and numeric profile ID. Seven organizer-sup
 
 Prior Elite history comes from released, non-practice tournaments in the Elite feed and their public snapshots. Completed games are matched by DUPR code; pool and bracket games are included. Best-of-three series expand from individual scores; byes, ties, unfinished records and duplicate match IDs are excluded. Only games with recorded identities and scores can be shown. Cache failures retain prior data with a notice. Stats describe this log, not a complete DUPR career record.
 
+Match logs label regular games as Elite tournament. World League games use an EPL badge, dark green card and lime edge. Competition filters combine with the event dropdown. Add each confirmed EPL event path to data/world-league-events.json when its BracketMesh event exists; classification uses exact event identity, never name guesses. This list is currently empty because no EPL event is connected. Other Elite player statistics exclude World League games.
+
 EPL results are separate. The inaugural event has not been played, so league standings and season stats remain pending. Country fixtures appear on profiles; individual doubles pairings are unassigned. Connect the future EPL tournament specifically before populating league stats. Elite public event 7 is Octoberfest Part 2, not the November EPL event.
 
 ## Shared bios and access
