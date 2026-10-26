@@ -14,6 +14,7 @@ From this directory run `python -m http.server 4173 --directory dist --bind 127.
 - `dist/styles.css`: responsive visual design.
 - `dist/league-views.css`: separate page views, top navigation, flags, player directory, stats layout and footer credit.
 - `dist/assets/flags/`: local SVG flags from flag-icons 7.6.0 (MIT); license included. These replace country abbreviations across the site.
+- The Home country directory wraps into eight, four, or two columns as the viewport narrows. Each flag and country name is one link to a dedicated `#team/<country>` page with the four players and team matchups.
 - `dist/elite-brand.css`: Elite Pickleball's BracketMesh brand colors, used across headers, panels, buttons, text, and backgrounds. Primary `#123e2c`, secondary `#050806`, highlight `#7ee23b`, support `#285a43`, silver `#c3cbc7`, background `#e7ece9`. Verified October 26, 2026 using the live public organization response and the current GitHub `app/organizationBranding.ts` source. The public organization returned no custom branding override, so the Elite defaults apply.
 - `dist/assets/event-01.ics`: calendar entry, 1–6 PM Central, November 21, 2026.
 - `dist/assets/epl-logo.png`: organizer-supplied main EPL logo, used in the header, footer, roster dialog and browser icon.

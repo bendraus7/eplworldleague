@@ -8,10 +8,7 @@
   const flag = team => `<img class="country-flag" src="assets/flags/${team.code.toLowerCase()}.svg" alt="${escape(team.name)} flag" width="32" height="24">`;
   let teamFilter = 'All';
   let standingsDivision = 'Atlantic';
-  let rosterReturnFocus = null;
   let currentPage = 'home';
-  let rosterPage = 'teams';
-  const teamDialog = $('#team-dialog');
   const artDialog = $('#art-dialog');
   const rounds = [
     { time:'1:00 PM', session:'SESSION 1', label:'Match 1', matches:[['vatican-city','usa','1–2'],['colombia','vietnam','3–4'],['venezuela','ireland','5–6'],['fiji','ukraine','7–8'],['cape-verde','greece','9–10'],['argentina','spain','11–12']] },
@@ -22,10 +19,10 @@
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
   function showPage(page, scroll = true) {
-    if (!['home','schedule','standings','teams','players','stats'].includes(page)) page = 'home';
+    if (!['home','schedule','standings','teams','players','stats','team'].includes(page)) page = 'home';
     currentPage = page;
     $$('[data-page]').forEach(panel => { panel.hidden = panel.dataset.page !== page; });
-    $$('#main-nav [data-route]').forEach(link => { if (link.dataset.route === page) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
+    $$('#main-nav [data-route]').forEach(link => { if (link.dataset.route === (page === 'team' ? 'teams' : page)) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
     document.title = page === 'home' ? 'EPL World League | Elite Pickleball' : `${page[0].toUpperCase()+page.slice(1)} | EPL World League`;
     if (scroll) window.scrollTo({top:0,behavior:'instant'});
     updateRotation();
@@ -96,18 +93,13 @@
     $('#standings-body').innerHTML = teams.filter(t => t.division === standingsDivision).map(t => `<tr><td>${teamButton(t)}</td><td aria-label="Not yet played">—</td><td aria-label="No result">—</td><td aria-label="No result">—</td><td aria-label="No result">—</td></tr>`).join('');
     $('table caption').textContent = `${standingsDivision} division teams. Season not started; match statistics pending.`;
   }
-  function openRoster(id, trigger) {
+  function openRoster(id) {
     const team = byId(id);
     if (!team) return;
-    if (!teamDialog.open) rosterReturnFocus = trigger || document.activeElement;
-    $('#team-dialog-content').innerHTML = `<div class="roster-header">${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} DIVISION / 2026–2027</p><h2 id="team-dialog-title">Team ${escape(team.name)}</h2></div><a class="text-link" href="#schedule" data-team-schedule="${team.id}">See team matchups ↗</a></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-player-art="${p.image}" data-player-name="${escape(p.name)}" aria-label="Enlarge ${escape(p.name)} player artwork"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3>${escape(p.name)}</h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Roster names transcribed from the supplied player reveal cards. Select a card to view the complete artwork.</p>`;
-    if (!teamDialog.open) teamDialog.showModal();
-    teamDialog.scrollTop = 0;
-  }
-  function closeRoster() {
-    teamDialog.close();
-    if (location.hash.startsWith('#team/')) history.replaceState(null, '', `#${rosterPage}`);
-    rosterReturnFocus?.focus({preventScroll:true});
+    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header">${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} DIVISION / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><a class="text-link" href="#schedule" data-team-schedule="${team.id}">See team matchups ↗</a></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-player-art="${p.image}" data-player-name="${escape(p.name)}" aria-label="Enlarge ${escape(p.name)} player artwork"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3>${escape(p.name)}</h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player card to view the complete artwork.</p>`;
+    showPage('team');
+    document.title = `Team ${team.name} | EPL World League`;
+    $('#team-page-title').focus({preventScroll:true});
   }
   function openArt(src, alt) {
     $('#art-image').src = src;
@@ -115,7 +107,7 @@
     artDialog.showModal();
     artDialog.scrollTop = 0;
   }
-  $('#flag-ribbon').innerHTML = teams.map(t => `<a href="#team/${t.id}" data-open-team="${t.id}" aria-label="View Team ${escape(t.name)}">${flag(t)} ${escape(t.name.toUpperCase())}</a>`).join('');
+  $('#flag-ribbon').innerHTML = teams.map(t => `<a href="#team/${t.id}" data-open-team="${t.id}" aria-label="View Team ${escape(t.name)}">${flag(t)}<span>${escape(t.name.toUpperCase())}</span></a>`).join('');
   $('#schedule-team').insertAdjacentHTML('beforeend', teams.map(t => `<option value="${t.id}">${escape(t.name)}</option>`).join(''));
   $('#player-country').insertAdjacentHTML('beforeend',teams.map(t => `<option value="${t.id}">${escape(t.name)}</option>`).join(''));
   $('#year').textContent = new Date().getFullYear();
@@ -132,9 +124,9 @@
   $('#reset-search').addEventListener('click', () => { $('#team-search').value = ''; teamFilter = 'All'; setSegment('data-team-filter','All'); renderTeams(); $('#team-search').focus(); });
   document.addEventListener('click', event => {
     const team = event.target.closest('[data-open-team]');
-    if (team) { event.preventDefault(); rosterPage=currentPage; history.replaceState(null,'',`#team/${team.dataset.openTeam}`); openRoster(team.dataset.openTeam, team); return; }
+    if (team) { event.preventDefault(); history.pushState(null,'',`#team/${team.dataset.openTeam}`); openRoster(team.dataset.openTeam); return; }
     const route = event.target.closest('[data-route]');
-    if (route) { event.preventDefault(); if (teamDialog.open) closeRoster(); history.pushState(null,'',`#${route.dataset.route}`); showPage(route.dataset.route); return; }
+    if (route) { event.preventDefault(); history.pushState(null,'',`#${route.dataset.route}`); showPage(route.dataset.route); return; }
     const stats = event.target.closest('[data-stats]');
     if (stats) { renderStats(stats.dataset.stats); return; }
     const division = event.target.closest('[data-team-filter]');
@@ -144,21 +136,17 @@
     const tab = event.target.closest('[data-event-tab]');
     if (tab) { const details = tab.dataset.eventTab === 'details'; setSegment('data-event-tab',tab.dataset.eventTab); $('#fixtures').hidden = details; $('#event-details').hidden = !details; $('#schedule-team').parentElement.hidden = details; return; }
     const schedule = event.target.closest('[data-team-schedule]');
-    if (schedule) { event.preventDefault(); $('#schedule-team').value = schedule.dataset.teamSchedule; renderSchedule(); setSegment('data-event-tab','matches'); $('#fixtures').hidden = false; $('#event-details').hidden = true; $('#schedule-team').parentElement.hidden = false; closeRoster(); history.pushState(null,'','#schedule'); showPage('schedule'); $('#schedule-team').focus({preventScroll:true}); return; }
+    if (schedule) { event.preventDefault(); $('#schedule-team').value = schedule.dataset.teamSchedule; renderSchedule(); setSegment('data-event-tab','matches'); $('#fixtures').hidden = false; $('#event-details').hidden = true; $('#schedule-team').parentElement.hidden = false; history.pushState(null,'','#schedule'); showPage('schedule'); $('#schedule-team').focus({preventScroll:true}); return; }
     const art = event.target.closest('[data-poster]');
     if (art) { openArt(`assets/league-${art.dataset.poster}.webp`, ['EPL World League season poster','EPL World League inaugural season artwork','EPL World League Atlantic and Pacific divisions','EPL World League Event 1 official schedule'][Number(art.dataset.poster)]); return; }
     const player = event.target.closest('[data-player-art]');
     if (player) { openArt(player.dataset.playerArt, `${player.dataset.playerName}, official player reveal artwork`); }
   });
-  teamDialog.querySelector('.close-dialog').addEventListener('click',closeRoster);
-  teamDialog.querySelector('.brand').addEventListener('click',event => { event.preventDefault(); closeRoster(); history.pushState(null,'','#teams'); showPage('teams'); });
-  teamDialog.addEventListener('cancel', event => { event.preventDefault(); closeRoster(); });
   artDialog.querySelector('.close-dialog').addEventListener('click',() => artDialog.close());
-  [teamDialog,artDialog].forEach(dialog => dialog.addEventListener('click',event => { if(event.target === dialog) { const bounds=dialog.getBoundingClientRect(); if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom) { if(dialog===teamDialog)closeRoster(); else dialog.close(); } } }));
+  artDialog.addEventListener('click',event => { if(event.target === artDialog) { const bounds=artDialog.getBoundingClientRect(); if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom) artDialog.close(); } });
   function resolveHash() {
     const hash=location.hash.slice(1);
-    if (hash.startsWith('team/')) { rosterPage='teams'; showPage('teams'); openRoster(decodeURIComponent(hash.slice(5))); return; }
-    if (teamDialog.open) teamDialog.close();
+    if (hash.startsWith('team/')) { openRoster(decodeURIComponent(hash.slice(5))); return; }
     if (hash === 'format') { showPage('home',false); $('#format').scrollIntoView({behavior:'instant'}); return; }
     showPage(hash || 'home');
   }
