@@ -400,6 +400,5 @@ window.EPL_DATA = {
         }
       ]
     }
-  ],
-  "bracketmeshUrl": "https://bracketmesh.com/elitepickleball/tournaments/7"
+  ]
 };

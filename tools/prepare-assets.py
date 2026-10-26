@@ -36,5 +36,5 @@ for folder,code,division,poster,names in data:
 for i,p in enumerate(sorted(root.glob('*.jp*'))):
     im=Image.open(p).convert('RGB'); im.thumbnail((1600,1600)); im.save(out/f'assets/league-{i}.webp','WEBP',quality=90)
 shutil.copyfile(root/'EPL Logo.png',out/'assets/epl-logo.png')
-(out/'data.js').write_text('window.EPL_DATA = '+json.dumps(dict(teams=teams,bracketmeshUrl='https://bracketmesh.com/elitepickleball/tournaments/7'),ensure_ascii=False,indent=2)+';\n',encoding='utf-8')
+(out/'data.js').write_text('window.EPL_DATA = '+json.dumps(dict(teams=teams),ensure_ascii=False,indent=2)+';\n',encoding='utf-8')
 print(f'Prepared {len(teams)} teams and {sum(len(t["players"]) for t in teams)} player cards.')
