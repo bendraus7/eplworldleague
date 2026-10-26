@@ -17,6 +17,7 @@ From this directory run `python -m http.server 4173 --directory dist --bind 127.
 - `dist/elite-brand.css`: Elite Pickleball's BracketMesh brand colors, used across headers, panels, buttons, text, and backgrounds. Primary `#123e2c`, secondary `#050806`, highlight `#7ee23b`, support `#285a43`, silver `#c3cbc7`, background `#e7ece9`. Verified October 26, 2026 using the live public organization response and the current GitHub `app/organizationBranding.ts` source. The public organization returned no custom branding override, so the Elite defaults apply.
 - `dist/assets/event-01.ics`: calendar entry, 1–6 PM Central, November 21, 2026.
 - `dist/assets/epl-logo.png`: organizer-supplied main EPL logo, used in the header, footer, roster dialog and browser icon.
+- `dist/assets/bracketmesh-footer.png`: the official transparent BracketMesh footer logo from the BracketMesh site, shown beside “Powered by” on the footer's dark green background.
 - `tools/prepare-assets.py`: converts the original local artwork into optimized WebP assets. Original files remain in the parent directory.
 
 ## Confirmed inputs
