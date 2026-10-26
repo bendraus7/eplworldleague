@@ -1,0 +1,514 @@
+[
+  {
+    "name": "Robin Lee",
+    "image": "assets/argentina-0.webp",
+    "id": "robin-lee",
+    "teamId": "argentina",
+    "country": "Argentina",
+    "division": "Pacific"
+  },
+  {
+    "name": "Chase Baird",
+    "image": "assets/argentina-1.webp",
+    "id": "chase-baird",
+    "teamId": "argentina",
+    "country": "Argentina",
+    "division": "Pacific"
+  },
+  {
+    "name": "Stephen Nicknish",
+    "image": "assets/argentina-2.webp",
+    "id": "stephen-nicknish",
+    "teamId": "argentina",
+    "country": "Argentina",
+    "division": "Pacific"
+  },
+  {
+    "name": "Connie Inselmann",
+    "image": "assets/argentina-3.webp",
+    "id": "connie-inselmann",
+    "teamId": "argentina",
+    "country": "Argentina",
+    "division": "Pacific"
+  },
+  {
+    "name": "Kate Skokin",
+    "image": "assets/brazil-0.webp",
+    "id": "kate-skokin",
+    "teamId": "brazil",
+    "country": "Brazil",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Rokas (Rocky) Kersulis",
+    "image": "assets/brazil-2.webp",
+    "id": "rokas-rocky-kersulis",
+    "teamId": "brazil",
+    "country": "Brazil",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Will Bennett",
+    "image": "assets/brazil-3.webp",
+    "id": "will-bennett",
+    "teamId": "brazil",
+    "country": "Brazil",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Chris Szalo",
+    "image": "assets/brazil-4.webp",
+    "id": "chris-szalo",
+    "teamId": "brazil",
+    "country": "Brazil",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Anna Schelkopf",
+    "image": "assets/cape-verde-1.webp",
+    "id": "anna-schelkopf",
+    "teamId": "cape-verde",
+    "country": "Cape Verde",
+    "division": "Pacific"
+  },
+  {
+    "name": "Tim Suter",
+    "image": "assets/cape-verde-2.webp",
+    "id": "tim-suter",
+    "teamId": "cape-verde",
+    "country": "Cape Verde",
+    "division": "Pacific"
+  },
+  {
+    "name": "Sudi Korba",
+    "image": "assets/cape-verde-3.webp",
+    "id": "sudi-korba",
+    "teamId": "cape-verde",
+    "country": "Cape Verde",
+    "division": "Pacific"
+  },
+  {
+    "name": "David Ginsberg",
+    "image": "assets/cape-verde-4.webp",
+    "id": "david-ginsberg",
+    "teamId": "cape-verde",
+    "country": "Cape Verde",
+    "division": "Pacific"
+  },
+  {
+    "name": "Ryan Kosowski",
+    "image": "assets/colombia-0.webp",
+    "id": "ryan-kosowski",
+    "teamId": "colombia",
+    "country": "Colombia",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Teresa Huelskoetter",
+    "image": "assets/colombia-1.webp",
+    "id": "teresa-huelskoetter",
+    "teamId": "colombia",
+    "country": "Colombia",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Casey Sincavage",
+    "image": "assets/colombia-2.webp",
+    "id": "casey-sincavage",
+    "teamId": "colombia",
+    "country": "Colombia",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Valentina Tabares",
+    "image": "assets/colombia-4.webp",
+    "id": "valentina-tabares",
+    "teamId": "colombia",
+    "country": "Colombia",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Zoe Chambers",
+    "image": "assets/fiji-1.webp",
+    "id": "zoe-chambers",
+    "teamId": "fiji",
+    "country": "Fiji",
+    "division": "Pacific"
+  },
+  {
+    "name": "Liz Mazzocco",
+    "image": "assets/fiji-2.webp",
+    "id": "liz-mazzocco",
+    "teamId": "fiji",
+    "country": "Fiji",
+    "division": "Pacific"
+  },
+  {
+    "name": "Murtaza Raza",
+    "image": "assets/fiji-3.webp",
+    "id": "murtaza-raza",
+    "teamId": "fiji",
+    "country": "Fiji",
+    "division": "Pacific"
+  },
+  {
+    "name": "Kevin Ma",
+    "image": "assets/fiji-4.webp",
+    "id": "kevin-ma",
+    "teamId": "fiji",
+    "country": "Fiji",
+    "division": "Pacific"
+  },
+  {
+    "name": "Gina Samarco",
+    "image": "assets/germany-1.webp",
+    "id": "gina-samarco",
+    "teamId": "germany",
+    "country": "Germany",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Jeremy Kloess",
+    "image": "assets/germany-2.webp",
+    "id": "jeremy-kloess",
+    "teamId": "germany",
+    "country": "Germany",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Ron Lampen",
+    "image": "assets/germany-3.webp",
+    "id": "ron-lampen",
+    "teamId": "germany",
+    "country": "Germany",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Laura Sues",
+    "image": "assets/germany-4.webp",
+    "id": "laura-sues",
+    "teamId": "germany",
+    "country": "Germany",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Amanda McCleary",
+    "image": "assets/greece-0.webp",
+    "id": "amanda-mccleary",
+    "teamId": "greece",
+    "country": "Greece",
+    "division": "Pacific"
+  },
+  {
+    "name": "Michael Garcia",
+    "image": "assets/greece-1.webp",
+    "id": "michael-garcia",
+    "teamId": "greece",
+    "country": "Greece",
+    "division": "Pacific"
+  },
+  {
+    "name": "Lara Stehlik",
+    "image": "assets/greece-2.webp",
+    "id": "lara-stehlik",
+    "teamId": "greece",
+    "country": "Greece",
+    "division": "Pacific"
+  },
+  {
+    "name": "JJ Przybylka",
+    "image": "assets/greece-3.webp",
+    "id": "jj-przybylka",
+    "teamId": "greece",
+    "country": "Greece",
+    "division": "Pacific"
+  },
+  {
+    "name": "Jason March",
+    "image": "assets/ireland-0.webp",
+    "id": "jason-march",
+    "teamId": "ireland",
+    "country": "Ireland",
+    "division": "Pacific"
+  },
+  {
+    "name": "Torie Licht",
+    "image": "assets/ireland-2.webp",
+    "id": "torie-licht",
+    "teamId": "ireland",
+    "country": "Ireland",
+    "division": "Pacific"
+  },
+  {
+    "name": "Dawn Bell",
+    "image": "assets/ireland-3.webp",
+    "id": "dawn-bell",
+    "teamId": "ireland",
+    "country": "Ireland",
+    "division": "Pacific"
+  },
+  {
+    "name": "Jim Ferguson",
+    "image": "assets/ireland-4.webp",
+    "id": "jim-ferguson",
+    "teamId": "ireland",
+    "country": "Ireland",
+    "division": "Pacific"
+  },
+  {
+    "name": "Ryan Melzer",
+    "image": "assets/italy-0.webp",
+    "id": "ryan-melzer",
+    "teamId": "italy",
+    "country": "Italy",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Dan Slinger",
+    "image": "assets/italy-2.webp",
+    "id": "dan-slinger",
+    "teamId": "italy",
+    "country": "Italy",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Morgan Steinys",
+    "image": "assets/italy-3.webp",
+    "id": "morgan-steinys",
+    "teamId": "italy",
+    "country": "Italy",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Melissa Henry",
+    "image": "assets/italy-4.webp",
+    "id": "melissa-henry",
+    "teamId": "italy",
+    "country": "Italy",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Jenny Park",
+    "image": "assets/korea-0.webp",
+    "id": "jenny-park",
+    "teamId": "korea",
+    "country": "Korea",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Austin Paik",
+    "image": "assets/korea-1.webp",
+    "id": "austin-paik",
+    "teamId": "korea",
+    "country": "Korea",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Jill Ko",
+    "image": "assets/korea-2.webp",
+    "id": "jill-ko",
+    "teamId": "korea",
+    "country": "Korea",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Dongwann Kim",
+    "image": "assets/korea-3.webp",
+    "id": "dongwann-kim",
+    "teamId": "korea",
+    "country": "Korea",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Natalie Silver",
+    "image": "assets/spain-0.webp",
+    "id": "natalie-silver",
+    "teamId": "spain",
+    "country": "Spain",
+    "division": "Pacific"
+  },
+  {
+    "name": "Andrew Silver",
+    "image": "assets/spain-1.webp",
+    "id": "andrew-silver",
+    "teamId": "spain",
+    "country": "Spain",
+    "division": "Pacific"
+  },
+  {
+    "name": "Adi Vijayan",
+    "image": "assets/spain-2.webp",
+    "id": "adi-vijayan",
+    "teamId": "spain",
+    "country": "Spain",
+    "division": "Pacific"
+  },
+  {
+    "name": "Kelly Merydith",
+    "image": "assets/spain-4.webp",
+    "id": "kelly-merydith",
+    "teamId": "spain",
+    "country": "Spain",
+    "division": "Pacific"
+  },
+  {
+    "name": "Ernesta Glutkinaite",
+    "image": "assets/ukraine-0.webp",
+    "id": "ernesta-glutkinaite",
+    "teamId": "ukraine",
+    "country": "Ukraine",
+    "division": "Pacific"
+  },
+  {
+    "name": "Tiffany Hauser",
+    "image": "assets/ukraine-1.webp",
+    "id": "tiffany-hauser",
+    "teamId": "ukraine",
+    "country": "Ukraine",
+    "division": "Pacific"
+  },
+  {
+    "name": "Peter Behling",
+    "image": "assets/ukraine-3.webp",
+    "id": "peter-behling",
+    "teamId": "ukraine",
+    "country": "Ukraine",
+    "division": "Pacific"
+  },
+  {
+    "name": "Sergey Spisovskiy",
+    "image": "assets/ukraine-4.webp",
+    "id": "sergey-spisovskiy",
+    "teamId": "ukraine",
+    "country": "Ukraine",
+    "division": "Pacific"
+  },
+  {
+    "name": "Kash Abbas",
+    "image": "assets/usa-0.webp",
+    "id": "kash-abbas",
+    "teamId": "usa",
+    "country": "USA",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Tati Washington",
+    "image": "assets/usa-1.webp",
+    "id": "tati-washington",
+    "teamId": "usa",
+    "country": "USA",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Alice Velcherean",
+    "image": "assets/usa-3.webp",
+    "id": "alice-velcherean",
+    "teamId": "usa",
+    "country": "USA",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Adam Long",
+    "image": "assets/usa-4.webp",
+    "id": "adam-long",
+    "teamId": "usa",
+    "country": "USA",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Eric Zito",
+    "image": "assets/vatican-city-1.webp",
+    "id": "eric-zito",
+    "teamId": "vatican-city",
+    "country": "Vatican City",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Rachel Goldberg",
+    "image": "assets/vatican-city-2.webp",
+    "id": "rachel-goldberg",
+    "teamId": "vatican-city",
+    "country": "Vatican City",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Maly Foote",
+    "image": "assets/vatican-city-3.webp",
+    "id": "maly-foote",
+    "teamId": "vatican-city",
+    "country": "Vatican City",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Matt Schapiro",
+    "image": "assets/vatican-city-4.webp",
+    "id": "matt-schapiro",
+    "teamId": "vatican-city",
+    "country": "Vatican City",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Anna Trinh",
+    "image": "assets/venezuela-0.webp",
+    "id": "anna-trinh",
+    "teamId": "venezuela",
+    "country": "Venezuela",
+    "division": "Pacific"
+  },
+  {
+    "name": "Thai Tran",
+    "image": "assets/venezuela-2.webp",
+    "id": "thai-tran",
+    "teamId": "venezuela",
+    "country": "Venezuela",
+    "division": "Pacific"
+  },
+  {
+    "name": "Bridget Aguado",
+    "image": "assets/venezuela-3.webp",
+    "id": "bridget-aguado",
+    "teamId": "venezuela",
+    "country": "Venezuela",
+    "division": "Pacific"
+  },
+  {
+    "name": "Gino Peluso",
+    "image": "assets/venezuela-4.webp",
+    "id": "gino-peluso",
+    "teamId": "venezuela",
+    "country": "Venezuela",
+    "division": "Pacific"
+  },
+  {
+    "name": "Allyson Kolpas",
+    "image": "assets/vietnam-0.webp",
+    "id": "allyson-kolpas",
+    "teamId": "vietnam",
+    "country": "Vietnam",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Bella Zanotti",
+    "image": "assets/vietnam-2.webp",
+    "id": "bella-zanotti",
+    "teamId": "vietnam",
+    "country": "Vietnam",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Long Huynh",
+    "image": "assets/vietnam-3.webp",
+    "id": "long-huynh",
+    "teamId": "vietnam",
+    "country": "Vietnam",
+    "division": "Atlantic"
+  },
+  {
+    "name": "Nico Smith",
+    "image": "assets/vietnam-4.webp",
+    "id": "nico-smith",
+    "teamId": "vietnam",
+    "country": "Vietnam",
+    "division": "Atlantic"
+  }
+]

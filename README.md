@@ -1,44 +1,55 @@
 # EPL World League
 
-Portable static league website for Elite Pickleball. The deployable site is entirely in `dist/`; no server, database, API keys, or build step is required. It can be hosted on ChatGPT Sites today and moved to any static host or custom domain later.
+Elite Pickleball's 2026–2027 league website, with 16 country teams and 64 player profiles. Hosted on ChatGPT Sites; source is mirrored to bendraus7/eplworldleague.
 
-## Preview
+## Development
 
-From this directory run `python -m http.server 4173 --directory dist --bind 127.0.0.1` and open `http://127.0.0.1:4173`.
+Use Node 22.13+ and npm. Run `npm ci`, then `npm run build`. Apply the schema locally with `node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_bent_puck.sql`. Run `npm run dev -- --host 127.0.0.1 --port 4173`.
 
-## Content
+For local organizer testing, set `EPL_EDITOR_EMAILS=seedy@sites.test` in ignored `.dev.vars` and visit `/signin-with-chatgpt?return_to=/`. This is the supplied Sites loopback-only mock sign-in, absent from production. Never configure that mock email as a production organizer.
 
-- `dist/data.js`: 16 countries, divisions, 64 player names and artwork. Names are transcribed from the supplied reveal artwork; confirm spelling with the organizer before public launch.
-- `dist/app.js`: Home/Schedule/Standings/Teams/Players/Stats routing, Event 1 matchups, directory search and filters, roster and artwork viewers, featured-player rotation with manual controls and pause. Reduced-motion preferences disable autoplay by default; rotation also stops on other views and while the page is hidden.
-- `dist/index.html`: page copy, event details, navigation, match rules.
-- `dist/styles.css`: responsive visual design.
-- `dist/league-views.css`: separate page views, top navigation, flags, player directory, stats layout and footer credit.
-- `dist/assets/flags/`: local SVG flags from flag-icons 7.6.0 (MIT); license included. These replace country abbreviations across the site.
-- The Home country directory wraps into eight, four, or two columns as the viewport narrows. Each flag and country name is one link to a dedicated `#team/<country>` page with the four players and team matchups.
-- `dist/elite-brand.css`: Elite Pickleball's BracketMesh brand colors, used across headers, panels, buttons, text, and backgrounds. Primary `#123e2c`, secondary `#050806`, highlight `#7ee23b`, support `#285a43`, silver `#c3cbc7`, background `#e7ece9`. Verified October 26, 2026 using the live public organization response and the current GitHub `app/organizationBranding.ts` source. The public organization returned no custom branding override, so the Elite defaults apply.
-- `dist/assets/event-01.ics`: calendar entry, 1–6 PM Central, November 21, 2026.
-- `dist/assets/epl-logo.png`: organizer-supplied main EPL logo, used in the header, footer, roster dialog and browser icon.
-- `dist/assets/bracketmesh-footer.png`: the official transparent BracketMesh footer logo from the BracketMesh site, shown beside “Powered by” on the footer's dark green background.
-- `tools/prepare-assets.py`: converts the original local artwork into optimized WebP assets. Original files remain in the parent directory.
+`npm test` covers identity matching, authorization, validation and history extraction. `node node_modules/typescript/bin/tsc --noEmit` checks types. Build and package with the installed Sites helpers.
 
-## Confirmed inputs
+## Source
 
-The supplied Event 1 schedule poster provides November 21, 2026, 1–6 PM Central; Pickled Batavia, 301 N. Randall Road, Batavia, IL 60510; two sessions; all 16 matches and court pairs; games to 11, win by two. The organizer confirmed use of the poster's EPL Point Break instead of the initial singles DreamBreaker description. At 2–2, the poster specifies two mixed players to 11, win by two; further procedural rules have not been added.
+- `public/`: authored presentation and optimized local artwork. `dist/` is generated output.
+- `public/app.js`: league and team views, schedule, filters, flags and rotating hero.
+- `public/profiles.js`: directory ratings, profiles, match logs, stats and organizer tools.
+- `data/roster.json` and `public/data.js`: matching stable player IDs, rosters and artwork. Keep IDs consistent.
+- `data/identities.json`: 46 initial exact name/alias matches from BracketMesh, verified October 26, 2026. Both code and numeric profile ID must agree. Ratings are retrieved from BracketMesh.
+- `lib/player-api.ts`: API, BracketMesh cache, shared bios and organizer identity mappings.
+- `lib/player-core.mjs`: authorization, validation and completed game extraction.
+- `db/schema.ts`, `drizzle/`: schema-only D1 migrations. Never create tables from request handlers.
+- `tools/prepare-assets.py`: optimizes originals into public/assets; originals remain in the parent folder.
 
-Divisions come from the supplied Atlantic/Pacific poster. Colombia is spelled correctly in site navigation while the original source folder named `Columbia` is preserved. Jersey numbers and rating-based seeds are not used as match standings.
+## Player data
 
-BracketMesh is credited only in the footer as the event engine. Outbound BracketMesh calls to action have been removed at the organizer's request. This site does not yet import results from BracketMesh. Do not claim a live data connection until one has been implemented and verified.
+Directory ratings come from BracketMesh's published `/api/players`, cached ten minutes. Singles uses its profile snapshot API, cached one hour, with the original snapshot date displayed. These are BracketMesh's stored DUPR ratings, not a direct DUPR refresh.
 
-Standings intentionally contain no fabricated rankings or scores. Future season dates, registration links, live results integration, and additional league policies can be added when confirmed.
+Identity requires an exact DUPR code and numeric profile ID. Unresolved players stay unlinked. Organizers can search BracketMesh and select the correct account from a player's bio panel. Similar names are never silently assigned. This integration makes no BracketMesh database writes or backend changes.
 
-## Migration
+Prior Elite history comes from released, non-practice tournaments in the Elite feed and their public snapshots. Completed games are matched by DUPR code; pool and bracket games are included. Best-of-three series expand from individual scores; byes, ties, unfinished records and duplicate match IDs are excluded. Only games with recorded identities and scores can be shown. Cache failures retain prior data with a notice. Stats describe this log, not a complete DUPR career record.
 
-Upload the contents of `dist/` to the new host. All page routes are hash links and all runtime files use relative paths, so no rewrite rules are needed. Update the absolute Open Graph image origin in `dist/index.html` and this file's Site URL when the final domain is chosen. Google Fonts are loaded with system fallbacks; all league artwork is served locally.
+EPL results are separate. The inaugural event has not been played, so league standings and season stats remain pending. Country fixtures appear on profiles; individual doubles pairings are unassigned. Connect the future EPL tournament specifically before populating league stats. Elite public event 7 is Octoberfest Part 2, not the November EPL event.
 
-Site project: `appgprj_6adf543dadd48191bb34ae0d9a3cb68a`
+## Shared bios and access
 
-Expected origin: `https://epl-world-league.bendraus.chatgpt.site`
+Bios and selected identities persist in D1 across browsers and deployments. Bios are escaped plain text, limited to 2,000 characters. Version checks prevent overwriting concurrent edits. Clearing a bio saves an empty value.
 
-## Inspiration
+Production organizer access requires trusted Sites identity headers and an email in server-side `EPL_EDITOR_EMAILS`. The owner is configured through Sites; no credentials or owner email are stored in source. Missing identity, non-organizers, cross-origin writes and non-JSON requests are rejected. Read responses never expose audit IDs. Preserve the site's existing audience when deploying.
 
-Major League Pickleball (`https://majorleaguepickleball.co/`) for team-first sports presentation. The Spread Chicago League (`https://spreadpickleball.com/chicago-league/`) for practical player discovery, schedule and standings navigation. All league and player images are supplied EPL assets.
+## League content
+
+Event 1: Saturday, November 21, 2026, 1–6 PM Central; Pickled Batavia, 301 N. Randall Road, Batavia, IL 60510. The supplied poster defines all sessions, matches and court pairs. Each team has two men and two women. Matches include men's doubles, women's doubles and two mixed games, to 11, win by two. A 2–2 tie uses the confirmed EPL Point Break: two mixed players to 11, win by two.
+
+Elite BracketMesh colors: primary #123e2c, secondary #050806, highlight #7ee23b, support #285a43, silver #c3cbc7, background #e7ece9. The supplied EPL logo is primary; the official BracketMesh logo is credited in the footer. Country SVGs are flag-icons assets (MIT license included).
+
+## Domain migration
+
+This version needs a Worker/server and D1 for player data and shared edits. A static-only upload cannot power ratings, profiles or bios. On Cloudflare, retain DB and ASSETS bindings and the Worker routes from the build; apply migrations and export/import all three D1 tables when moving. Configure authentication and organizer allowlists on the destination before enabling writes. Never trust browser-supplied oai-authenticated-user-* headers on an unprotected custom host: a trusted identity proxy must strip/replace them. Another backend can implement the same API routes.
+
+Hash routes include #players, #player/robin-lee and #team/argentina. Update the Open Graph origin in public/index.html when selecting a domain.
+
+Site: appgprj_6adf543dadd48191bb34ae0d9a3cb68a
+
+Published origin: https://epl-world-league.bendraus.chatgpt.site
