@@ -1,0 +1,89 @@
+/* Elite Pickleball palette, verified against BracketMesh organizationBranding.ts
+   and the live organization's primary/secondary colors on October 26, 2026. */
+:root {
+  --brand-primary:#123e2c;
+  --brand-secondary:#050806;
+  --brand-accent:#7ee23b;
+  --brand-support:#285a43;
+  --brand-silver:#c3cbc7;
+  --brand-border:#819089;
+  --brand-background:#e7ece9;
+  --brand-surface:#ffffff;
+  --brand-text:#142019;
+  --brand-muted:#617168;
+  --brand-on-dark:#ffffff;
+  --brand-card:#202824;
+  --paper:var(--brand-background);
+  --ink:var(--brand-primary);
+  --dark:var(--brand-secondary);
+  --lime:var(--brand-accent);
+  --line:color-mix(in srgb,var(--brand-border) 43%,var(--brand-background));
+  --muted:var(--brand-muted);
+  --white:var(--brand-surface);
+}
+body{color:var(--brand-text)}
+h1,h2,h3,.text-link,.button.outline,.team-card,.brand,.segmented,.fixture button,td button{color:var(--brand-primary)}
+.season-bar{background:var(--brand-primary);color:var(--brand-on-dark)}
+.header{background:var(--brand-secondary);color:var(--brand-on-dark);border-bottom:3px solid var(--brand-accent)}
+.header .brand,.header nav a,.header .menu-toggle{color:var(--brand-on-dark)}
+.header nav a:hover{border-color:var(--brand-accent)}
+.header .nav-cta{background:var(--brand-accent);color:var(--brand-secondary);border-color:var(--brand-accent)}
+.header .nav-cta:hover{background:#a1ed71}
+.brand img{border-radius:0;object-fit:contain;background:transparent;width:78px;height:68px}
+.hero h1{color:var(--brand-primary)}
+.hero h1 span{color:var(--brand-support)}
+.hero-copy .live-dot,.status-pill .live-dot{background:var(--brand-support)}
+.hero-description,.hero-note{color:var(--brand-muted)}
+.small-ball{color:var(--brand-support)}
+.hero-art{background:var(--brand-primary)}
+.hero-player{border-color:var(--brand-surface)}
+.flag-ribbon{background:var(--brand-silver);overflow-x:auto;scrollbar-width:thin}
+.flag-ribbon>div{width:max-content;min-width:100%;justify-content:flex-start;gap:26px;padding-block:13px}
+.flag-code{background:var(--brand-surface);border-color:#a9b7af;color:var(--brand-primary)}
+.team-card{border-color:#c2cfc6}
+.team-card-body{background:var(--brand-surface)}
+.division-tag{background:var(--brand-secondary);color:var(--brand-on-dark)}
+.segmented button.active{background:var(--brand-primary);color:var(--brand-on-dark)}
+.segmented button:hover:not(.active){background:#d3dfd6}
+.search-box{border-color:var(--brand-border)}
+.league-statement{background:var(--brand-primary)}
+.league-statement h2,.bm-section h2{color:var(--brand-on-dark)}
+.league-statement .text-link{color:var(--brand-accent)}
+.event-info{background:#d3dfd6}
+.event-info hr,.event-stats{border-color:#b0c2b5}
+.fixtures-panel{background:var(--brand-surface)}
+.round-heading{background:#edf2ef}
+.standings-section{background:#d9e3dc;border-color:#becfc2}
+.format-number{color:var(--brand-primary)}
+.format-number>span,.format-list li>span:first-child{color:var(--brand-support)}
+.point-break{color:var(--brand-secondary)}
+.format-list li.point-break p,.format-list li.point-break .eyebrow{color:#25451b!important}
+.button.dark:hover{background:var(--brand-support)}
+.button.lime:hover{background:#a1ed71}
+.button.outline:hover{background:#d3dfd6}
+.bm-section{background:var(--brand-secondary);border-top:4px solid var(--brand-accent)}
+.footer .brand img{width:88px;height:77px}
+.dialog-bar .brand img{width:65px;height:57px}
+.hero-player{width:46%}
+.art-stamp{font-size:16px;bottom:16px}
+.art-stamp br{display:none}
+.art-stamp strong{margin-left:6px}
+.art-stamp span{font-size:7px;margin-top:7px}
+.footer{color:var(--brand-muted)}
+.dialog-bar{background:var(--brand-background)}
+.dialog-bar .brand{color:var(--brand-primary)}
+.roster-header h2{color:var(--brand-primary)}
+.player-card{background:var(--brand-surface)}
+.button,.text-link,.header nav{font-size:13px}
+.hero-description{font-size:16px}
+.team-card-players{font-size:12px;line-height:1.7;min-height:61px}
+.team-card-bottom{font-size:10px;letter-spacing:.7px}
+.division-tag{font-size:9px}
+.fixture button{font-size:13px}
+.fixture .court{font-size:10px}
+.round-heading h3{font-size:12px}
+.fixtures-footer,.schedule-note,.table-note{font-size:11px}
+.format-intro>p,.format-list li p{font-size:13px}
+@media(max-width:1100px){.team-card-players{font-size:11px;min-height:75px}.team-card-bottom{font-size:9px}.fixture button{font-size:11px}.fixture .court{font-size:9px}}
+@media(max-width:800px){.header nav{background:var(--brand-secondary)}.brand img{width:62px;height:54px}.team-card-players{font-size:12px;min-height:55px}.hero-description{font-size:13px}.fixture button{font-size:13px}.fixture .court{font-size:10px}.event-info p,.event-info .event-time,.event-info .text-link{font-size:12px}}
+@media(max-width:560px){.hero-description{font-size:14px}.team-card-players{font-size:11px;min-height:89px}.team-card-title h3{font-size:25px}.team-card-bottom{font-size:8px}.division-tag{font-size:7px}.fixture button{font-size:11px;gap:5px}.fixture .court{font-size:8px}.round-heading h3{font-size:11px}.fixtures-footer{font-size:8px}.event-info p,.event-info .event-time,.event-info .text-link{font-size:10px}.format-intro>p:not(.format-highlight){font-size:12px}.format-list li p{font-size:12px}.format-list li.point-break p{font-size:11px!important}.format-list li .game-tag{display:none}.player-card h3{font-size:13px}}

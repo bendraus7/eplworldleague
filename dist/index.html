@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123e2c">
+  <title>EPL World League | Elite Pickleball</title>
+  <meta name="description" content="16 countries. 64 players. One world champion. Meet the teams, find your players, and follow the Elite Pickleball World League.">
+  <meta property="og:title" content="EPL World League | Pickleball beyond borders">
+  <meta property="og:description" content="Meet the 16 country teams and follow the 2026–2027 inaugural season.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://epl-world-league.bendraus.chatgpt.site/assets/league-1.webp">
+  <link rel="icon" href="assets/epl-logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="elite-brand.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="season-bar"><span>ELITE PICKLEBALL</span><span>2026–2027 INAUGURAL SEASON <i></i></span><a href="#schedule">NEXT UP: NOV 21 · BATAVIA, IL <span aria-hidden="true">↗</span></a></div>
+  <header class="header">
+    <a class="brand" href="#home" aria-label="EPL World League home"><img src="assets/epl-logo.png" alt="" width="78" height="68"><span>EPL<span>WORLD LEAGUE</span></span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu <span aria-hidden="true">☰</span></button>
+    <nav id="main-nav" aria-label="Main navigation"><a href="#teams">The teams</a><a href="#schedule">Schedule</a><a href="#standings">Standings</a><a href="#format">The league</a></nav>
+    <a class="nav-cta bm-link" href="https://bracketmesh.com/elitepickleball/tournaments/7" target="_blank" rel="noopener">BracketMesh <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <section id="home" class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> DIFFERENT COUNTRIES. SAME PASSION.</p>
+        <h1>THE WORLD.<br>ONE <span>COURT.</span></h1>
+        <p class="hero-description">16 countries. 64 players. One world champion.<br>Country pride meets team pickleball in the<br class="desktop-break"> Elite Pickleball World League.</p>
+        <div class="hero-actions"><a class="button dark" href="#teams">Find your team <span aria-hidden="true">↗</span></a><a class="text-link" href="#format">How we play <span aria-hidden="true">→</span></a></div>
+        <div class="hero-note"><span class="small-ball" aria-hidden="true">✳</span> PICKLEBALL BEYOND BORDERS</div>
+      </div>
+      <div class="hero-art">
+        <div class="orbital orbital-one"></div><div class="orbital orbital-two"></div>
+        <span class="art-top">16 COUNTRIES / ONE WORLD LEAGUE</span>
+        <img class="hero-player hero-back" src="assets/usa-0.webp" alt="Kash Abbas, Team USA player reveal" width="500" height="650">
+        <img class="hero-player hero-front" src="assets/vietnam-0.webp" alt="Allyson Kolpas, Team Vietnam player reveal" width="500" height="650">
+        <div class="art-stamp">COUNTRY PRIDE.<br><strong>GLOBAL GAME.</strong><span>EST. 2026 ↗</span></div>
+      </div>
+    </section>
+    <div class="flag-ribbon" aria-label="Sixteen country teams"><div id="flag-ribbon"></div></div>
+    <section class="next-event wrap" aria-labelledby="next-title">
+      <div class="event-date"><span>NOV</span><strong>21</strong><span>SATURDAY</span></div>
+      <div class="event-summary"><p class="eyebrow">UP NEXT / EVENT 01</p><h2 id="next-title">The world league starts here.</h2><p>Pickled Batavia <span>·</span> Batavia, Illinois <span>·</span> 1–6 PM CT</p></div>
+      <a class="button outline" href="#schedule">View the matchups <span aria-hidden="true">↗</span></a>
+    </section>
+    <section id="teams" class="section teams-section wrap">
+      <div class="section-heading"><div><p class="eyebrow">THE COUNTRIES. THE COMPETITORS.</p><h2>Pick your colors.</h2></div><p>Two men. Two women. One team.<br>Meet the players carrying their country’s colors.</p></div>
+      <div class="team-controls"><div class="segmented" aria-label="Filter teams by division"><button class="active" data-team-filter="All" aria-pressed="true">All 16 teams</button><button data-team-filter="Atlantic" aria-pressed="false">Atlantic</button><button data-team-filter="Pacific" aria-pressed="false">Pacific</button></div><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search teams or players</span><input id="team-search" type="search" placeholder="Find a team or player…" autocomplete="off"></label></div>
+      <p class="result-count" id="team-count" aria-live="polite">16 teams / 64 players</p>
+      <div id="team-grid" class="team-grid"></div>
+      <div id="no-teams" class="empty-state" hidden><h3>No teams found.</h3><p>Try another player name or country.</p><button id="reset-search" class="button outline">Show all teams</button></div>
+    </section>
+    <section class="league-statement"><div class="wrap statement-inner"><p class="eyebrow">BUILT FOR TEAM PICKLEBALL</p><h2>Four players.<br>One <em>shared</em> goal.</h2><p>Every doubles game counts. Every player has a part to play.<br>From the first serve to the final Point Break, you win together.</p><a class="text-link" href="#format">Get to know the format <span aria-hidden="true">↗</span></a><span class="court-mark" aria-hidden="true"></span></div></section>
+    <section id="schedule" class="section wrap">
+      <div class="section-heading"><div><p class="eyebrow">2026–2027 / INAUGURAL SEASON</p><h2>Your next courtside date.</h2></div><a class="text-link" href="assets/event-01.ics" download>Add Event 1 to calendar <span aria-hidden="true">↓</span></a></div>
+      <div class="schedule-layout"><aside class="event-info"><div class="event-label">EVENT 01 <span>UPCOMING</span></div><h3>November 21,<br>2026.</h3><p class="event-time">Saturday · 1:00–6:00 PM CT</p><hr><strong>Pickled Batavia</strong><p>301 N. Randall Road<br>Batavia, IL 60510</p><a class="text-link" href="https://www.google.com/maps/search/?api=1&query=301+N+Randall+Road+Batavia+IL+60510" target="_blank" rel="noopener">Get directions ↗</a><div class="event-stats"><span><b>16</b> teams</span><span><b>12</b> courts</span><span><b>2</b> sessions</span></div><button class="poster-link" data-poster="3">View the event poster ↗</button></aside>
+      <div class="fixtures-panel"><div class="fixtures-header"><div class="segmented" aria-label="Event view"><button data-event-tab="matches" class="active" aria-pressed="true">Matchups</button><button data-event-tab="details" aria-pressed="false">Event details</button></div><label><span class="sr-only">Filter schedule by team</span><select id="schedule-team"><option value="All">All teams</option></select></label></div><div id="fixtures"></div><div id="event-details" hidden><h3>A full afternoon of country competition.</h3><p>Session 1 runs from 1:00–3:30 PM with 12 teams on 12 courts. Session 2 runs from 3:30–6:00 PM with four teams on four courts.</p><p>Each country has two scheduled team matches. Each match includes men’s doubles, women’s doubles, and two mixed doubles games.</p><p>All four doubles games are played to 11, win by two. At 2–2, an EPL Point Break decides the match: two mixed players, to 11, win by two.</p><p class="muted">Times and court assignments are transcribed from the Event 1 poster. Check BracketMesh for event updates.</p></div><div class="fixtures-footer"><span>All times Central (CT)</span><a class="text-link bm-link" href="https://bracketmesh.com/elitepickleball/tournaments/7" target="_blank" rel="noopener">Elite on BracketMesh ↗</a></div></div></div>
+      <p class="schedule-note">More season dates will be posted here as they are announced.</p>
+    </section>
+    <section id="standings" class="section standings-section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">TWO DIVISIONS. ONE CHAMPION.</p><h2>The race starts at zero.</h2></div><p>Follow the Atlantic and Pacific divisions.<br>Standings will be updated after competition begins.</p></div><div class="standings-top"><div class="segmented" aria-label="Standings division"><button class="active" data-standings="Atlantic" aria-pressed="true">Atlantic division</button><button data-standings="Pacific" aria-pressed="false">Pacific division</button></div><span class="status-pill"><span class="live-dot"></span> SEASON NOT STARTED</span></div><div class="table-scroll"><table><caption class="sr-only">Division teams; match statistics pending the start of the season</caption><thead><tr><th scope="col">COUNTRY</th><th scope="col">PLAYED</th><th scope="col">WON</th><th scope="col">LOST</th><th scope="col">GAME W–L</th></tr></thead><tbody id="standings-body"></tbody></table></div><p class="table-note">Teams shown alphabetically. No rankings or results have been recorded on this site.</p></div></section>
+    <section id="format" class="section wrap"><div class="section-heading"><div><p class="eyebrow">LEARN THE LEAGUE</p><h2>One match. Everyone in.</h2></div><p>MLP-style team competition,<br>with the EPL Point Break finish.</p></div><div class="format-layout"><div class="format-intro"><span class="format-number">2<span>+</span>2</span><h3>A team of four.</h3><p>Each country team has two men and two women. Teams face off across four doubles games, combining men’s, women’s, and mixed competition.</p><p class="format-highlight">Doubles games to <b>11</b><br>Win by <b>2</b></p></div><ol class="format-list"><li><span>01</span><div><h3>Men’s doubles</h3><p>Two men from each country go head to head.</p></div><span class="game-tag">DOUBLES</span></li><li><span>02</span><div><h3>Women’s doubles</h3><p>Two women from each country take the court.</p></div><span class="game-tag">DOUBLES</span></li><li><span>03</span><div><h3>Mixed doubles #1</h3><p>One man and one woman from each team.</p></div><span class="game-tag">MIXED</span></li><li><span>04</span><div><h3>Mixed doubles #2</h3><p>The second mixed pairing completes the four games.</p></div><span class="game-tag">MIXED</span></li><li class="point-break"><span>2–2?</span><div><p class="eyebrow">THE MATCH DECIDER</p><h3>EPL Point Break</h3><p>If tied 2–2, two mixed players play to 11, win by two.</p></div><span aria-hidden="true">↗</span></li></ol></div></section>
+    <section class="gallery-section wrap"><div class="section-heading"><div><p class="eyebrow">THE WORLD LEAGUE COLLECTION</p><h2>Country pride, on display.</h2></div><span class="muted">Explore the league artwork ↗</span></div><div class="gallery-grid"><button data-poster="1"><img loading="lazy" src="assets/league-1.webp" alt="EPL World League inaugural season artwork" width="1536" height="1024"><span>THE LEAGUE <b>↗</b></span></button><button data-poster="2"><img loading="lazy" src="assets/league-2.webp" alt="Atlantic and Pacific division reveal artwork" width="1312" height="1199"><span>THE DIVISIONS <b>↗</b></span></button><button data-poster="0"><img loading="lazy" src="assets/league-0.webp" alt="Elite Pickleball League World League poster" width="1254" height="1254"><span>THE SEASON <b>↗</b></span></button></div></section>
+    <section class="bm-section"><div class="wrap bm-inner"><div><p class="eyebrow">THE HOME OF OUR EVENTS</p><h2>Find the teams here.<br>Follow the action on BracketMesh.</h2><p>Head to Elite Pickleball’s tournament on BracketMesh for event information.</p></div><a class="button lime bm-link" href="https://bracketmesh.com/elitepickleball/tournaments/7" target="_blank" rel="noopener">Open BracketMesh <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer class="wrap footer"><a class="brand" href="#home"><img src="assets/epl-logo.png" alt="" width="88" height="77"><span>EPL<span>WORLD LEAGUE</span></span></a><p>Different countries. Same passion.</p><a href="#home" class="text-link">Back to top ↑</a><div class="footer-bottom"><span>© <span id="year">2026</span> Elite Pickleball · EPL World League</span><span>16 countries. One world champion.</span></div></footer>
+  <dialog id="team-dialog" aria-labelledby="team-dialog-title"><div class="dialog-bar"><a class="brand small" href="#teams" aria-label="EPL World League"><img src="assets/epl-logo.png" alt="EPL World League" width="65" height="57"></a><button class="close-dialog" aria-label="Close team roster">Close <span aria-hidden="true">×</span></button></div><div id="team-dialog-content"></div></dialog>
+  <dialog id="art-dialog" aria-label="League artwork viewer"><button class="close-dialog" aria-label="Close artwork">Close <span aria-hidden="true">×</span></button><img id="art-image" src="assets/league-1.webp" alt=""></dialog>
+</body>
+</html>

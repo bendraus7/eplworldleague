@@ -1,0 +1,7 @@
+.sites-runtime/
+.sites-checkout/
+tools/contact-*.jpg
+tools/name-check*.jpg
+tools/*screenshot*.png
+*.tar.gz
+*.tgz
