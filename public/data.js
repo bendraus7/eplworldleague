@@ -153,7 +153,7 @@ window.EPL_DATA = {
       "art": "assets/germany-0.webp",
       "players": [
         {
-          "name": "Gina Samarco",
+          "name": "Gina Sammarco",
           "image": "assets/germany-1.webp",
           "id": "gina-samarco"
         },
@@ -216,7 +216,7 @@ window.EPL_DATA = {
           "id": "jason-march"
         },
         {
-          "name": "Torie Licht",
+          "name": "Torie Lichti",
           "image": "assets/ireland-2.webp",
           "id": "torie-licht"
         },
@@ -337,7 +337,7 @@ window.EPL_DATA = {
           "id": "tiffany-hauser"
         },
         {
-          "name": "Peter Behling",
+          "name": "Peter Reuling",
           "image": "assets/ukraine-3.webp",
           "id": "peter-behling"
         },

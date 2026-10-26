@@ -1,5 +1,6 @@
 import roster from '../data/roster.json';
 import identities from '../data/identities.json';
+import pendingIdentities from '../data/pending-identities.json';
 import { editor, writeAllowed, validateBio, exactIdentity, historyFor } from './player-core.mjs';
 
 type Env = { DB?: D1Database; EPL_EDITOR_EMAILS?: string };
@@ -36,7 +37,7 @@ async function links(env:Env) {
   return map;
 }
 function publicPlayer(p:any, match:any) {
-  return {...p,linked:!!match,dupr:match?{code:match.duprCode,profileId:match.profileId,name:match.duprName||match.name,doubles:typeof match.doublesRating==='number'?match.doublesRating:null,url:`https://dashboard.dupr.com/dashboard/player/${encodeURIComponent(match.profileId)}`,location:match.location||null}:null};
+  return {...p,linked:!!match,pendingDuprCode:match?null:pendingIdentities.find(x=>x.playerId===p.id)?.duprCode||null,dupr:match?{code:match.duprCode,profileId:match.profileId,name:match.duprName||match.name,doubles:typeof match.doublesRating==='number'?match.doublesRating:null,url:`https://dashboard.dupr.com/dashboard/player/${encodeURIComponent(match.profileId)}`,location:match.location||null}:null};
 }
 export async function playerApi(request:Request, env:Env) {
   const url=new URL(request.url), path=url.pathname;

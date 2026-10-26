@@ -16,7 +16,7 @@ For local organizer testing, set `EPL_EDITOR_EMAILS=seedy@sites.test` in ignored
 - `public/app.js`: league and team views, schedule, filters, flags and rotating hero.
 - `public/profiles.js`: directory ratings, profiles, match logs, stats and organizer tools.
 - `data/roster.json` and `public/data.js`: matching stable player IDs, rosters and artwork. Keep IDs consistent.
-- `data/identities.json`: 46 initial exact name/alias matches from BracketMesh, verified October 26, 2026. Both code and numeric profile ID must agree. Ratings are retrieved from BracketMesh.
+- `data/identities.json`: 57 confirmed name/alias or organizer-approved exact-code matches from BracketMesh, verified October 26, 2026. Both code and numeric profile ID must agree. Ratings are retrieved from BracketMesh.
 - `lib/player-api.ts`: API, BracketMesh cache, shared bios and organizer identity mappings.
 - `lib/player-core.mjs`: authorization, validation and completed game extraction.
 - `db/schema.ts`, `drizzle/`: schema-only D1 migrations. Never create tables from request handlers.
@@ -26,7 +26,7 @@ For local organizer testing, set `EPL_EDITOR_EMAILS=seedy@sites.test` in ignored
 
 Directory ratings come from BracketMesh's published `/api/players`, cached ten minutes. Singles uses its profile snapshot API, cached one hour, with the original snapshot date displayed. These are BracketMesh's stored DUPR ratings, not a direct DUPR refresh.
 
-Identity requires an exact DUPR code and numeric profile ID. Unresolved players stay unlinked. Organizers can search BracketMesh and select the correct account from a player's bio panel. Similar names are never silently assigned. This integration makes no BracketMesh database writes or backend changes.
+Identity requires an exact DUPR code and numeric profile ID. Seven organizer-supplied codes in data/pending-identities.json await an available BracketMesh record; their ratings remain pending. William Bennett uses code 1N20Z3, profile 8060422295, verified age 55. Corrected roster names retain stable IDs to preserve profile links and bios. Organizers can search BracketMesh and select the correct account from a player's bio panel. Similar names are never silently assigned. This integration makes no BracketMesh database writes or backend changes.
 
 Prior Elite history comes from released, non-practice tournaments in the Elite feed and their public snapshots. Completed games are matched by DUPR code; pool and bracket games are included. Best-of-three series expand from individual scores; byes, ties, unfinished records and duplicate match IDs are excluded. Only games with recorded identities and scores can be shown. Cache failures retain prior data with a notice. Stats describe this log, not a complete DUPR career record.
 
