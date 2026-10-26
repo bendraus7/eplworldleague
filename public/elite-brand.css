@@ -35,7 +35,9 @@ h1,h2,h3,.text-link,.button.outline,.team-card,.brand,.segmented,.fixture button
 .hero-copy .live-dot,.status-pill .live-dot{background:var(--brand-support)}
 .hero-description,.hero-note{color:var(--brand-muted)}
 .small-ball{color:var(--brand-support)}
-.hero-art{background:var(--brand-primary)}
+.hero-art{background:#000 url('assets/epl-globe-background.png') center center/auto 100% no-repeat}
+.hero-art:before{background:linear-gradient(180deg,#0000000d 0%,transparent 50%,#000000eb 100%)}
+.hero-art .orbital{display:none}
 .hero-player{border-color:var(--brand-surface)}
 .flag-ribbon{background:var(--brand-silver);overflow-x:auto;scrollbar-width:thin}
 .flag-ribbon>div{width:max-content;min-width:100%;justify-content:flex-start;gap:26px;padding-block:13px}
