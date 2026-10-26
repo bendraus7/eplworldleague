@@ -2,6 +2,8 @@ import roster from '../data/roster.json';
 import identities from '../data/identities.json';
 import pendingIdentities from '../data/pending-identities.json';
 import worldLeagueEvents from '../data/world-league-events.json';
+import leagueSeason from '../public/league-data.json';
+import { linkedEventPaths } from '../public/season-model.mjs';
 import { editor, writeAllowed, validateBio, exactIdentity, historyFor } from './player-core.mjs';
 
 type Env = { DB?: D1Database; EPL_EDITOR_EMAILS?: string };
@@ -99,7 +101,7 @@ export async function playerApi(request:Request, env:Env) {
           historyUnavailable=snapshots.some(r=>r.status==='rejected')||feed.stale;
           const successful=snapshots.filter(r=>r.status==='fulfilled').map(r=>(r as PromiseFulfilledResult<any>).value);
           historyUnavailable ||= successful.some(r=>r.snapshot.stale);
-          return historyFor(match.duprCode,successful,worldLeagueEvents.tournamentPaths);
+          return historyFor(match.duprCode,successful,[...worldLeagueEvents.tournamentPaths,...linkedEventPaths(leagueSeason.events)]);
         })()
       ]);
       if(results[0].status==='fulfilled') {

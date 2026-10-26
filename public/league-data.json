@@ -1,0 +1,157 @@
+{
+  "timeZone": "America/Chicago",
+  "events": [
+    {
+      "id": "epl-event-1",
+      "title": "Event 1",
+      "date": "2026-11-21",
+      "startAt": "2026-11-21T13:00:00-06:00",
+      "endAt": "2026-11-21T18:00:00-06:00",
+      "timeLabel": "1:00–6:00 PM CT",
+      "venue": "Pickled Batavia",
+      "address": "301 N. Randall Road, Batavia, IL 60510",
+      "location": "Batavia, Illinois",
+      "status": "scheduled",
+      "bracketMeshUrl": null,
+      "poster": "assets/league-3.webp",
+      "calendar": "assets/event-01.ics",
+      "teamIds": [
+        "argentina",
+        "brazil",
+        "cape-verde",
+        "colombia",
+        "fiji",
+        "germany",
+        "greece",
+        "ireland",
+        "italy",
+        "korea",
+        "spain",
+        "ukraine",
+        "usa",
+        "vatican-city",
+        "venezuela",
+        "vietnam"
+      ]
+    }
+  ],
+  "rounds": [
+    {
+      "time": "1:00 PM",
+      "session": "SESSION 1",
+      "label": "Match 1",
+      "matches": [
+        [
+          "vatican-city",
+          "usa",
+          "1–2"
+        ],
+        [
+          "colombia",
+          "vietnam",
+          "3–4"
+        ],
+        [
+          "venezuela",
+          "ireland",
+          "5–6"
+        ],
+        [
+          "fiji",
+          "ukraine",
+          "7–8"
+        ],
+        [
+          "cape-verde",
+          "greece",
+          "9–10"
+        ],
+        [
+          "argentina",
+          "spain",
+          "11–12"
+        ]
+      ],
+      "id": "event-1-round-1",
+      "eventId": "epl-event-1"
+    },
+    {
+      "time": "2:15 PM",
+      "session": "SESSION 1",
+      "label": "Match 2",
+      "matches": [
+        [
+          "vatican-city",
+          "vietnam",
+          "1–2"
+        ],
+        [
+          "colombia",
+          "usa",
+          "3–4"
+        ],
+        [
+          "venezuela",
+          "ukraine",
+          "5–6"
+        ],
+        [
+          "fiji",
+          "greece",
+          "7–8"
+        ],
+        [
+          "cape-verde",
+          "spain",
+          "9–10"
+        ],
+        [
+          "argentina",
+          "ireland",
+          "11–12"
+        ]
+      ],
+      "id": "event-1-round-2",
+      "eventId": "epl-event-1"
+    },
+    {
+      "time": "3:30 PM",
+      "session": "SESSION 2",
+      "label": "Match 1",
+      "matches": [
+        [
+          "italy",
+          "germany",
+          "1–2"
+        ],
+        [
+          "korea",
+          "brazil",
+          "3–4"
+        ]
+      ],
+      "id": "event-1-round-3",
+      "eventId": "epl-event-1"
+    },
+    {
+      "time": "4:45 PM",
+      "session": "SESSION 2",
+      "label": "Match 2",
+      "matches": [
+        [
+          "italy",
+          "korea",
+          "1–2"
+        ],
+        [
+          "germany",
+          "brazil",
+          "3–4"
+        ]
+      ],
+      "id": "event-1-round-4",
+      "eventId": "epl-event-1"
+    }
+  ],
+  "results": []
+}

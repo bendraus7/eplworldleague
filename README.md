@@ -34,6 +34,14 @@ Match logs label regular games as Elite tournament. World League games use an EP
 
 EPL results are separate. The inaugural event has not been played, so league standings and season stats remain pending. Country fixtures appear on profiles; individual doubles pairings are unassigned. Connect the future EPL tournament specifically before populating league stats. Elite public event 7 is Octoberfest Part 2, not the November EPL event.
 
+## League schedule and country results
+
+`public/league-data.json` is the shared source for season events, country fixtures and country-match results. Schedule offers Upcoming/Past lists and a month calendar with accessible date controls. All times and the today marker use America/Chicago. Events move to Past after their end time. Event 1 has no BracketMesh URL yet; its confirmed date, venue, poster and calendar download remain available without a fabricated tournament link. Once created, set its `bracketMeshUrl` to the actual Elite event URL. List and calendar links then open that event; the player-history classifier also treats that exact path as World League.
+
+Team pages retain their four-player rosters and show country-match statistics, result cards and upcoming matchups below. `results` is currently empty. A completed country result needs `id`, `eventId`, `teamAId`, `teamBId`, `status: completed`, `gamesA`, and `gamesB` totaling four doubles games. A 2–2 tie also needs `pointBreakWinnerId`. Optional `pointsA`/`pointsB` support point differential; missing point totals stay unavailable. Duplicate, incomplete or unresolved results are excluded. These are country team matches, not individual doubles tournament teams. Connect the actual EPL event/results from BracketMesh when available before filling this source; no past Elite doubles games are substituted as country results.
+
+`public/season-model.mjs` contains date/calendar, fixture and result calculations; `public/season-view.mjs` renders the schedule and team panels. Player upcoming fixtures use the same source. The homepage globe is zoomed to fill the showcase; captions have a black backplate for contrast.
+
 ## Shared bios and access
 
 Bios and selected identities persist in D1 across browsers and deployments. Bios are escaped plain text, limited to 2,000 characters. Version checks prevent overwriting concurrent edits. Clearing a bio saves an empty value.

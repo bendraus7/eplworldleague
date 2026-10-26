@@ -1,5 +1,10 @@
-(() => {
+window.EPL_READY = (async () => {
   'use strict';
+  const {createSeasonView}=await import('./season-view.mjs');
+  let seasonError=false;
+  let season;
+  try{const response=await fetch('league-data.json');if(!response.ok)throw new Error('Schedule unavailable');season=await response.json();}catch{seasonError=true;season={events:[],rounds:[],results:[]};}
+  window.EPL_SEASON=season;
   const { teams } = window.EPL_DATA;
   const $ = selector => document.querySelector(selector);
   const $$ = selector => [...document.querySelectorAll(selector)];
@@ -10,12 +15,7 @@
   let standingsDivision = 'Atlantic';
   let currentPage = 'home';
   const artDialog = $('#art-dialog');
-  const rounds = [
-    { time:'1:00 PM', session:'SESSION 1', label:'Match 1', matches:[['vatican-city','usa','1–2'],['colombia','vietnam','3–4'],['venezuela','ireland','5–6'],['fiji','ukraine','7–8'],['cape-verde','greece','9–10'],['argentina','spain','11–12']] },
-    { time:'2:15 PM', session:'SESSION 1', label:'Match 2', matches:[['vatican-city','vietnam','1–2'],['colombia','usa','3–4'],['venezuela','ukraine','5–6'],['fiji','greece','7–8'],['cape-verde','spain','9–10'],['argentina','ireland','11–12']] },
-    { time:'3:30 PM', session:'SESSION 2', label:'Match 1', matches:[['italy','germany','1–2'],['korea','brazil','3–4']] },
-    { time:'4:45 PM', session:'SESSION 2', label:'Match 2', matches:[['italy','korea','1–2'],['germany','brazil','3–4']] }
-  ];
+  const seasonView=createSeasonView({season,teams,error:seasonError});
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
   function showPage(page, scroll = true) {
@@ -81,14 +81,7 @@
       button.setAttribute('aria-pressed', String(active));
     });
   }
-  function renderSchedule() {
-    const selected = $('#schedule-team').value;
-    $('#fixtures').innerHTML = rounds.map(round => {
-      const matches = round.matches.filter(([a,b]) => selected === 'All' || a === selected || b === selected);
-      if (!matches.length) return '';
-      return `<div class="round"><div class="round-heading"><h3>${round.time} <span aria-hidden="true">/</span> ${round.label}</h3><span>${round.session} · NOV 21</span></div>${matches.map(([a,b,court]) => `<div class="fixture">${teamButton(byId(a))}<span class="versus">VS</span>${teamButton(byId(b))}<span class="court">Courts ${court}</span></div>`).join('')}</div>`;
-    }).join('');
-  }
+  function renderSchedule() {seasonView.renderSchedule();}
   function renderStandings() {
     $('#standings-body').innerHTML = teams.filter(t => t.division === standingsDivision).map(t => `<tr><td>${teamButton(t)}</td><td aria-label="Not yet played">—</td><td aria-label="No result">—</td><td aria-label="No result">—</td><td aria-label="No result">—</td></tr>`).join('');
     $('table caption').textContent = `${standingsDivision} division teams. Season not started; match statistics pending.`;
@@ -96,7 +89,8 @@
   function openRoster(id) {
     const team = byId(id);
     if (!team) return;
-    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header">${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} DIVISION / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><a class="text-link" href="#schedule" data-team-schedule="${team.id}">See team matchups ↗</a></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3><a href="#player/${p.id}">${escape(p.name)}</a></h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player to view their profile, DUPR rating, stats, and match log.</p>`;
+    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header">${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} DIVISION / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><button class="text-link team-results-jump" data-team-results>Team stats &amp; results ↓</button></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3><a href="#player/${p.id}">${escape(p.name)}</a></h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player to view their profile, DUPR rating, stats, and match log.</p><div id="team-season-content"></div>`;
+    seasonView.renderTeamDetails(id);
     showPage('team');
     document.title = `Team ${team.name} | EPL World League`;
     $('#team-page-title').focus({preventScroll:true});
@@ -108,11 +102,9 @@
     artDialog.scrollTop = 0;
   }
   $('#flag-ribbon').innerHTML = teams.map(t => `<a href="#team/${t.id}" data-open-team="${t.id}" aria-label="View Team ${escape(t.name)}">${flag(t)}<span>${escape(t.name.toUpperCase())}</span></a>`).join('');
-  $('#schedule-team').insertAdjacentHTML('beforeend', teams.map(t => `<option value="${t.id}">${escape(t.name)}</option>`).join(''));
   $('#player-country').insertAdjacentHTML('beforeend',teams.map(t => `<option value="${t.id}">${escape(t.name)}</option>`).join(''));
   $('#year').textContent = new Date().getFullYear();
   $('#team-search').addEventListener('input', renderTeams);
-  $('#schedule-team').addEventListener('change', renderSchedule);
   $('#player-search').addEventListener('input',renderPlayers);
   $('#player-country').addEventListener('change',renderPlayers);
   $('#player-division').addEventListener('change',renderPlayers);
@@ -135,10 +127,8 @@
     if (division) { teamFilter = division.dataset.teamFilter; setSegment('data-team-filter',teamFilter); renderTeams(); return; }
     const standings = event.target.closest('[data-standings]');
     if (standings) { standingsDivision = standings.dataset.standings; setSegment('data-standings',standingsDivision); renderStandings(); return; }
-    const tab = event.target.closest('[data-event-tab]');
-    if (tab) { const details = tab.dataset.eventTab === 'details'; setSegment('data-event-tab',tab.dataset.eventTab); $('#fixtures').hidden = details; $('#event-details').hidden = !details; $('#schedule-team').parentElement.hidden = details; return; }
-    const schedule = event.target.closest('[data-team-schedule]');
-    if (schedule) { event.preventDefault(); $('#schedule-team').value = schedule.dataset.teamSchedule; renderSchedule(); setSegment('data-event-tab','matches'); $('#fixtures').hidden = false; $('#event-details').hidden = true; $('#schedule-team').parentElement.hidden = false; history.pushState(null,'','#schedule'); showPage('schedule'); $('#schedule-team').focus({preventScroll:true}); return; }
+    const teamResults=event.target.closest('[data-team-results]');
+    if(teamResults){$('#team-results')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});return;}
     const art = event.target.closest('[data-poster]');
     if (art) { openArt(`assets/league-${art.dataset.poster}.webp`, ['EPL World League season poster','EPL World League inaugural season artwork','EPL World League Atlantic and Pacific divisions','EPL World League Event 1 official schedule'][Number(art.dataset.poster)]); return; }
     const player = event.target.closest('[data-player-art]');
