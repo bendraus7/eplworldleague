@@ -40,7 +40,9 @@ EPL results are separate. The inaugural event has not been played, so league sta
 
 Team pages retain their four-player rosters and show country-match statistics, result cards and upcoming matchups below. `results` is currently empty. A completed country result needs `id`, `eventId`, `teamAId`, `teamBId`, `status: completed`, `gamesA`, and `gamesB` totaling four doubles games. A 2–2 tie also needs `pointBreakWinnerId`. Optional `pointsA`/`pointsB` support point differential; missing point totals stay unavailable. Duplicate, incomplete or unresolved results are excluded. These are country team matches, not individual doubles tournament teams. Connect the actual EPL event/results from BracketMesh when available before filling this source; no past Elite doubles games are substituted as country results.
 
-`public/season-model.mjs` contains date/calendar, fixture and result calculations; `public/season-view.mjs` renders the schedule and team panels. Player upcoming fixtures use the same source. The homepage globe is zoomed to fill the showcase; captions have a black backplate for contrast.
+`public/season-model.mjs` contains date/calendar, fixture and result calculations; `public/season-view.mjs` renders the schedule and team panels. Player upcoming fixtures use the same source. The homepage globe uses a 140% background scale; the top caption sits directly over a shaded background.
+
+The shared sponsor band follows BracketMesh's Elite event layout. Proton, Fox Valley Orthopedics, and Nature’s Path Organic were verified against the Elite organization (`/api/organizations?slug=elite`) and BracketMesh organization branding on October 26, 2026. The original logos are copied unaltered from BracketMesh's `/elite/` assets into `public/assets/sponsors/`. No sponsor links are configured by the organization. This is a saved branding snapshot; refresh it when the organization changes sponsors.
 
 ## Shared bios and access
 
