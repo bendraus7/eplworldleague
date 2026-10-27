@@ -27,9 +27,6 @@
 .point-break-example{padding:20px 24px;background:#05080655;border-left:3px solid var(--brand-accent)}
 .point-break-example .eyebrow{font-size:9px;color:var(--brand-accent)}
 .point-break-example p{font-size:13px;line-height:1.8;margin-top:8px}
-.point-break-poster{margin-top:24px;border-top:1px solid #ffffff40;padding-top:20px}
-.point-break-poster summary{cursor:pointer;font-size:13px;font-weight:700;width:fit-content}
-.point-break-poster img{width:min(100%,660px);height:auto;margin:24px auto 0}
 @media(max-width:650px){.point-break-guide{padding:26px 22px;margin-top:35px;scroll-margin-top:150px}.point-break-heading{display:block}.point-break-heading h2{font-size:38px}.point-break-heading>p{margin-top:16px}.point-break-intro{font-size:13px}.point-break-steps{grid-template-columns:1fr;gap:20px}.point-break-steps li{position:relative;padding-left:45px}.point-break-number{position:absolute;left:0;top:18px;font-size:27px}.point-break-steps h3{margin:2px 0 8px}.point-break-example{padding:16px}}
 .season-toolbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-block:1px solid #bdc9c1;padding:18px 0;margin-bottom:30px}
 .season-toolbar .segmented{display:flex;gap:4px;flex-wrap:wrap}

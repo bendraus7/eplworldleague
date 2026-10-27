@@ -52,7 +52,7 @@ Production organizer access requires trusted Sites identity headers and an email
 
 ## League content
 
-Event 1: Saturday, November 21, 2026, 1–6 PM Central; Pickled Batavia, 301 N. Randall Road, Batavia, IL 60510. The supplied poster defines all sessions, matches and court pairs. Each team has two men and two women. Matches include men's doubles, women's doubles and two mixed games, to 11, win by two. A 2–2 tie uses the confirmed EPL Point Break: both mixed pairs per team play one continuous game. The first pairs play until one team reaches 6; both second pairs then take over at that score and finish to 11, win by two. All four players participate. The supplied Point Break poster is available in the match-format guide.
+Event 1: Saturday, November 21, 2026, 1–6 PM Central; Pickled Batavia, 301 N. Randall Road, Batavia, IL 60510. The supplied poster defines all sessions, matches and court pairs. Each team has two men and two women. Matches include men's doubles, women's doubles and two mixed games, to 11, win by two. A 2–2 tie uses the confirmed EPL Point Break: both mixed pairs per team play one continuous game. The first pairs play until one team reaches 6; both second pairs then take over at that score and finish to 11, win by two. All four players participate.
 
 Elite BracketMesh colors: primary #123e2c, secondary #050806, highlight #7ee23b, support #285a43, silver #c3cbc7, background #e7ece9. The supplied EPL logo is primary; the official BracketMesh logo is credited in the footer. Country SVGs are flag-icons assets (MIT license included).
 
