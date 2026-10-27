@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Elite Pickleball//EPL World League//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:epl-world-league-event-04-20270206@elitepickleball
+DTSTAMP:20261027T040000Z
+DTSTART;VALUE=DATE:20270206
+DTEND;VALUE=DATE:20270207
+SUMMARY:EPL World League - Event 4
+LOCATION:Pickled Batavia\, 301 N. Randall Road\, Batavia\, IL 60510
+DESCRIPTION:Event date confirmed. Start time to be announced.
+URL:https://epl-world-league.bendraus.chatgpt.site/#schedule/epl-event-4
+END:VEVENT
+END:VCALENDAR

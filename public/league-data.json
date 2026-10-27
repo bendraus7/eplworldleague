@@ -7,13 +7,13 @@
       "date": "2026-11-21",
       "startAt": "2026-11-21T13:00:00-06:00",
       "endAt": "2026-11-21T18:00:00-06:00",
-      "timeLabel": "1:00–6:00 PM CT",
+      "timeLabel": "1:00\u20136:00 PM CT",
       "venue": "Pickled Batavia",
       "address": "301 N. Randall Road, Batavia, IL 60510",
       "location": "Batavia, Illinois",
       "status": "scheduled",
       "bracketMeshUrl": null,
-      "poster": "assets/league-3.webp",
+      "poster": null,
       "calendar": "assets/event-01.ics",
       "teamIds": [
         "argentina",
@@ -32,7 +32,148 @@
         "vatican-city",
         "venezuela",
         "vietnam"
-      ]
+      ],
+      "phase": "regular-season"
+    },
+    {
+      "id": "epl-event-2",
+      "title": "Event 2",
+      "date": "2026-12-05",
+      "startAt": null,
+      "endAt": null,
+      "timeLabel": "Time to be announced",
+      "venue": "Pickled Batavia",
+      "address": "301 N. Randall Road, Batavia, IL 60510",
+      "location": "Batavia, Illinois",
+      "status": "scheduled",
+      "bracketMeshUrl": null,
+      "poster": null,
+      "calendar": "assets/event-02.ics",
+      "teamIds": [
+        "argentina",
+        "brazil",
+        "cape-verde",
+        "colombia",
+        "fiji",
+        "germany",
+        "greece",
+        "ireland",
+        "italy",
+        "korea",
+        "spain",
+        "ukraine",
+        "usa",
+        "vatican-city",
+        "venezuela",
+        "vietnam"
+      ],
+      "phase": "regular-season",
+      "dateOnly": true
+    },
+    {
+      "id": "epl-event-3",
+      "title": "Event 3",
+      "date": "2027-01-09",
+      "startAt": null,
+      "endAt": null,
+      "timeLabel": "Time to be announced",
+      "venue": "Pickled Batavia",
+      "address": "301 N. Randall Road, Batavia, IL 60510",
+      "location": "Batavia, Illinois",
+      "status": "scheduled",
+      "bracketMeshUrl": null,
+      "poster": null,
+      "calendar": "assets/event-03.ics",
+      "teamIds": [
+        "argentina",
+        "brazil",
+        "cape-verde",
+        "colombia",
+        "fiji",
+        "germany",
+        "greece",
+        "ireland",
+        "italy",
+        "korea",
+        "spain",
+        "ukraine",
+        "usa",
+        "vatican-city",
+        "venezuela",
+        "vietnam"
+      ],
+      "phase": "regular-season",
+      "dateOnly": true
+    },
+    {
+      "id": "epl-event-4",
+      "title": "Event 4",
+      "date": "2027-02-06",
+      "startAt": null,
+      "endAt": null,
+      "timeLabel": "Time to be announced",
+      "venue": "Pickled Batavia",
+      "address": "301 N. Randall Road, Batavia, IL 60510",
+      "location": "Batavia, Illinois",
+      "status": "scheduled",
+      "bracketMeshUrl": null,
+      "poster": null,
+      "calendar": "assets/event-04.ics",
+      "teamIds": [
+        "argentina",
+        "brazil",
+        "cape-verde",
+        "colombia",
+        "fiji",
+        "germany",
+        "greece",
+        "ireland",
+        "italy",
+        "korea",
+        "spain",
+        "ukraine",
+        "usa",
+        "vatican-city",
+        "venezuela",
+        "vietnam"
+      ],
+      "phase": "regular-season",
+      "dateOnly": true
+    },
+    {
+      "id": "epl-event-5",
+      "title": "World Championship",
+      "date": "2027-02-27",
+      "startAt": null,
+      "endAt": null,
+      "timeLabel": "Time to be announced",
+      "venue": "Pickled Batavia",
+      "address": "301 N. Randall Road, Batavia, IL 60510",
+      "location": "Batavia, Illinois",
+      "status": "scheduled",
+      "bracketMeshUrl": null,
+      "poster": null,
+      "calendar": "assets/event-05.ics",
+      "teamIds": [
+        "argentina",
+        "brazil",
+        "cape-verde",
+        "colombia",
+        "fiji",
+        "germany",
+        "greece",
+        "ireland",
+        "italy",
+        "korea",
+        "spain",
+        "ukraine",
+        "usa",
+        "vatican-city",
+        "venezuela",
+        "vietnam"
+      ],
+      "phase": "championship",
+      "dateOnly": true
     }
   ],
   "rounds": [
@@ -44,32 +185,32 @@
         [
           "vatican-city",
           "usa",
-          "1–2"
+          "1\u20132"
         ],
         [
           "colombia",
           "vietnam",
-          "3–4"
+          "3\u20134"
         ],
         [
           "venezuela",
           "ireland",
-          "5–6"
+          "5\u20136"
         ],
         [
           "fiji",
           "ukraine",
-          "7–8"
+          "7\u20138"
         ],
         [
           "cape-verde",
           "greece",
-          "9–10"
+          "9\u201310"
         ],
         [
           "argentina",
           "spain",
-          "11–12"
+          "11\u201312"
         ]
       ],
       "id": "event-1-round-1",
@@ -83,32 +224,32 @@
         [
           "vatican-city",
           "vietnam",
-          "1–2"
+          "1\u20132"
         ],
         [
           "colombia",
           "usa",
-          "3–4"
+          "3\u20134"
         ],
         [
           "venezuela",
           "ukraine",
-          "5–6"
+          "5\u20136"
         ],
         [
           "fiji",
           "greece",
-          "7–8"
+          "7\u20138"
         ],
         [
           "cape-verde",
           "spain",
-          "9–10"
+          "9\u201310"
         ],
         [
           "argentina",
           "ireland",
-          "11–12"
+          "11\u201312"
         ]
       ],
       "id": "event-1-round-2",
@@ -122,12 +263,12 @@
         [
           "italy",
           "germany",
-          "1–2"
+          "1\u20132"
         ],
         [
           "korea",
           "brazil",
-          "3–4"
+          "3\u20134"
         ]
       ],
       "id": "event-1-round-3",
@@ -141,12 +282,12 @@
         [
           "italy",
           "korea",
-          "1–2"
+          "1\u20132"
         ],
         [
           "germany",
           "brazil",
-          "3–4"
+          "3\u20134"
         ]
       ],
       "id": "event-1-round-4",
