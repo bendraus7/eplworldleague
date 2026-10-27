@@ -1,7 +1,7 @@
 window.EPL_READY = (async () => {
   'use strict';
   const {createSeasonView}=await import('./season-view.mjs');
-  const {conferenceStandings,championshipSeeds}=await import('./season-model.mjs');
+  const {conferenceStandings,championshipSeeds,regularSeasonResults,teamStats,REGULATION_GAMES}=await import('./season-model.mjs');
   const {createScheduleNav}=await import('./schedule-nav.mjs');
   let seasonError=false;
   let season;
@@ -45,10 +45,25 @@ window.EPL_READY = (async () => {
 
   function renderStats(category = 'Teams') {
     setSegment('data-stats',category);
-    const metrics = category === 'Teams' ? ['Matches played','Match win rate','Point differential'] : ['Games played','Game win rate','Point differential'];
-    $('#stat-metrics').innerHTML = metrics.map(label => `<div><span>${label}</span><strong aria-label="Not yet available">—</strong><small>Awaiting results</small></div>`).join('');
-    $('#stats-empty-title').textContent = `${category === 'Teams' ? 'Team' : 'Player'} stats`;
-    $('#stats-empty-description').textContent = `${category === 'Teams' ? 'Team' : 'Player'} statistics will be available after match results are recorded.`;
+    const rows=teams.map(team=>({team,...teamStats(regularSeasonResults(season,team.id))}));
+    const results=new Map(teams.flatMap(team=>regularSeasonResults(season,team.id)).map(result=>[result.id,result]));
+    const events=new Set([...results.values()].map(result=>result.eventId)).size;
+    const teamView=category==='Teams',started=results.size>0;
+    const metrics=teamView?[
+      ['Country matchups',seasonError?'—':results.size,'Recorded this regular season'],
+      ['Regulation games',seasonError?'—':results.size*REGULATION_GAMES,'PointBreak scores excluded'],
+      ['Events with results',seasonError?'—':`${events} / ${season.events.filter(event=>event.phase!=='championship').length}`,'Four events build the season record']
+    ]:[['Games played','—','Awaiting player results'],['Game win rate','—','Awaiting player results'],['Point differential','—','Awaiting player results']];
+    $('#stat-metrics').innerHTML=metrics.map(([label,value,note])=>`<div><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
+    $('#stats .status-pill').textContent=seasonError?'RESULTS UNAVAILABLE':started?'REGULAR SEASON':'SEASON NOT STARTED';
+    $('#season-team-comparison').hidden=!teamView||!started;
+    $('#season-team-comparison').innerHTML=teamView&&started?`<div class="section-heading"><div><p class="eyebrow">REGULAR-SEASON PERFORMANCE</p><h2>Compare the countries</h2></div><a class="text-link" href="#standings" data-route="standings">Championship seeding ↗</a></div><div class="season-country-stats">${rows.sort((a,b)=>a.team.name.localeCompare(b.team.name)).map(row=>{
+      const games=row.gamesWon+row.gamesLost,rate=games?Math.round(row.gamesWon/games*100):null;
+      return `<a class="country-stat-card" href="#team/${row.team.id}"><div class="country-stat-title">${flag(row.team)}<h3>${escape(row.team.name)}</h3><span aria-hidden="true">↗</span></div><p>${escape(row.team.division)} Conference</p><dl><div><dt>Match record</dt><dd>${row.played?`${row.wins}–${row.losses}`:'—'}</dd></div><div><dt>Regulation game win rate</dt><dd>${rate===null?'—':`${rate}%`}</dd></div><div><dt>Point differential</dt><dd>${row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`}</dd></div></dl><div class="country-stat-bar" aria-hidden="true"><span style="width:${rate??0}%"></span></div><span class="country-stat-link">Team stats &amp; results ↗</span></a>`;
+    }).join('')}</div>`:'';
+    $('#stats .stats-empty').hidden=teamView&&started;
+    $('#stats-empty-title').textContent=seasonError?'Season stats unavailable':teamView?'The season starts November 21.':'Player season stats';
+    $('#stats-empty-description').textContent=seasonError?'Please reload the page to load league results.':teamView?'Compare country records, regulation game win rates, and point differential as results are recorded.':'Player performance will appear once individual EPL game results are connected.';
   }
 
   const heroPlayers = [0,1,2,3].flatMap(slot => teams.map(team => ({...team.players[slot],team:team.name})));
@@ -92,9 +107,9 @@ window.EPL_READY = (async () => {
     const rows=conferenceStandings(season,teams,standingsDivision,{eventId:standingsEvent||null}),started=rows.some(row=>row.played);
     const seeds=new Map(championshipSeeds(season,teams,standingsDivision).map(row=>[row.team.id,row]));
     const number=value=>value===null?'—':value;
-    $('#standings-scope').innerHTML=`<option value="">Cumulative season</option>${season.events.filter(event=>event.phase!=='championship').map(event=>`<option value="${escape(event.id)}">${escape(event.title)} · ${escape(event.date)}</option>`).join('')}`;
+    $('#standings-scope').innerHTML=`<option value="">Overall season</option>${season.events.filter(event=>event.phase!=='championship').map(event=>`<option value="${escape(event.id)}">${escape(event.title)} · ${escape(event.date)}</option>`).join('')}`;
     $('#standings-scope').value=standingsEvent;
-    $('#standings-heading').textContent=selected?`${selected.title} standings`:'Cumulative season standings';
+    $('#standings-heading').textContent=selected?`${selected.title} results`:'Overall season results';
     $('#standings table thead').innerHTML=`<tr><th scope="col">RANK</th><th scope="col">COUNTRY</th><th scope="col">W</th><th scope="col">L</th><th scope="col" title="Standings points">PTS</th><th scope="col" title="Regulation points scored">FOR</th><th scope="col" title="Regulation points allowed">AGAINST</th><th scope="col" title="Regulation points scored minus points allowed">DIFF.</th>${selected?'':'<th scope="col" title="Projected championship seed">SEED</th>'}</tr>`;
     $('#standings-body').innerHTML=rows.map(row=>{
       const tied=row.rank!==null&&rows.filter(other=>other.rank===row.rank).length>1;
@@ -103,7 +118,7 @@ window.EPL_READY = (async () => {
     }).join('');
     $('#standings table caption').textContent=`${standingsDivision} Conference — ${selected?`${selected.title}, ${selected.date}`:'cumulative regular season'}. For and against count regulation points only.`;
     $('#standings .status-pill').textContent=started?(selected?'EVENT RESULTS':'REGULAR SEASON'):(selected?'NO EVENT RESULTS':'SEASON NOT STARTED');
-    $('#standings-note').textContent=seasonError?'Standings unavailable. Please reload the page.':selected?'This event only. Totals start fresh at each event; season totals carry forward.': 'Totals across all four regular-season events. Championship results are separate.';
+    $('#standings-note').textContent=seasonError?'Standings unavailable. Please reload the page.':selected?'This event only. Totals start fresh at each event; overall season results carry forward.':'Results across all four regular-season events determine conference seeds for the February 27 World Championship. The championship bracket decides the league winner.';
     $('#standings-seed-note').hidden=Boolean(selected);
     $('#standings-points-note').textContent=`Win = 1 point · Loss = 0 · Up to ${selected?'2 points per event':'8 regular-season points'}. Tiebreakers: wins, head-to-head among tied countries, then regulation point differential. PointBreak points are excluded.`;
   }

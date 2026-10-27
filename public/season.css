@@ -95,3 +95,29 @@ a.season-event-primary:hover{background:#edf3ed}.season-event-date{text-align:ce
 .team-event-totals tbody th,.team-event-totals td{border-bottom:1px solid var(--brand-border)}
 .team-event-totals a:hover{text-decoration:underline}
 @media(max-width:650px){.standings-top{align-items:flex-start;flex-direction:column}.standings-scope-row{align-items:stretch;flex-direction:column;gap:18px;margin-top:25px}.standings-scope-row h2{font-size:29px}.standings-scope-row .directory-select{min-width:0}#standings th,#standings td{padding:15px 10px}.team-event-totals th,.team-event-totals td{padding-inline:12px}.team-event-totals th:first-child{min-width:180px}}
+
+.season-purpose{display:flex;justify-content:space-between;align-items:center;gap:30px;background:#123e2c;color:#fff;border-left:4px solid #7ee23b;padding:28px 30px;margin:0 0 30px}
+.season-purpose .eyebrow{color:#7ee23b;font-size:9px;margin-bottom:10px}
+.season-purpose h2{font-size:32px;line-height:1.1;color:#fff;margin-bottom:12px}
+.season-purpose p:not(.eyebrow){font-size:12px;color:#dbe7de;line-height:1.8;max-width:700px}
+.season-purpose .button{background:#7ee23b;color:#123e2c;flex-shrink:0;font-size:11px;padding:14px 18px;min-height:45px}
+.season-seeding-link{display:flex;justify-content:center;margin:20px auto 0}
+#stats .stats-empty .button{display:flex;width:fit-content;margin-inline:auto}
+#season-team-comparison{margin-top:42px}
+#season-team-comparison h2{font-size:36px}
+.season-country-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.country-stat-card{background:#fff;border:1px solid #bdc9c1;padding:24px;display:block}
+.country-stat-card:hover{border-color:#123e2c}
+.country-stat-title{display:flex;align-items:center;gap:12px}
+.country-stat-title h3{font-size:19px}
+.country-stat-title>span{margin-left:auto}
+.country-stat-card>p{font-size:10px;color:#61746a;margin:12px 0 22px}
+.country-stat-card dl{display:grid;gap:16px;margin:0}
+.country-stat-card dl>div{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.country-stat-card dt{font-size:11px;color:#61746a}
+.country-stat-card dd{font-size:21px;font-weight:750;margin:0;font-variant-numeric:tabular-nums}
+.country-stat-bar{height:5px;background:#e7ece9;margin:20px 0}
+.country-stat-bar>span{display:block;height:100%;background:#285a43}
+.country-stat-link{font-size:10px;font-weight:700}
+@media(max-width:1000px){.season-purpose{align-items:flex-start;flex-direction:column;gap:20px}.season-country-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.season-purpose{padding:24px 20px}.season-purpose h2{font-size:29px}.season-purpose .button{min-height:44px}.season-country-stats{grid-template-columns:1fr}.country-stat-card{padding:22px}#season-team-comparison .section-heading{align-items:flex-start;gap:18px}#season-team-comparison h2{font-size:31px}.stats-top{gap:12px;flex-wrap:wrap}}
