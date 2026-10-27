@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {editor,writeAllowed,validateBio,exactIdentity,historyFor,competitionFor} from '../lib/player-core.mjs';
+import {editor,writeAllowed,validateBio,exactIdentity,confirmedPendingMatches,historyFor,competitionFor} from '../lib/player-core.mjs';
+test('pending organizer codes resolve only unique valid unused directory identities',()=>{
+  const pending=[{playerId:'chase',duprCode:'ABC123'},{playerId:'ron',duprCode:'DEF456'},{playerId:'torie',duprCode:'GHI789'}];
+  const directory=[{duprCode:'ABC123',profileId:'1234567890'},{duprCode:'DEF456',profileId:'2222222222'},{duprCode:'DEF456',profileId:'3333333333'},{duprCode:'GHI789',profileId:'invalid'}];
+  assert.deepEqual(confirmedPendingMatches(pending,directory,new Map()),[{playerId:'chase',duprCode:'ABC123',profileId:'1234567890'}]);
+  assert.deepEqual(confirmedPendingMatches(pending,directory,new Map([['someone',{duprCode:'OTHER1',profileId:'1234567890'}]])),[]);
+  assert.deepEqual(confirmedPendingMatches(pending,directory,new Map([['chase',{duprCode:'ABC123',profileId:'1234567890'}]])),[]);
+});
 test('only trusted identified allowlisted organizers can edit',()=>{
   const env={EPL_EDITOR_EMAILS:'owner@example.test'};
   assert.equal(editor(new Request('https://epl.test'),env),null);

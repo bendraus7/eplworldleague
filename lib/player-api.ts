@@ -4,11 +4,12 @@ import pendingIdentities from '../data/pending-identities.json';
 import worldLeagueEvents from '../data/world-league-events.json';
 import leagueSeason from '../public/league-data.json';
 import { linkedEventPaths } from '../public/season-model.mjs';
-import { editor, writeAllowed, validateBio, exactIdentity, historyFor } from './player-core.mjs';
+import { editor, writeAllowed, validateBio, exactIdentity, confirmedPendingMatches, historyFor } from './player-core.mjs';
 
 type Env = { DB?: D1Database; EPL_EDITOR_EMAILS?: string };
 const json = (value: unknown, status=200) => Response.json(value, {status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const base='https://bracketmesh.com';
+const pendingLinks=pendingIdentities as Array<{playerId:string;duprCode:string}>;
 const flights = new Map<string,Promise<any>>();
 async function source(env: Env, key:string, path:string, ttl=600000):Promise<any> {
   const previous=await env.DB!.prepare('SELECT payload, fetched_at FROM source_cache WHERE cache_key=?').bind(key).first<{payload:string;fetched_at:string}>();
@@ -28,8 +29,8 @@ async function source(env: Env, key:string, path:string, ttl=600000):Promise<any
   })();
   flights.set(key,promise); try{return await promise;}finally{flights.delete(key);}
 }
-async function directory(env:Env) {
-  const value=await source(env,'directory','/api/players');
+async function directory(env:Env,ttl=600000) {
+  const value=await source(env,'directory','/api/players',ttl);
   if(!Array.isArray(value.players)) throw new Error('Player directory unavailable');
   return value;
 }
@@ -40,13 +41,25 @@ async function links(env:Env) {
   return map;
 }
 function publicPlayer(p:any, match:any) {
-  return {...p,linked:!!match,pendingDuprCode:match?null:pendingIdentities.find(x=>x.playerId===p.id)?.duprCode||null,dupr:match?{code:match.duprCode,profileId:match.profileId,name:match.duprName||match.name,doubles:typeof match.doublesRating==='number'?match.doublesRating:null,url:`https://dashboard.dupr.com/dashboard/player/${encodeURIComponent(match.profileId)}`,location:match.location||null}:null};
+  return {...p,linked:!!match,pendingDuprCode:match?null:pendingLinks.find(x=>x.playerId===p.id)?.duprCode||null,dupr:match?{code:match.duprCode,profileId:match.profileId,name:match.duprName||match.name,doubles:typeof match.doublesRating==='number'?match.doublesRating:null,url:`https://dashboard.dupr.com/dashboard/player/${encodeURIComponent(match.profileId)}`,location:match.location||null}:null};
 }
 export async function playerApi(request:Request, env:Env) {
   const url=new URL(request.url), path=url.pathname;
   if(path==='/api/session') return json({signedIn:!!request.headers.get('oai-authenticated-user-id'),canEdit:!!editor(request,env)});
   if(!env.DB) return json({error:'Player data is being configured. Please try again shortly.'},503);
   try {
+    if(path==='/api/players/sync' && request.method==='POST') {
+      const user=editor(request,env);if(!user)return json({error:'Organizer access required'},403);
+      if(!writeAllowed(request))return json({error:'Invalid request origin or content type'},403);
+      const data=await directory(env,0);
+      if(data.stale)return json({error:'BracketMesh could not be refreshed. Previously saved ratings are still available.'},503);
+      const map=await links(env),now=new Date().toISOString();
+      const resolved=confirmedPendingMatches(pendingLinks,data.players,map);
+      if(resolved.length)await env.DB.batch(resolved.map(p=>env.DB!.prepare('INSERT INTO player_identities(player_id,dupr_code,profile_id,updated_at,updated_by) VALUES(?,?,?,?,?) ON CONFLICT(player_id) DO NOTHING').bind(p.playerId,p.duprCode,p.profileId,now,user)));
+      const updatedMap=await links(env);
+      const players=roster.map(p=>publicPlayer(p,exactIdentity(updatedMap.get(p.id),data.players)));
+      return json({players,fetchedAt:data.fetchedAt,stale:false,linked:players.filter(p=>p.linked).length,rated:players.filter(p=>typeof p.dupr?.doubles==='number').length,newlyLinked:resolved.length,pending:players.filter(p=>!p.linked).map(p=>({id:p.id,name:p.name,code:p.pendingDuprCode}))});
+    }
     if(path==='/api/players' && request.method==='GET') {
       const [data,map]=await Promise.all([directory(env),links(env)]);
       return json({players:roster.map(p=>publicPlayer(p,exactIdentity(map.get(p.id),data.players))),fetchedAt:data.fetchedAt,stale:data.stale});
@@ -92,7 +105,7 @@ export async function playerApi(request:Request, env:Env) {
     let history:any[]=[],historyUnavailable=false,profile:any=null;
     if(match){
       const results=await Promise.allSettled([
-        source(env,`profile-${match.duprCode}`,`/api/players/${encodeURIComponent(match.duprCode)}/profile`,3600000),
+        source(env,`profile-${match.duprCode}`,`/api/players/${encodeURIComponent(match.duprCode)}/profile`,0),
         (async()=>{
           const feed=await source(env,'elite-feed','/api/tournaments?organization=elite');
           const events=(feed.tournaments||[]).filter((e:any)=>e.released&&!e.practice&&e.publicUrl?.startsWith('/elitepickleball/')&&Date.parse(e.date||e.startDate||'')<=Date.now());

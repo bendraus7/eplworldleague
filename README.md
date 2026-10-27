@@ -16,7 +16,7 @@ For local organizer testing, set `EPL_EDITOR_EMAILS=seedy@sites.test` in ignored
 - `public/app.js`: league and team views, schedule, filters, flags and rotating hero.
 - `public/profiles.js`: directory ratings, profiles, match logs, stats and organizer tools.
 - `data/roster.json` and `public/data.js`: matching stable player IDs, rosters and artwork. Keep IDs consistent.
-- `data/identities.json`: 57 confirmed name/alias or organizer-approved exact-code matches from BracketMesh, verified October 26, 2026. Both code and numeric profile ID must agree. Ratings are retrieved from BracketMesh.
+- `data/identities.json`: 64 confirmed name/alias or organizer-approved exact-code matches from BracketMesh, verified October 26, 2026. Both code and numeric profile ID must agree. Ratings are retrieved from BracketMesh.
 - `lib/player-api.ts`: API, BracketMesh cache, shared bios and organizer identity mappings.
 - `lib/player-core.mjs`: authorization, validation and completed game extraction.
 - `db/schema.ts`, `drizzle/`: schema-only D1 migrations. Never create tables from request handlers.
@@ -24,9 +24,9 @@ For local organizer testing, set `EPL_EDITOR_EMAILS=seedy@sites.test` in ignored
 
 ## Player data
 
-Directory ratings come from BracketMesh's published `/api/players`, cached ten minutes. Singles uses its profile snapshot API, cached one hour, with the original snapshot date displayed. These are BracketMesh's stored DUPR ratings, not a direct DUPR refresh.
+Directory ratings come from BracketMesh's published `/api/players`, cached ten minutes. Singles uses its profile snapshot API, refreshed when a player page is opened, with the original snapshot date displayed. Cached data is retained if BracketMesh is temporarily unavailable. These are BracketMesh's stored DUPR ratings, not a direct DUPR refresh.
 
-Identity requires an exact DUPR code and numeric profile ID. Seven organizer-supplied codes in data/pending-identities.json await an available BracketMesh record; their ratings remain pending. William Bennett uses code 1N20Z3, profile 8060422295, verified age 55. Corrected roster names retain stable IDs to preserve profile links and bios. Organizers can search BracketMesh and select the correct account from a player's bio panel. Similar names are never silently assigned. This integration makes no BracketMesh database writes or backend changes.
+Identity requires an exact DUPR code and numeric profile ID. The seven previously pending organizer-supplied codes were verified in the signed-in DUPR search by exact code, then imported into BracketMesh on October 26, 2026. All 64 roster accounts now have numeric DUPR profile IDs. Future unresolved organizer codes can be listed in data/pending-identities.json; a sync links only unique exact-code directory matches with valid, unused numeric profile IDs. William Bennett uses code 1N20Z3, profile 8060422295, verified age 55. Corrected roster names retain stable IDs to preserve profile links and bios. Organizers can search BracketMesh and select the correct account from a player's bio panel. Similar names are never silently assigned. The site reads BracketMesh ratings; its organizer-only Sync DUPR ratings button refreshes the complete league directory and safely links any newly available confirmed codes. It reports synced and pending counts. Same-origin JSON and an allowlisted organizer session are required; cached upstream failures do not report a successful refresh. The button syncs saved BracketMesh data, not DUPR sign-in. Fresh DUPR values were imported through BracketMesh’s owner-protected snapshot API; no BracketMesh source changes were required.
 
 Prior Elite history comes from released, non-practice tournaments in the Elite feed and their public snapshots. Completed games are matched by DUPR code; pool and bracket games are included. Best-of-three series expand from individual scores; byes, ties, unfinished records and duplicate match IDs are excluded. Only games with recorded identities and scores can be shown. Cache failures retain prior data with a notice. Stats describe this log, not a complete DUPR career record.
 
