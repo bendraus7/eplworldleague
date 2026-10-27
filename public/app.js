@@ -140,7 +140,7 @@ window.EPL_READY = (async () => {
     const hash=location.hash.slice(1);
     if (hash.startsWith('player/')) { showPage('player'); window.EPLopenProfile?.(hash.slice(7)); return; }
     if (hash.startsWith('team/')) { openRoster(decodeURIComponent(hash.slice(5))); return; }
-    if (hash === 'format') { showPage('home',false); $('#format').scrollIntoView({behavior:'instant'}); return; }
+    if (hash === 'format' || hash === 'point-break') { showPage('home',false); $(`#${hash}`).scrollIntoView({behavior:'instant'}); return; }
     showPage(hash || 'home');
   }
   window.addEventListener('hashchange',resolveHash);
