@@ -54,5 +54,12 @@ export function createSeasonView({season,teams,error=false}) {
       return `<article class="team-result-row"><span class="team-result-outcome result-${result.won?'w':'l'}">${result.won?'W':'L'}</span><div><a class="team-opponent" href="#team/${opponent.id}">${flag(opponent)}vs ${esc(opponent.name)} ↗</a><p>${dateLabel(result.event.date)} · ${url?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(result.event.title)} ↗</a>`:esc(result.event.title)}</p></div><strong class="team-result-score">${result.gamesFor}–${result.gamesAgainst}${result.pointBreak?'<small>EPL Point Break</small>':''}</strong></article>`;
     }).join('')}</div>`:'<div class="season-empty"><h3>No league results yet.</h3><p>Team records and results will appear here after EPL World League matches are recorded.</p></div>'}</section><section class="team-season-section"><div class="team-results-heading"><h2>Upcoming matchups</h2><a class="text-link" href="#schedule" data-route="schedule">All events ↗</a></div>${fixtures.length?fixtures.map(fixture=>{const opponent=teamById(fixture.opponentId);return `<div class="team-fixture-row"><time datetime="${fixture.event.date}">${dateLabel(fixture.event.date,{month:'short',day:'numeric'})}<span>${esc(fixture.time)} CT</span></time><a class="team-opponent" href="#team/${opponent.id}">${flag(opponent)}vs ${esc(opponent.name)} ↗</a><span>Courts ${esc(fixture.courts)}</span></div>`;}).join(''):'<p class="team-season-note">No upcoming matchups announced.</p>'}</section>`;
   }
-  return {renderSchedule,renderTeamDetails};
+  function openEvent(id) {
+    const event=season.events.find(event=>event.id===id);
+    if(!event)return;
+    range=eventsByRange([event],'past').length?'past':'upcoming';view='list';renderSchedule();
+    const card=[...root.querySelectorAll('[data-season-event]')].find(card=>card.dataset.seasonEvent===id);
+    if(card){card.querySelector('details').open=true;card.scrollIntoView({behavior:'instant',block:'start'});}
+  }
+  return {renderSchedule,renderTeamDetails,openEvent};
 }

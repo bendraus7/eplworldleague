@@ -1,6 +1,7 @@
 window.EPL_READY = (async () => {
   'use strict';
   const {createSeasonView}=await import('./season-view.mjs');
+  const {createScheduleNav}=await import('./schedule-nav.mjs');
   let seasonError=false;
   let season;
   try{const response=await fetch('league-data.json');if(!response.ok)throw new Error('Schedule unavailable');season=await response.json();}catch{seasonError=true;season={events:[],rounds:[],results:[]};}
@@ -16,11 +17,13 @@ window.EPL_READY = (async () => {
   let currentPage = 'home';
   const artDialog = $('#art-dialog');
   const seasonView=createSeasonView({season,teams,error:seasonError});
+  const scheduleNav=createScheduleNav({events:season.events,error:seasonError});
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
   function showPage(page, scroll = true) {
     if (!['home','schedule','standings','teams','players','stats','team','player'].includes(page)) page = 'home';
     currentPage = page;
+    scheduleNav.close();
     $$('[data-page]').forEach(panel => { panel.hidden = panel.dataset.page !== page; });
     $$('#main-nav [data-route]').forEach(link => { if (link.dataset.route === (page === 'team' ? 'teams' : page === 'player' ? 'players' : page)) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
     document.title = page === 'home' ? 'EPL World League | Elite Pickleball' : `${page[0].toUpperCase()+page.slice(1)} | EPL World League`;
@@ -138,6 +141,7 @@ window.EPL_READY = (async () => {
   artDialog.addEventListener('click',event => { if(event.target === artDialog) { const bounds=artDialog.getBoundingClientRect(); if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom) artDialog.close(); } });
   function resolveHash() {
     const hash=location.hash.slice(1);
+    if (hash.startsWith('schedule/')) { showPage('schedule'); seasonView.openEvent(hash.slice(9)); return; }
     if (hash.startsWith('player/')) { showPage('player'); window.EPLopenProfile?.(hash.slice(7)); return; }
     if (hash.startsWith('team/')) { openRoster(decodeURIComponent(hash.slice(5))); return; }
     if (hash === 'format' || hash === 'point-break') { showPage('home',false); $(`#${hash}`).scrollIntoView({behavior:'instant'}); return; }

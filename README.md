@@ -42,6 +42,8 @@ Team pages retain their four-player rosters and show country-match statistics, r
 
 `public/season-model.mjs` contains date/calendar, fixture and result calculations; `public/season-view.mjs` renders the schedule and team panels. Player upcoming fixtures use the same source. The homepage globe uses a 140% background scale; the top caption sits directly over a shaded background.
 
+The Schedule navigation dropdown (`public/schedule-nav.mjs`) uses that same event list. Mouse hover opens it; its toggle supports touch and keyboard, Escape and outside clicks close it. Each date links to its verified BracketMesh event URL when present, or `#schedule/<event-id>` to open the local event details. All announced events appear in date order; the full Schedule page retains upcoming/past and calendar views.
+
 The shared sponsor band follows BracketMesh's Elite event layout. Proton, Fox Valley Orthopedics, and Nature’s Path Organic were verified against the Elite organization (`/api/organizations?slug=elite`) and BracketMesh organization branding on October 26, 2026. The original logos are copied unaltered from BracketMesh's `/elite/` assets into `public/assets/sponsors/`. No sponsor links are configured by the organization. This is a saved branding snapshot; refresh it when the organization changes sponsors.
 
 ## Shared bios and access
