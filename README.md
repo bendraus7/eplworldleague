@@ -54,7 +54,7 @@ Production organizer access requires trusted Sites identity headers and an email
 
 ## League content
 
-Event 1: Saturday, November 21, 2026, 1–6 PM Central; Pickled Batavia, 301 N. Randall Road, Batavia, IL 60510. The Event 1 poster supplies its session times, matchups and courts. Its older four-game format is superseded by the organizer-supplied EPL_World_League_Official_Rules_2026-2027.docx, so that poster is no longer linked in event details. The document guides site behavior and is not published or offered as a download. Each team has two men and two women. Matches include men's doubles, women's doubles and four mixed games, to 11, win by two. A 3–3 tie uses the confirmed EPL PointBreak: both mixed pairs per team play one continuous game. The first pairs play until one team reaches 6; both second pairs then take over at that score and finish to 11, win by two. All four players participate.
+Event 1: Saturday, November 21, 2026, 1–6 PM Central; Pickled Batavia, 301 N. Randall Road, Batavia, IL 60510. The Event 1 poster supplies its session times, matchups and courts. Its older four-game format is superseded by the organizer-supplied EPL_World_League_Official_Rules_2026-2027_UPDATED.docx, so that poster is no longer linked in event details. The document guides site behavior and is not published or offered as a download. Each team has two men and two women. Matches include men's doubles, women's doubles and four mixed games, to 11, win by two. A 3–3 tie uses the confirmed EPL PointBreak: both mixed pairs per team play one continuous game. The first pairs play until one team reaches 6; both second pairs then take over at that score and finish to 11, win by two. All four players participate.
 
 Elite BracketMesh colors: primary #123e2c, secondary #050806, highlight #7ee23b, support #285a43, silver #c3cbc7, background #e7ece9. The supplied EPL logo is primary; the official BracketMesh logo is credited in the footer. Country SVGs are flag-icons assets (MIT license included).
 
@@ -69,3 +69,9 @@ Hash routes include #players, #player/robin-lee and #team/argentina. Update the 
 Site: appgprj_6adf543dadd48191bb34ae0d9a3cb68a
 
 Published origin: https://epl-world-league.bendraus.chatgpt.site
+
+## Event totals and championship seeding
+
+The updated organizer document separates individual-event standings from cumulative regular-season totals. The Standings results selector shows the season or any one of the four regular-season events. Both display country wins, losses, standings points, regulation points scored, regulation points allowed and differential. Per-event totals use only that event; cumulative totals include all regular-season events. Championship matches never enter these totals. Team pages show cumulative regular-season stats plus a breakdown for each event; match-result cards retain their event identity.
+
+Normal standings use wins, tied-country head-to-head wins, then regulation point differential. Projected championship seeds additionally use cumulative regulation points scored as the fourth tiebreaker. An unresolved tie keeps a shared standings rank and a TBD seed rather than assigning an alphabetical seed. Missing regulation totals cannot be bypassed with a later tiebreaker. Empty results show dashes, without importing the document's illustrative table. PointBreak scores remain excluded. No rules document, download or new rules page is published.

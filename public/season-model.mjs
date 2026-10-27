@@ -50,12 +50,15 @@ export function completedTeamResults(season,teamId) {
     return {...result,event:season.events.find(e=>e.id===result.eventId),opponentId:ownA?result.teamBId:result.teamAId,won:winner===teamId,gamesFor:ownA?result.gamesA:result.gamesB,gamesAgainst:ownA?result.gamesB:result.gamesA,pointsFor:ownA?result.pointsA:result.pointsB,pointsAgainst:ownA?result.pointsB:result.pointsA,pointBreak:result.gamesA===result.gamesB};
   }).sort((a,b)=>b.event.date.localeCompare(a.event.date));
 }
-export function conferenceStandings(season,teams,conference) {
+export function regularSeasonResults(season,teamId,eventId=null) {
+  return completedTeamResults(season,teamId).filter(result=>result.event.phase!=='championship'&&(!eventId||result.eventId===eventId));
+}
+export function conferenceStandings(season,teams,conference,{eventId=null,seeding=false}={}) {
   const rows=teams.filter(team=>team.division===conference).map(team=>{
-    const results=completedTeamResults(season,team.id).filter(r=>r.event.phase!=='championship');
+    const results=regularSeasonResults(season,team.id,eventId);
     return {team,results,...teamStats(results)};
   });
-  const compare=(a,b)=>b.wins-a.wins||b.headToHeadWins-a.headToHeadWins||(a.rankingDiff!==null&&b.rankingDiff!==null?b.rankingDiff-a.rankingDiff:0);
+  const compare=(a,b)=>b.wins-a.wins||b.headToHeadWins-a.headToHeadWins||(a.rankingDiff!==null&&b.rankingDiff!==null?b.rankingDiff-a.rankingDiff:0)||(seeding&&a.rankingPointsFor!==null&&b.rankingPointsFor!==null?b.rankingPointsFor-a.rankingPointsFor:0);
   rows.forEach(row=>{
     const tied=new Set(rows.filter(other=>other.wins===row.wins).map(other=>other.team.id));
     row.headToHeadWins=row.results.filter(r=>tied.has(r.opponentId)&&r.won).length;
@@ -64,14 +67,22 @@ export function conferenceStandings(season,teams,conference) {
   rows.forEach(row=>{
     const tied=rows.filter(other=>other.wins===row.wins&&other.headToHeadWins===row.headToHeadWins);
     row.rankingDiff=tied.every(other=>other.pointDifferential!==null)?row.pointDifferential:null;
+    // A missing earlier tiebreaker cannot be bypassed using a later one.
+    row.rankingPointsFor=row.rankingDiff!==null&&tied.every(other=>other.pointsFor!==null)?row.pointsFor:null;
   });
   rows.sort((a,b)=>compare(a,b)||a.team.name.localeCompare(b.team.name));
   const started=rows.some(row=>row.played);
   rows.forEach((row,index)=>{row.rank=started?(index&&compare(row,rows[index-1])===0?rows[index-1].rank:index+1):null;});
   return rows;
 }
+export function championshipSeeds(season,teams,conference) {
+  const rows=conferenceStandings(season,teams,conference,{seeding:true});
+  return rows.map(row=>({...row,seed:row.rank!==null&&rows.filter(other=>other.rank===row.rank).length===1?row.rank:null}));
+}
 export function teamStats(results) {
   const wins=results.filter(r=>r.won).length;
   const allPoints=results.length>0&&results.every(r=>Number.isFinite(r.pointsFor)&&Number.isFinite(r.pointsAgainst));
-  return {played:results.length,wins,losses:results.length-wins,winRate:results.length?Math.round(wins/results.length*100):null,gamesWon:results.reduce((n,r)=>n+r.gamesFor,0),gamesLost:results.reduce((n,r)=>n+r.gamesAgainst,0),pointDifferential:allPoints?results.reduce((n,r)=>n+r.pointsFor-r.pointsAgainst,0):null};
+  const pointsFor=allPoints?results.reduce((n,r)=>n+r.pointsFor,0):null;
+  const pointsAgainst=allPoints?results.reduce((n,r)=>n+r.pointsAgainst,0):null;
+  return {played:results.length,wins,losses:results.length-wins,winRate:results.length?Math.round(wins/results.length*100):null,gamesWon:results.reduce((n,r)=>n+r.gamesFor,0),gamesLost:results.reduce((n,r)=>n+r.gamesAgainst,0),pointsFor,pointsAgainst,pointDifferential:allPoints?pointsFor-pointsAgainst:null};
 }

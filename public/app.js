@@ -1,7 +1,7 @@
 window.EPL_READY = (async () => {
   'use strict';
   const {createSeasonView}=await import('./season-view.mjs');
-  const {conferenceStandings}=await import('./season-model.mjs');
+  const {conferenceStandings,championshipSeeds}=await import('./season-model.mjs');
   const {createScheduleNav}=await import('./schedule-nav.mjs');
   let seasonError=false;
   let season;
@@ -15,6 +15,7 @@ window.EPL_READY = (async () => {
   const flag = team => `<img class="country-flag" src="assets/flags/${team.code.toLowerCase()}.svg" alt="${escape(team.name)} flag" width="32" height="24">`;
   let teamFilter = 'All';
   let standingsDivision = 'Atlantic';
+  let standingsEvent = '';
   let currentPage = 'home';
   const artDialog = $('#art-dialog');
   const seasonView=createSeasonView({season,teams,error:seasonError});
@@ -87,12 +88,26 @@ window.EPL_READY = (async () => {
   }
   function renderSchedule() {seasonView.renderSchedule();}
   function renderStandings() {
-    const rows=conferenceStandings(season,teams,standingsDivision),started=rows.some(row=>row.played);
-    $('#standings-body').innerHTML=rows.map(row=>`<tr><td>${teamButton(row.team)}</td><td>${row.played||'—'}</td><td>${row.played?row.wins:'—'}</td><td>${row.played?row.losses:'—'}</td><td>${row.played?row.standingsPoints:'—'}</td><td>${row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`}</td></tr>`).join('');
-    $('#standings table caption').textContent=`${standingsDivision} Conference regular-season standings.`;
-    $('#standings .status-pill').textContent=started?'REGULAR SEASON':'SEASON NOT STARTED';
-    $('#standings-note').textContent=started?'Ordered by matchup wins, head-to-head, then regulation point differential. Championship results are separate.':'Teams shown alphabetically. No league results recorded yet.';
+    const selected=season.events.find(event=>event.id===standingsEvent);
+    const rows=conferenceStandings(season,teams,standingsDivision,{eventId:standingsEvent||null}),started=rows.some(row=>row.played);
+    const seeds=new Map(championshipSeeds(season,teams,standingsDivision).map(row=>[row.team.id,row]));
+    const number=value=>value===null?'—':value;
+    $('#standings-scope').innerHTML=`<option value="">Cumulative season</option>${season.events.filter(event=>event.phase!=='championship').map(event=>`<option value="${escape(event.id)}">${escape(event.title)} · ${escape(event.date)}</option>`).join('')}`;
+    $('#standings-scope').value=standingsEvent;
+    $('#standings-heading').textContent=selected?`${selected.title} standings`:'Cumulative season standings';
+    $('#standings table thead').innerHTML=`<tr><th scope="col">RANK</th><th scope="col">COUNTRY</th><th scope="col">W</th><th scope="col">L</th><th scope="col" title="Standings points">PTS</th><th scope="col" title="Regulation points scored">FOR</th><th scope="col" title="Regulation points allowed">AGAINST</th><th scope="col" title="Regulation points scored minus points allowed">DIFF.</th>${selected?'':'<th scope="col" title="Projected championship seed">SEED</th>'}</tr>`;
+    $('#standings-body').innerHTML=rows.map(row=>{
+      const tied=row.rank!==null&&rows.filter(other=>other.rank===row.rank).length>1;
+      const seed=seeds.get(row.team.id);
+      return `<tr><td>${row.rank===null?'—':`${tied?'T':''}${row.rank}`}</td><td>${teamButton(row.team)}</td><td>${row.played?row.wins:'—'}</td><td>${row.played?row.losses:'—'}</td><td>${row.played?row.standingsPoints:'—'}</td><td>${number(row.pointsFor)}</td><td>${number(row.pointsAgainst)}</td><td>${row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`}</td>${selected?'':`<td>${seed.seed??(seed.rank===null?'—':'TBD')}</td>`}</tr>`;
+    }).join('');
+    $('#standings table caption').textContent=`${standingsDivision} Conference — ${selected?`${selected.title}, ${selected.date}`:'cumulative regular season'}. For and against count regulation points only.`;
+    $('#standings .status-pill').textContent=started?(selected?'EVENT RESULTS':'REGULAR SEASON'):(selected?'NO EVENT RESULTS':'SEASON NOT STARTED');
+    $('#standings-note').textContent=seasonError?'Standings unavailable. Please reload the page.':selected?'This event only. Totals start fresh at each event; season totals carry forward.': 'Totals across all four regular-season events. Championship results are separate.';
+    $('#standings-seed-note').hidden=Boolean(selected);
+    $('#standings-points-note').textContent=`Win = 1 point · Loss = 0 · Up to ${selected?'2 points per event':'8 regular-season points'}. Tiebreakers: wins, head-to-head among tied countries, then regulation point differential. PointBreak points are excluded.`;
   }
+  $('#standings-scope').addEventListener('change',event=>{standingsEvent=event.target.value;renderStandings();});
   function openRoster(id) {
     const team = byId(id);
     if (!team) return;
