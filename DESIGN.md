@@ -25,8 +25,6 @@ Use white on forest or night, forest on white, and night on lime. Lime is an emp
 
 ## Typography
 
-- Editorial voice: follow the installed Stop Slop writing skill. Use specific headings and connected sentences; avoid em dashes in prose, stacked slogan fragments, rhetorical contrasts, and claims about excellence or community that add no facts. Keep established EPL branding, quoted names, and user-authored player bios. Preserve en dashes for dates/scores and the dash placeholder for missing statistics. CrossFire copy should explain the Event 4 matchup and its effect on seeding without invented drama.
-
 - Masthead wordmark: **Cinzel**, 800, fallback Georgia / serif. The supplied league banner inspires the silver, beveled serif capitals in “Elite Pickleball,” paired with a spaced green “World League” subtitle. Reserve this treatment for the shared top banner; interface and editorial type retain their established roles.
 - Display: **Barlow Condensed**, 600–900, fallback `Arial Narrow`, Impact, sans-serif. Its narrow, athletic forms relate country posters to the interface. Uppercase for major chapter titles; sentence case for descriptive subheads.
 - Body: **DM Sans**, 400–750, fallback sans-serif. Legible and restrained next to the artwork.
