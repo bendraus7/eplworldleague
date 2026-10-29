@@ -25,6 +25,7 @@ Use white on forest or night, forest on white, and night on lime. Lime is an emp
 
 ## Typography
 
+- Masthead wordmark: **Cinzel**, 800, fallback Georgia / serif. The supplied league banner inspires the silver, beveled serif capitals in “Elite Pickleball,” paired with a spaced green “World League” subtitle. Reserve this treatment for the shared top banner; interface and editorial type retain their established roles.
 - Display: **Barlow Condensed**, 600–900, fallback `Arial Narrow`, Impact, sans-serif. Its narrow, athletic forms relate country posters to the interface. Uppercase for major chapter titles; sentence case for descriptive subheads.
 - Body: **DM Sans**, 400–750, fallback sans-serif. Legible and restrained next to the artwork.
 - Hero: fluid 80–152px, weight 800, line height .88. Page titles: fluid 60–100px. Section titles: 40–64px. Card titles: 24–32px. Body: 14–16px, line height 1.7. Metadata: 11–12px; labels 10–11px with modest tracking.
@@ -50,7 +51,7 @@ Square panels and buttons; small 2px corners allowed for controls. Fine green di
 
 ## Components
 
-- Header: official EPL logo and compact wordmark at left; six equal-width desktop tabs fill the remaining header width, with a lime active underline. The season strip and navigation use a forest-to-black gradient, starting green at the top edge; the homepage stage below the lime rule stays dark. Mobile tabs span the full row below the logo. Schedule dropdown retains all real event dates. Standings previews both conferences using the same regular-season model as the full page. Both menus support hover, arrow toggles, keyboard entry, Escape dismissal, and mutual exclusion; country rows link to their teams.
+- Header: official EPL shield and full “Elite Pickleball / World League” silver-and-green wordmark at left; six equal-width desktop tabs fill the remaining header width, with a lime active underline. The wordmark scales to fit without truncating its name. The season strip and navigation use a forest-to-black gradient, starting green at the top edge; the homepage stage below the lime rule stays dark. At 800px and below, tabs span the full row below the logo so the full name and navigation remain legible. Schedule dropdown retains all real event dates. Standings previews both conferences using the same regular-season model as the full page. Both menus support hover, arrow toggles, keyboard entry, Escape dismissal, and mutual exclusion; country rows link to their teams.
 - League search: one discrete header button on every route opens a native modal indexing all 16 countries and 64 players. Results name the type and country; Enter opens the first result, Tab browses links, and Escape closes. Slash is an optional shortcut. Search is a utility, never a dashboard homepage.
 - Page masthead: chapter number, eyebrow, display title, concise supporting copy. Decorative chapter number is CSS-generated and nonessential.
 - Filters: light surface, 44px minimum controls, forest selected segments, visible keyboard focus. Counts remain text, not decorative badges.
