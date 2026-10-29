@@ -6,6 +6,7 @@ window.EPL_READY = (async () => {
   const {createStandingsNav}=await import('./standings-nav.mjs');
   const {createTeamsNav}=await import('./teams-nav.mjs');
   const {renderPartners}=await import('./partners.mjs');
+  const {renderLeagueStakes}=await import('./league-stakes.mjs');
   const {bindLeagueSearch,sortPlayers}=await import('./league-hub.mjs');
   let seasonError=false;
   let season;
@@ -27,6 +28,7 @@ window.EPL_READY = (async () => {
   const teamsNav=createTeamsNav({teams});
   bindLeagueSearch({teams});
   renderPartners();
+  renderLeagueStakes(season);
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
   function refreshExploreArtwork() {
@@ -206,7 +208,7 @@ window.EPL_READY = (async () => {
     if (hash.startsWith('schedule/')) { showPage('schedule'); seasonView.openEvent(hash.slice(9)); return; }
     if (hash.startsWith('player/')) { showPage('player'); window.EPLopenProfile?.(hash.slice(7)); return; }
     if (hash.startsWith('team/')) { openRoster(decodeURIComponent(hash.slice(5))); return; }
-    if (hash === 'format' || hash === 'point-break') { showPage('home',false); $(`#${hash}`).scrollIntoView({behavior:'instant'}); return; }
+    if (['format','point-break','prize-money','crossfire'].includes(hash)) { showPage('home',false); $(`#${hash}`).scrollIntoView({behavior:'instant'}); return; }
     showPage(hash || 'home');
   }
   window.addEventListener('hashchange',resolveHash);

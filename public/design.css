@@ -1096,6 +1096,76 @@ tbody tr:hover{background:#f0f5eb}
   .partner-card:hover,.partner-card:focus-visible,.partner-card:hover .partner-card-caption>span{transform:none}
 }
 
+/* The season stakes: championship payouts and the CrossFire finale. */
+.league-overview-links{display:flex;flex-wrap:wrap;gap:8px 28px}
+.league-stakes{margin-block:0 44px}
+.championship-prizes{background:white;border:1px solid var(--line);border-top:4px solid #bd8b24;padding:30px 32px;scroll-margin-top:20px}
+.prize-section-heading{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:24px}
+.prize-section-heading .eyebrow{font-size:9px;margin-bottom:14px}
+.prize-section-heading h2{font-family:var(--display);font-size:48px;line-height:1.02}
+.prize-total{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.prize-total strong{font-family:var(--display);font-size:84px;line-height:.95;color:#8a6218;font-weight:800;letter-spacing:-.025em}
+.prize-total>span{font-size:10px;letter-spacing:.1em;font-weight:700;color:var(--brand-muted)}
+.championship-payouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.prize-gold{--payout-accent:#bd8b24;--payout-ink:#3f2b09;--payout-tint:#f6e9c5}
+.prize-silver{--payout-accent:#7b8998;--payout-ink:#293642;--payout-tint:#e1e6ed}
+.prize-bronze{--payout-accent:#b66d3e;--payout-ink:#31180c;--payout-tint:#f0d9c7}
+.championship-prize{min-width:0;border:1px solid var(--payout-accent);border-top:4px solid var(--payout-accent);background:var(--payout-tint);color:var(--payout-ink)}
+.championship-prize h3{display:flex;align-items:baseline;gap:10px;padding:14px 22px;margin:0;border-bottom:1px solid #00000018;color:var(--payout-ink);font-family:var(--body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.championship-prize p{margin:0}
+.championship-prize h3>span{font-family:var(--display);font-size:34px;font-weight:750;letter-spacing:0;text-transform:none}
+.prize-team{padding:18px 22px 14px;font-family:var(--display);font-size:60px;font-weight:750;line-height:1;color:var(--payout-ink);font-variant-numeric:tabular-nums}
+.prize-team>span{display:block;margin-top:8px;font-family:var(--body);font-size:10px;font-weight:650;text-transform:uppercase;letter-spacing:.08em}
+.prize-player{border-top:1px solid #00000018;padding:12px 22px;font-size:15px;font-weight:750;line-height:1.4}
+.prize-player>span{font-size:11px;font-weight:500;margin-left:4px}
+.prize-section-footer{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:20px}
+.prize-section-footer>p{font-size:12px;color:var(--brand-muted);max-width:560px}
+.prize-section-footer .text-link{flex-shrink:0;font-size:11px}
+.crossfire-feature{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;padding:30px 32px;background:linear-gradient(115deg,#123e2c,#0a2519);border-left:5px solid var(--lime);margin-top:20px;scroll-margin-top:20px}
+.crossfire-identity .eyebrow{font-size:9px;color:#c3d2c7;margin-bottom:14px}
+.crossfire-identity h2{font-family:var(--display);font-size:68px;line-height:1;color:white;letter-spacing:-.02em}
+.crossfire-identity h2 span{color:var(--lime)}
+.crossfire-conferences{font-size:11px;letter-spacing:.16em;color:white;font-weight:700;margin-top:16px}
+.crossfire-conferences>span[aria-hidden]{color:var(--lime);margin-inline:12px;font-size:20px}
+.crossfire-copy h3{font-family:var(--display);font-size:31px;color:white;margin-bottom:12px}
+.crossfire-copy p{font-size:13px;line-height:1.85;color:#d1ddd4;margin-top:10px}
+.crossfire-copy strong{color:white}
+.crossfire-copy .text-link{color:white;margin-top:14px}.crossfire-copy .text-link span{color:var(--lime)}
+.crossfire-feature :focus-visible{outline-color:var(--lime)}
+.event-crossfire{border-left:4px solid var(--lime);background:#e6eee2;padding:18px 20px;margin-block:20px}
+.event-crossfire .eyebrow{font-size:9px;margin:0 0 10px}
+.event-crossfire h4{font-family:var(--display);font-size:28px;margin:0 0 12px;color:var(--brand-primary)}
+.event-crossfire>p:last-child{font-size:13px;line-height:1.8}
+.event-stakes{margin-block:24px}
+.event-stakes>h4{font-family:var(--display);font-size:28px;color:var(--brand-primary);margin:0 0 16px}
+.event-stakes .championship-payouts{gap:12px}
+.event-stakes .championship-prize h3{padding:10px 16px}
+.event-stakes .prize-team{font-size:46px;padding:14px 16px}
+.event-stakes .prize-player{padding:10px 16px}
+@media(max-width:800px){
+  .championship-prizes{padding:26px}.prize-section-heading h2{font-size:42px}.prize-total strong{font-size:72px}.prize-total>span{font-size:8px}
+  .championship-payouts{gap:12px}.championship-prize h3{padding:12px 16px}.prize-team{font-size:50px;padding:16px}.prize-player{padding:12px 16px}
+  .prize-section-footer{align-items:flex-start}.prize-section-footer>p{font-size:11px}
+  .crossfire-feature{gap:28px;padding:26px}.crossfire-identity h2{font-size:58px}.crossfire-copy h3{font-size:28px}
+}
+@media(max-width:650px){
+  .league-overview-links{gap:4px 24px}.league-stakes{margin-bottom:32px}
+  .championship-prizes{padding:22px 16px}.prize-section-heading{display:block;margin-bottom:20px}.prize-section-heading h2{font-size:40px}
+  .prize-total{align-items:flex-start;margin-top:20px;gap:6px}.prize-total strong{font-size:70px}.prize-total>span{font-size:9px}
+  .championship-payouts{grid-template-columns:1fr;gap:12px}
+  .championship-prize{display:grid;grid-template-columns:72px minmax(0,1fr)}
+  .championship-prize h3{grid-row:1/3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;gap:4px;font-size:10px;border-bottom:0;border-right:1px solid #00000018}.championship-prize h3>span{font-size:34px}
+  .prize-team{grid-column:2;padding:14px 16px 12px;font-size:44px}.prize-team>span{font-size:9px;margin-top:7px;letter-spacing:.03em}
+  .prize-player{grid-column:2;padding:10px 16px;font-size:14px}.prize-player>span{font-size:10px;margin-left:4px}
+  .prize-section-footer{display:block;margin-top:16px}.prize-section-footer .text-link{margin-top:12px}
+  .crossfire-feature{grid-template-columns:1fr;gap:24px;padding:24px 20px;margin-top:16px}.crossfire-identity h2{font-size:58px}.crossfire-copy h3{font-size:29px}
+  .crossfire-conferences{font-size:10px}.crossfire-copy p{font-size:13px}
+  .event-crossfire{padding:16px}.event-crossfire h4{font-size:26px}.event-crossfire>p:last-child{font-size:12px}
+  .event-stakes>h4{font-size:26px}.event-stakes .championship-payouts{gap:12px}
+  .event-stakes .championship-prize h3{padding:12px 8px;font-size:10px}.event-stakes .championship-prize h3>span{font-size:34px}
+  .event-stakes .prize-team{padding:14px 16px 12px;font-size:44px}.event-stakes .prize-player{padding:10px 16px;font-size:14px}
+}
+
 /* About EP: the supplied organizational story and leadership photography. */
 .about-page .page-heading{min-height:176px;margin-bottom:36px}
 .about-page .page-heading .view-title{font-size:clamp(54px,5.5vw,80px);max-width:800px;line-height:1}
