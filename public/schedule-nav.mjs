@@ -11,7 +11,8 @@ export function createScheduleNav({events,error=false}) {
   function setOpen(open){panel.hidden=!open;toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Hide event schedule':'Show event schedule');}
   function close(){setOpen(false);}
   toggle.addEventListener('click',()=>setOpen(panel.hidden));
-  root.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse')setOpen(true);});
+  // Hover the schedule link to preview; the arrow remains a true click toggle.
+  root.addEventListener('pointerover',event=>{if(event.pointerType==='mouse'&&!event.target.closest('.schedule-menu-toggle'))setOpen(true);});
   root.addEventListener('pointerleave',()=>{if(!root.contains(document.activeElement))close();});
   root.addEventListener('focusout',event=>{if(!root.contains(event.relatedTarget))close();});
   root.addEventListener('keydown',event=>{

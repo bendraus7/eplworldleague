@@ -25,6 +25,7 @@ window.EPL_READY = (async () => {
   function showPage(page, scroll = true) {
     if (!['home','schedule','standings','teams','players','stats','team','player'].includes(page)) page = 'home';
     currentPage = page;
+    document.body.dataset.view = page;
     scheduleNav.close();
     $$('[data-page]').forEach(panel => { panel.hidden = panel.dataset.page !== page; });
     $$('#main-nav [data-route]').forEach(link => { if (link.dataset.route === (page === 'team' ? 'teams' : page === 'player' ? 'players' : page)) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
@@ -64,6 +65,9 @@ window.EPL_READY = (async () => {
     $('#stats .stats-empty').hidden=teamView&&started;
     $('#stats-empty-title').textContent=seasonError?'Season stats unavailable':teamView?'The season starts November 21.':'Player season stats';
     $('#stats-empty-description').textContent=seasonError?'Please reload the page to load league results.':teamView?'Compare country records, regulation game win rates, and point differential as results are recorded.':'Player performance will appear once individual EPL game results are connected.';
+    let journey=$('#stats .season-journey');
+    if(!journey){journey=document.createElement('nav');journey.className='season-journey';journey.setAttribute('aria-label','Season events');$('#stats .stats-empty').after(journey);}
+    journey.innerHTML=season.events.map((event,i)=>`<a href="#schedule/${escape(event.id)}"><span>${event.phase==='championship'?'CHAMPIONSHIP':`EVENT 0${i+1}`}</span><strong>${new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',timeZone:'UTC'}).format(new Date(event.date+'T12:00:00Z'))}</strong><span aria-hidden="true">↗</span></a>`).join('');
   }
 
   const heroPlayers = [0,1,2,3].flatMap(slot => teams.map(team => ({...team.players[slot],team:team.name})));
@@ -126,7 +130,7 @@ window.EPL_READY = (async () => {
   function openRoster(id) {
     const team = byId(id);
     if (!team) return;
-    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header">${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} CONFERENCE / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><button class="text-link team-results-jump" data-team-results>Team stats &amp; results ↓</button></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3><a href="#player/${p.id}">${escape(p.name)}</a></h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player to view their profile, DUPR rating, stats, and match log.</p><div id="team-season-content"></div>`;
+    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header"><span class="team-identity-art" style="background-image:url('${team.art}')" aria-hidden="true"></span>${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} CONFERENCE / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><button class="text-link team-results-jump" data-team-results>Team stats &amp; results ↓</button></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3><a href="#player/${p.id}">${escape(p.name)}</a></h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player to view their profile, DUPR rating, stats, and match log.</p><div id="team-season-content"></div>`;
     seasonView.renderTeamDetails(id);
     showPage('team');
     document.title = `Team ${team.name} | EPL World League`;
