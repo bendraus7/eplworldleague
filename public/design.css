@@ -1037,6 +1037,65 @@ tbody tr:hover{background:#f0f5eb}
 @media(max-width:359px){.partners-page .partner-tier-silver .partner-grid{grid-template-columns:1fr}.home-partner-grid .partner-logo-panel{padding:10px;height:90px}.home-partner-grid .partner-card-caption{padding:9px}.home-partner-grid .partner-card-caption h3{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.partner-card{transition:none}.partner-card:hover{transform:none}}
 
+/* Sponsorship metals: visible tier bands, matching name panels, and clear link cues. */
+.partner-platinum,.partner-tier-platinum,.footer-platinum,.platinum-feature,.partner-tier-nav a[href="#partners/platinum"]{
+  --tier-accent:#77939f;--tier-ink:#263e49;--tier-stroke:#a4b9c2;--tier-fill:#e4edf1;
+  --tier-metal:linear-gradient(115deg,#b3c8d2 0%,#edf4f7 40%,#c3d5dd 72%,#91aebc 100%);
+}
+.partner-gold,.partner-tier-gold,.partner-tier-nav a[href="#partners/gold"]{
+  --tier-accent:#bd8b24;--tier-ink:#3f2b09;--tier-stroke:#d4b568;--tier-fill:#f6e9c5;
+  --tier-metal:linear-gradient(115deg,#d5aa4c 0%,#f5df9b 40%,#e4bd60 72%,#c49229 100%);
+}
+.partner-silver,.partner-tier-silver,.partner-tier-nav a[href="#partners/silver"]{
+  --tier-accent:#7b8998;--tier-ink:#293642;--tier-stroke:#afb9c4;--tier-fill:#e1e6ed;
+  --tier-metal:linear-gradient(115deg,#b2bdca 0%,#e4e9ef 40%,#c7d0dc 72%,#9aa9ba 100%);
+}
+.partner-bronze,.partner-tier-bronze,.partner-tier-nav a[href="#partners/bronze"]{
+  --tier-accent:#b66d3e;--tier-ink:#31180c;--tier-stroke:#cb956e;--tier-fill:#f0d9c7;
+  --tier-metal:linear-gradient(115deg,#c48a5f 0%,#edc7a9 40%,#d69d72 72%,#b7764c 100%);
+}
+.partner-card{border-color:var(--tier-stroke);border-top:5px solid var(--tier-accent);color:var(--tier-ink);box-shadow:0 2px 4px #14201908;transition:transform .18s,box-shadow .18s,border-color .18s;overflow:hidden}
+.partner-card:hover,.partner-card:focus-visible{transform:translateY(-3px);border-color:var(--tier-accent);box-shadow:0 8px 22px #1420191a}
+.partner-card-caption{border-top-color:var(--tier-stroke);background:var(--tier-fill);color:var(--tier-ink)}
+.partner-card-caption h3{color:var(--tier-ink)}
+.partner-bronze .partner-card-caption{flex:1;margin-top:0}
+.partner-card-caption>span{display:flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0;color:white;background:var(--tier-ink);font-size:17px;border-radius:50%;transition:transform .18s}
+.partner-card:hover .partner-card-caption>span{transform:translate(1px,-1px)}
+.home-platinum .partner-card-tier{background:var(--tier-metal);color:var(--tier-ink);border-bottom:1px solid var(--tier-stroke)}
+.home-partner-tier>.partner-level-label{padding:10px 14px;margin-bottom:12px;color:var(--tier-ink);background:var(--tier-metal);border-left:5px solid var(--tier-accent)}
+.partner-tier-nav{border:0;gap:8px}
+.partner-tier-nav a{border:1px solid var(--tier-stroke);border-bottom:4px solid var(--tier-accent);background:var(--tier-metal);color:var(--tier-ink);font-weight:750}
+.partner-tier-nav a:first-child{padding-left:20px}.partner-tier-nav a:last-child{border-right:1px solid var(--tier-stroke)}
+.partner-tier-nav a:hover{color:var(--tier-ink);background:var(--tier-metal);box-shadow:inset 0 0 0 1px var(--tier-ink)}
+.partner-tier-nav span{color:var(--tier-ink);font-weight:550}
+.partner-tier-heading{border:1px solid var(--tier-stroke);border-left:6px solid var(--tier-accent);background:var(--tier-metal);padding:18px 22px}
+.partner-tier-heading h2,.partner-tier-heading>span{color:var(--tier-ink)}
+.platinum-feature{border-color:var(--tier-stroke)}
+.platinum-feature-copy{background:var(--tier-metal);color:var(--tier-ink);border-top:5px solid var(--tier-accent)}
+.platinum-feature-copy .eyebrow,.platinum-feature-copy h3,.platinum-feature-copy>p:not(.eyebrow),.platinum-feature-copy .text-link{color:var(--tier-ink)}
+.footer-platinum{background:var(--tier-metal);border:1px solid var(--tier-stroke);border-top:5px solid var(--tier-accent);padding:5px;transition:box-shadow .18s,border-color .18s}
+.footer-platinum:hover{border-color:var(--tier-ink);box-shadow:0 8px 22px #1420191a}
+.footer-platinum-copy,.footer-platinum-copy h3,.footer-partner-visit span{color:var(--tier-ink)}
+.footer-platinum-copy .partner-level-label{color:var(--tier-ink);border:1px solid var(--tier-stroke);background:#ffffff80;padding:5px 9px;font-size:10px}
+.footer-partner-tier>.partner-level-label{color:var(--tier-ink);margin-bottom:14px;padding:10px 14px;border:1px solid var(--tier-stroke);border-left:5px solid var(--tier-accent);background:var(--tier-metal);font-size:12px;letter-spacing:.11em}
+.footer-partner-tier>.partner-level-label:after{background:var(--tier-ink);opacity:.25}
+.footer-partner-grid .partner-card-caption>span{display:flex;font-size:14px;width:23px;height:23px}
+.footer-partner-tier.partner-tier-silver .partner-card-caption h3,.footer-partner-tier.partner-tier-bronze .partner-card-caption h3{font-size:10px}
+@media(max-width:650px){
+  .partner-tier-heading{padding:15px 16px}.partner-tier-heading h2{font-size:29px}.partner-tier-heading>span{font-size:8px}
+  .partner-tier-nav a:first-child{padding-left:12px}
+  .home-partner-grid .partner-card-caption{gap:6px;padding:10px}
+  .home-partner-grid .partner-card-caption>span{width:20px;height:20px;font-size:12px}
+  .footer-partner-grid .partner-card-caption>span{width:20px;height:20px;font-size:12px}
+  .footer-partner-tier.partner-tier-silver .partner-card-caption,.footer-partner-tier.partner-tier-bronze .partner-card-caption{gap:6px}
+  .footer-partner-tier.partner-tier-bronze .partner-card-caption{flex-wrap:wrap;align-content:center}
+  .footer-partner-tier.partner-tier-bronze .partner-card-caption h3{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .partner-card,.partner-card-caption>span,.footer-platinum{transition:none}
+  .partner-card:hover,.partner-card:focus-visible,.partner-card:hover .partner-card-caption>span{transform:none}
+}
+
 /* About EP: the supplied organizational story and leadership photography. */
 .about-page .page-heading{min-height:176px;margin-bottom:36px}
 .about-page .page-heading .view-title{font-size:clamp(54px,5.5vw,80px);max-width:800px;line-height:1}
