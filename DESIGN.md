@@ -37,7 +37,7 @@ Use white on forest or night, forest on white, and night on lime. Lime is an emp
 - Schedule, Standings, Teams, Players, Stats: the same numbered forest masthead, then light controls and content. Operational pages prioritize readable data over imagery.
 - Teams: four columns above 1100px, three above 800px, two on tablet/mobile, one below 360px. Artwork is contained in a portrait frame, never cropped. Player directories keep two columns on most phones, one below 360px.
 - Team profiles: flag and title on a forest identity panel, four roster cards, then season stats and results. Player profiles: portrait beside identity and prominent DUPR rating; section navigation, main stats/history column, supporting bio column.
-- At 650px and below, split layouts stack, player identity and DUPR appear before the portrait, page mastheads simplify, filters fill available width, and footer content stacks. Tables scroll inside their own labeled regions; the page must never scroll horizontally.
+- At 650px and below, split layouts stack, player identity and DUPR appear before the portrait, page mastheads simplify, filters fill available width, and footer content stacks. Standings and team event totals become labeled record cards at 800px and below. Keep every statistic visible without horizontal scrolling; neither the page nor its panels should require sideways scrolling.
 
 ## Elevation & Depth
 

@@ -121,7 +121,8 @@ window.EPL_READY = (async () => {
     $('#standings-body').innerHTML=rows.map(row=>{
       const tied=row.rank!==null&&rows.filter(other=>other.rank===row.rank).length>1;
       const seed=seeds.get(row.team.id);
-      return `<tr><td>${row.rank===null?'—':`${tied?'T':''}${row.rank}`}</td><td>${teamButton(row.team)}</td><td>${row.played?row.wins:'—'}</td><td>${row.played?row.losses:'—'}</td><td>${row.played?row.standingsPoints:'—'}</td><td>${number(row.pointsFor)}</td><td>${number(row.pointsAgainst)}</td><td>${row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`}</td>${selected?'':`<td>${seed.seed??(seed.rank===null?'—':'TBD')}</td>`}</tr>`;
+      const metrics=[['Wins',row.played?row.wins:'—'],['Losses',row.played?row.losses:'—'],['Points',row.played?row.standingsPoints:'—'],['For',number(row.pointsFor)],['Against',number(row.pointsAgainst)],['Diff.',row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`]];
+      return `<tr><td data-label="Rank">${row.rank===null?'—':`${tied?'T':''}${row.rank}`}</td><td class="standings-country">${teamButton(row.team)}</td>${metrics.map(([label,value])=>`<td data-label="${label}">${value}</td>`).join('')}${selected?'':`<td data-label="Championship seed">${seed.seed??(seed.rank===null?'—':'TBD')}</td>`}</tr>`;
     }).join('');
     $('#standings table caption').textContent=`${standingsDivision} Conference — ${selected?`${selected.title}, ${selected.date}`:'cumulative regular season'}. For and against count regulation points only.`;
     $('#standings .status-pill').textContent=started?(selected?'EVENT RESULTS':'REGULAR SEASON'):(selected?'NO EVENT RESULTS':'SEASON NOT STARTED');
