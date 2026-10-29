@@ -34,6 +34,7 @@ Use white on forest or night, forest on white, and night on lime. Lime is an emp
 
 - Content width: 1320px maximum, fluid gutters from 20px mobile to 56px desktop. Spacing follows 8px increments, with 24/32px component gaps and 64/88px section rhythm.
 - Homepage: dark split stage, white/lime headline, green globe behind rotating player cards; country links in visible rows; next-event rail; league introduction; two visual paths into teams and players, each featuring randomly selected artwork on every page load (excluding the previous selection in the same tab); format and PointBreak.
+- Homepage reading sections use tighter 40–56px spacing. The league facts align near the top of the introduction. Above 1100px, the six regulation games form a two-column, three-row grid beside the format introduction, followed by a full-width PointBreak callout inside the list. Preserve reading order and stack on smaller screens.
 - Schedule, Standings, Teams, Players, Stats: the same numbered forest masthead, then light controls and content. Operational pages prioritize readable data over imagery.
 - Teams: four columns above 1100px, three above 800px, two on tablet/mobile, one below 360px. Artwork is contained in a portrait frame, never cropped. Player directories keep two columns on most phones, one below 360px.
 - Team profiles: flag and title on a forest identity panel, four roster cards, then season stats and results. Player profiles: portrait beside identity and prominent DUPR rating; section navigation, main stats/history column, supporting bio column.
@@ -49,7 +50,7 @@ Square panels and buttons; small 2px corners allowed for controls. Fine green di
 
 ## Components
 
-- Header: official EPL logo and compact wordmark at left; six equal-width desktop tabs fill the remaining header width, with a lime active underline. Mobile tabs span the full row below the logo. Schedule dropdown retains all real event dates. Standings previews both conferences using the same regular-season model as the full page. Both menus support hover, arrow toggles, keyboard entry, Escape dismissal, and mutual exclusion; country rows link to their teams.
+- Header: official EPL logo and compact wordmark at left; six equal-width desktop tabs fill the remaining header width, with a lime active underline. The season strip and navigation use a forest-to-black gradient, starting green at the top edge; the homepage stage below the lime rule stays dark. Mobile tabs span the full row below the logo. Schedule dropdown retains all real event dates. Standings previews both conferences using the same regular-season model as the full page. Both menus support hover, arrow toggles, keyboard entry, Escape dismissal, and mutual exclusion; country rows link to their teams.
 - Page masthead: chapter number, eyebrow, display title, concise supporting copy. Decorative chapter number is CSS-generated and nonessential.
 - Filters: light surface, 44px minimum controls, forest selected segments, visible keyboard focus. Counts remain text, not decorative badges.
 - Event rows: distinct date block, event name, phase/location/time, honest pending-link state. Championship has a forest edge; calendar uses the same palette.

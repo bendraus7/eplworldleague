@@ -21,8 +21,8 @@ h3{line-height:1.2}
 .button.outline{border-color:var(--brand-primary);color:var(--brand-primary)}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #285a43;outline-offset:4px}
 .header :focus-visible,.home-stage :focus-visible,.page-heading :focus-visible,.profile-heading :focus-visible,.footer-bottom :focus-visible{outline-color:var(--lime)}
-.season-bar{padding:8px var(--gutter);font-size:9px;letter-spacing:.09em;border-bottom:1px solid #ffffff14}
-.header{height:92px;min-height:92px;padding:0 var(--gutter);gap:28px;background:#050806;border-bottom:2px solid var(--lime);backdrop-filter:none;flex-wrap:nowrap;flex-direction:row}
+.season-bar{padding:8px var(--gutter);font-size:9px;letter-spacing:.09em;border-bottom:1px solid #ffffff14;background:linear-gradient(110deg,#285a43 0%,#123e2c 48%,#081b12 100%)}
+.header{height:92px;min-height:92px;padding:0 var(--gutter);gap:28px;background:linear-gradient(110deg,#123e2c 0%,#0d291d 48%,#050806 100%);border-bottom:2px solid var(--lime);backdrop-filter:none;flex-wrap:nowrap;flex-direction:row}
 .header .brand img{width:72px;height:64px}
 .header .brand>span{font-size:32px}
 .header nav{gap:30px;font-size:12px;align-items:center}
@@ -129,11 +129,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .event-summary h2{font-size:32px}
 .event-summary>p:last-child{font-size:12px;color:var(--brand-muted);margin-top:8px}
 .next-event .button{font-size:11px}
-.league-overview{grid-template-columns:1.25fr 1fr;gap:112px;padding-block:88px;border:0}
+.league-overview{grid-template-columns:1.25fr 1fr;gap:64px;padding-block:56px 40px;border:0}
 .league-overview .eyebrow{font-size:11px;margin-bottom:20px}
 .league-overview h2{font-size:64px;margin-bottom:24px;line-height:.98}
 .league-overview p:not(.eyebrow){font-size:14px;line-height:1.85;max-width:660px}
-.league-facts{gap:32px 28px}
+.league-facts{gap:24px 28px;align-content:start;padding-top:38px}
 .league-facts>div{padding:20px 0 12px;border-top:1px solid var(--brand-primary)}
 .league-facts dt{font-size:11px;text-transform:uppercase;letter-spacing:.07em}
 .league-facts dd{font-size:72px;line-height:1;margin-top:14px;letter-spacing:-.03em}
@@ -153,8 +153,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .section-heading .eyebrow{font-size:11px;margin-bottom:16px;color:var(--brand-muted)}
 .section-heading h2{font-size:56px}
 .section-heading>p{font-size:13px;line-height:1.7;color:var(--brand-muted);max-width:360px}
-#page-home #format{padding-top:80px}
-.format-layout{grid-template-columns:.85fr 1.35fr;gap:88px}
+#page-home #format{padding-top:56px;padding-bottom:56px}
+.format-layout{grid-template-columns:.85fr 1.5fr;gap:48px;align-items:start}
 .format-number{font-size:128px;line-height:.9}
 .format-intro h3{font-size:24px;margin-block:24px 16px}
 .format-intro>p{font-size:14px;line-height:1.85;max-width:370px}
@@ -169,6 +169,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .format-list li.point-break h3{font-family:var(--display);font-size:32px!important;line-height:1.1;margin-top:7px}
 .format-list li.point-break p{font-size:12px!important;line-height:1.7}
 .format-list li.point-break>span:first-child{font-size:32px}
+@media(min-width:1101px){
+  .format-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+  .format-list li{padding:20px 0;gap:16px;align-items:flex-start;min-width:0}
+  .format-list li .game-tag{display:none}
+  .format-list li.point-break{grid-column:1/-1;align-items:center;margin-top:4px}
+}
 .point-break-guide{margin-top:40px;padding:44px;background:var(--brand-primary);border-top:3px solid var(--lime)}
 .point-break-heading h2{font-size:54px}
 .point-break-heading>p{font-size:14px}
@@ -453,7 +459,7 @@ tbody tr:hover{background:#f0f5eb}
   .header{height:82px;min-height:82px;gap:20px}.header .brand img{width:56px;height:50px}.header .brand>span{font-size:27px}.header nav{gap:18px}.header nav a{font-size:11px;padding-block:26px 23px}.brand>span>span{font-size:6px}
   .hero-edition{font-size:8px;letter-spacing:.08em}.hero{grid-template-columns:1fr 1fr;min-height:510px;padding-block:36px 40px}.hero h1{font-size:clamp(62px,9.5vw,78px)}.hero-copy .eyebrow{font-size:9px;letter-spacing:.1em}.hero-description{font-size:12px}.hero-actions{gap:16px;flex-wrap:wrap}.hero-actions .button{padding:14px 18px;font-size:11px;gap:22px}.hero-actions .text-link{font-size:11px}.hero-note{gap:22px;margin-top:28px;padding-top:18px}.hero-note>span{font-size:28px}.hero-note small{font-size:7px}.hero-art{height:450px}.hero-player{width:48%;max-height:315px;border-width:3px}.hero-back{left:2%;top:58px}.hero-front{right:2%;top:112px}.hero-art .art-top{left:12px;font-size:8px;letter-spacing:.07em}.hero-art .art-stamp{left:12px;font-size:13px}.rotation-controls{left:12px}
   .flag-ribbon #flag-ribbon a{font-size:10px}.flag-ribbon{padding-block:20px}.next-event{grid-template-columns:76px 1fr auto;gap:20px}.event-date{width:76px}.event-summary h2{font-size:29px}.event-summary>p:last-child{font-size:11px}.next-event .button{font-size:10px;padding:12px 16px;gap:12px}
-  .league-overview{grid-template-columns:1.1fr 1fr;gap:40px;padding-block:64px}.league-overview h2{font-size:48px}.league-overview p:not(.eyebrow){font-size:13px}.league-facts{gap:22px}.league-facts dd{font-size:54px}.league-facts dt{font-size:10px}.league-facts>div:last-child dd{font-size:45px}
+  .league-overview{grid-template-columns:1.1fr 1fr;gap:32px;padding-block:44px 32px}.league-overview h2{font-size:48px}.league-overview p:not(.eyebrow){font-size:13px}.league-facts{gap:22px}.league-facts dd{font-size:54px}.league-facts dt{font-size:10px}.league-facts>div:last-child dd{font-size:45px}
   .league-explore{gap:18px}.explore-feature{grid-template-columns:1fr}.explore-feature>img{height:165px;object-position:center 35%}.explore-feature>div{padding:24px}.explore-feature h2{font-size:44px}.explore-feature p{font-size:12px}
   #page-home #format{padding-top:64px}.section-heading h2{font-size:48px}.format-number{font-size:106px}.format-intro>p{font-size:13px}.format-intro h3{font-size:22px}.format-layout{gap:32px}.format-list li{gap:18px}.format-list li h3{font-size:18px}.format-list li p{font-size:12px}.format-list li .game-tag{display:none}.format-list li.point-break{padding:24px 18px}.format-list li.point-break h3{font-size:29px!important}.format-list li.point-break p{font-size:11px!important}.point-break-guide{padding:32px}.point-break-steps{gap:24px}.point-break-heading h2{font-size:46px}
   [data-page]:not(#page-home)>.section,#page-player{padding-top:30px;padding-bottom:64px}.page-heading{padding:32px;min-height:195px}.section-heading.page-heading .view-title{font-size:76px}.page-heading>p{max-width:250px;font-size:12px}.page-heading .eyebrow{font-size:9px}
@@ -472,7 +478,7 @@ tbody tr:hover{background:#f0f5eb}
   .hero{display:flex;flex-direction:column;align-items:stretch;gap:24px;padding-block:32px;min-height:0}.hero h1{font-size:clamp(68px,18.5vw,112px);margin:22px 0 24px}.hero-copy .eyebrow{font-size:9px;letter-spacing:.12em}.hero-description{font-size:14px}.hero-actions{flex-wrap:nowrap;gap:24px;margin-top:26px}.hero-actions .button{font-size:12px;padding:15px 20px;gap:26px}.hero-actions .text-link{font-size:12px;gap:10px}.hero-note{display:flex;margin-top:30px;padding-top:20px;gap:36px}.hero-note>span{font-size:30px}.hero-note small{font-size:8px}.hero-art,#page-home .hero-art{height:450px;background-size:auto 115%;margin-top:0;overflow:hidden}.hero-player,.hero-front,.hero-back{max-height:340px;width:43%}.hero-back{left:6%;top:55px}.hero-front{right:6%;top:90px}.hero-art .art-top{top:12px;left:16px;font-size:9px}.hero-art .art-stamp{bottom:68px;left:16px;font-size:17px}.rotation-controls{left:16px;bottom:12px}.rotation-controls button{height:40px;min-height:40px;padding-inline:14px}
   .flag-ribbon #flag-ribbon{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px}.flag-ribbon #flag-ribbon a{font-size:10px;min-height:44px}.country-ribbon-heading .eyebrow{font-size:9px}.country-ribbon-heading .text-link{font-size:9px}
   .next-event{grid-template-columns:72px 1fr;gap:18px;padding-block:24px}.event-date{width:72px;grid-row:1/3;padding:14px 10px;align-self:stretch;justify-content:center}.event-date strong{font-size:46px}.event-date>span{font-size:8px}.event-summary .eyebrow{font-size:9px}.event-summary h2{font-size:28px}.event-summary>p:last-child{font-size:11px;line-height:1.8}.next-event>.button{grid-column:2;justify-self:start;margin:0;padding:10px 14px;min-height:42px;font-size:10px;gap:20px}
-  .league-overview{grid-template-columns:1fr;gap:32px;padding-block:56px}.league-overview h2{font-size:54px}.league-overview p:not(.eyebrow){font-size:14px}.league-overview .eyebrow{font-size:10px}.league-facts{grid-template-columns:1fr 1fr;gap:24px}.league-facts dd{font-size:62px}.league-facts>div:last-child dd{font-size:54px}.league-facts dt{font-size:10px}
+  .league-overview{grid-template-columns:1fr;gap:24px;padding-block:40px 32px}.league-overview h2{font-size:54px}.league-overview p:not(.eyebrow){font-size:14px}.league-overview .eyebrow{font-size:10px}.league-facts{grid-template-columns:1fr 1fr;gap:20px;padding-top:0}.league-facts dd{font-size:62px}.league-facts>div:last-child dd{font-size:54px}.league-facts dt{font-size:10px}
   .league-explore{grid-template-columns:1fr;gap:20px}.explore-feature{grid-template-columns:35% 1fr}.explore-feature>img{height:100%;object-position:center}.explore-feature>div{padding:28px 22px}.explore-feature h2{font-size:42px}.explore-feature .eyebrow{font-size:8px}.explore-feature p{font-size:12px}.explore-link{font-size:10px}
   .section{padding-block:56px}.section-heading{display:block;margin-bottom:28px}.section-heading h2{font-size:48px}.section-heading>p{font-size:13px;margin-top:20px;max-width:350px}.section-heading .eyebrow{font-size:10px;margin-bottom:14px}#page-home #format{padding-top:56px}
   .format-layout{display:block}.format-intro{display:block;margin-bottom:32px}.format-number{font-size:110px}.format-intro h3{font-size:24px;margin:20px 0 16px}.format-intro>p:not(.format-highlight){font-size:14px;line-height:1.8;max-width:none}.format-highlight{font-size:13px!important;margin-top:22px!important}.format-list li{padding:22px 0;gap:18px}.format-list li h3{font-size:19px}.format-list li p{font-size:13px}.format-list li .game-tag{display:none}.format-list li.point-break{padding:24px 18px;gap:14px}.format-list li.point-break h3{font-size:32px!important}.format-list li.point-break p{font-size:12px!important}.format-list li.point-break>span:first-child{font-size:30px;min-width:44px}
