@@ -23,8 +23,8 @@ export function sortPlayers(players,sort='name',getRating=()=>null){
 export function teamDuprSummary(players,getRating=()=>null){
   const ratings=players.map(player=>getRating(player.id)).filter(value=>typeof value==='number'&&Number.isFinite(value)&&value>0);
   const complete=players.length>0&&ratings.length===players.length;
-  const total=complete?ratings.reduce((sum,value)=>sum+Math.round(value*1000),0)/1000:null;
-  return {rated:ratings.length,players:players.length,total,average:complete?total/players.length:null};
+  const milliTotal=complete?ratings.reduce((sum,value)=>sum+Math.round(value*1000),0):null;
+  return {rated:ratings.length,players:players.length,total:complete?milliTotal/1000:null,average:complete?Math.round(milliTotal/players.length)/1000:null};
 }
 export function seasonStripMarkup(events,{now=Date.now(),currentId=null}={}){
   const sorted=eventsByRange(events,'all',now),next=eventsByRange(events,'upcoming',now).find(event=>event.status!=='cancelled');

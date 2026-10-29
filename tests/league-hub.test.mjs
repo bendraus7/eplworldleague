@@ -11,7 +11,7 @@ const season=JSON.parse(fs.readFileSync(new URL('../public/league-data.json',imp
 test('team DUPR totals all rostered doubles ratings and never treats a missing rating as zero',()=>{
   const players=[{id:'a'},{id:'b'},{id:'c'},{id:'d'}];
   const ratings={a:4.593,b:4.2,c:3.8,d:4.001};
-  assert.deepEqual(teamDuprSummary(players,id=>ratings[id]),{rated:4,players:4,total:16.594,average:4.1485});
+  assert.deepEqual(teamDuprSummary(players,id=>ratings[id]),{rated:4,players:4,total:16.594,average:4.149});
   for(const missing of [null,undefined,NaN,Infinity,0,'4.001']){
     assert.deepEqual(teamDuprSummary(players,id=>id==='d'?missing:ratings[id]),{rated:3,players:4,total:null,average:null});
   }
