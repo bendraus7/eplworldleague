@@ -8,7 +8,7 @@ out=Path(__file__).resolve().parents[1]/'public'
 # Names transcribed from the supplied player artwork, in filename order.
 data=[
 ('Argentina','AR','Pacific',4,['Robin Lee','Chase Baird','Stephen Nicknish','Connie Inselmann',None]),
-('Brazil','BR','Atlantic',1,['Kate Skokin',None,'Rokas (Rocky) Kersulis','Will Bennett','Chris Szalo']),
+('Brazil','BR','Atlantic',1,['Kate Skokin',None,'Rokas (Rocky) Kersulis','Johnny Le','Chris Szalo']),
 ('Cape Verde','CV','Pacific',0,[None,'Anna Schelkopf','Tim Suter','Sudi Korba','David Ginsberg']),
 ('Columbia','CO','Atlantic',3,['Ryan Kosowski','Teresa Huelskoetter','Casey Sincavage',None,'Valentina Tabares']),
 ('Fiji','FJ','Pacific',0,[None,'Zoe Chambers','Liz Mazzocco','Murtaza Raza','Kevin Ma']),
@@ -31,8 +31,13 @@ for folder,code,division,poster,names in data:
     files=sorted((root/folder).glob('*.jp*'))
     assets=[]
     for i,p in enumerate(files):
+        # Brazil's replacement player has a separate supplied card.
+        replacement = folder == 'Brazil' and names[i] == 'Johnny Le'
+        if replacement:
+            p = root / folder / 'E2FCF032-E8F8-4174-BD3B-132789558F6A.png'
         im=Image.open(p).convert('RGB'); im.thumbnail((800,1050))
-        name=f'assets/{slug}-{i}.webp'; im.save(out/name,'WEBP',quality=86)
+        name='assets/brazil-johnny-le.webp' if replacement else f'assets/{slug}-{i}.webp'
+        im.save(out/name,'WEBP',quality=86)
         assets.append(name)
     teams.append(dict(id=slug,name='Colombia' if folder=='Columbia' else folder,code=code,division=division,art=assets[poster],players=[dict(id=stable_ids.get(n,re.sub('[^a-z0-9]+','-',n.lower()).strip('-')),name=n,image=assets[i]) for i,n in enumerate(names) if n]))
 for i,p in enumerate(sorted(root.glob('*.jp*'))):

@@ -47,9 +47,9 @@ window.EPL_DATA = {
           "id": "rokas-rocky-kersulis"
         },
         {
-          "name": "Will Bennett",
-          "image": "assets/brazil-3.webp",
-          "id": "will-bennett"
+          "name": "Johnny Le",
+          "image": "assets/brazil-johnny-le.webp",
+          "id": "johnny-le"
         },
         {
           "name": "Chris Szalo",
