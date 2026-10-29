@@ -605,10 +605,10 @@ tbody tr:hover{background:#f0f5eb}
 .team-dupr{margin-top:18px;padding:16px;background:var(--brand-primary);color:#fff;text-align:left}
 .team-dupr-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .team-dupr-values>div+div{border-left:1px solid #ffffff30;padding-left:12px}
-.team-dupr-values span{display:block;font-size:10px;line-height:1.4;color:#d7e4dc}
+.team-dupr-values span{display:block;min-height:2.8em;font-size:10px;line-height:1.4;color:#d7e4dc}
 .team-dupr-values strong{display:block;margin-top:6px;font-family:var(--display);font-size:32px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums;color:var(--lime)}
 .team-dupr-note{display:block;margin-top:12px;font-size:10px;line-height:1.5;color:#d7e4dc}
-@media(max-width:600px){.team-dupr{padding:14px 12px}.team-dupr-values{gap:10px}.team-dupr-values>div+div{padding-left:10px}.team-dupr-values span{font-size:9px}.team-dupr-values strong{font-size:30px}}
+@media(max-width:600px){.team-dupr{padding:14px 12px}.team-dupr-values{grid-template-columns:1fr;gap:12px}.team-dupr-values>div+div{border-left:0;border-top:1px solid #ffffff30;padding-left:0;padding-top:12px}.team-dupr-values span{min-height:0;font-size:9px}.team-dupr-values strong{font-size:30px}}
 .team-card-bottom{margin-top:16px;padding-top:14px;font-size:9px}
 .directory-options{display:flex;gap:20px;align-items:center;padding:16px 0}
 .directory-options .result-count{margin-right:auto;padding:0}
