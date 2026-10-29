@@ -890,7 +890,16 @@ tbody tr:hover{background:#f0f5eb}
 .home-partners-heading h2{font-size:44px;line-height:1}
 .home-partners-heading .eyebrow{font-size:9px;margin-bottom:14px}
 .home-partners-heading .text-link{font-size:11px}
-.home-partner-grid{display:grid;grid-template-columns:1.18fr repeat(3,minmax(0,1fr));gap:16px}
+.home-partner-showcase{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:24px;align-items:stretch}
+.home-platinum{display:flex;min-width:0}
+.home-platinum .partner-card{width:100%}
+.home-platinum .partner-card-tier{background:#123e2c;color:#e7efea;border-bottom:0}
+.home-platinum .partner-logo-panel{flex:1;min-height:190px;padding:32px}
+.home-platinum .partner-logo-panel img{max-width:340px;max-height:155px}
+.partner-level-label{font-family:var(--body);font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;line-height:1.5}
+.home-partner-tier{display:flex;flex-direction:column;min-width:0}
+.home-partner-tier>.partner-level-label{padding:10px 0 16px;color:#796327}
+.home-partner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;flex:1}
 .partner-card{display:flex;flex-direction:column;min-width:0;background:white;border:1px solid var(--line);border-top:3px solid var(--tier-accent,#bcc5c1);color:var(--brand-primary);transition:transform .18s,box-shadow .18s}
 .partner-card:hover{transform:translateY(-2px);box-shadow:0 7px 20px #123e2c10}
 .partner-platinum,.partner-tier-platinum{--tier-accent:#b7c9cf}
@@ -907,7 +916,6 @@ tbody tr:hover{background:#f0f5eb}
 .partner-card-caption>span{flex-shrink:0;color:var(--brand-muted);font-size:18px}
 .home-partner-grid .partner-logo-panel{height:142px;padding:22px}
 .home-partner-grid .partner-logo-panel img{max-height:110px;max-width:210px}
-.home-partner-grid .partner-platinum .partner-logo-panel img{max-width:260px}
 .home-partner-grid .partner-card-caption h3{font-size:11px}
 .home-partner-grid .partner-card-caption{min-height:60px;padding:14px 18px}
 .partners-page .page-heading{margin-bottom:24px;min-height:190px}
@@ -934,14 +942,51 @@ tbody tr:hover{background:#f0f5eb}
 .partner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .partner-tier-gold .partner-logo-panel{height:200px;padding:28px}
 .partner-tier-gold .partner-logo-panel img{max-height:155px;max-width:310px}
-.partner-tier-silver .partner-logo-panel{height:174px;padding:24px}
-.partner-tier-silver .partner-logo-panel img{max-height:136px;max-width:280px}
-.partner-tier-bronze .partner-logo-panel{height:144px;padding:30px}
-.partner-tier-bronze .partner-logo-panel img{max-height:100px;max-width:245px}
+.partners-page .partner-tier-silver .partner-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.partners-page .partner-tier-bronze .partner-grid{max-width:900px}
+.partner-tier-silver .partner-logo-panel{height:152px;padding:24px}
+.partner-tier-silver .partner-logo-panel img{max-height:110px;max-width:230px}
+.partner-tier-bronze .partner-logo-panel{height:116px;padding:24px}
+.partner-tier-bronze .partner-logo-panel img{max-height:70px;max-width:200px}
+.footer-partners{background:#f8faf6;border-top:1px solid var(--line);padding-block:30px 36px}
+.footer-partners-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}
+.footer-partners-heading h2{font-family:var(--display);font-size:32px;letter-spacing:0;line-height:1.1}
+.footer-partners-heading .text-link{font-size:11px}
+.footer-platinum{display:grid;grid-template-columns:1fr 1.2fr;min-width:0;background:#123e2c;border-top:3px solid #b7c9cf;margin-bottom:26px}
+.footer-platinum-copy{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:24px 32px;color:white;gap:10px}
+.footer-platinum-copy .partner-level-label{color:#c9d8dc}
+.footer-platinum-copy h3{font-family:var(--display);font-size:36px;line-height:1.05;color:white}
+.footer-partner-visit{font-size:11px;margin-top:4px}
+.footer-partner-visit span{color:var(--lime);margin-left:12px}
+.footer-platinum .partner-logo-panel{height:164px;padding:30px}
+.footer-platinum .partner-logo-panel img{max-width:400px;max-height:104px}
+.footer-partner-tier{margin-top:22px;min-width:0}
+.footer-partner-tier>.partner-level-label{display:flex;align-items:center;gap:16px;color:var(--brand-primary);margin-bottom:12px}
+.footer-partner-tier>.partner-level-label:after{content:'';flex:1;height:1px;background:var(--tier-accent)}
+.footer-partner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.footer-partner-grid .partner-logo-panel{height:142px;padding:22px}
+.footer-partner-grid .partner-logo-panel img{max-height:100px;max-width:280px}
+.footer-partner-grid .partner-card-caption{min-height:46px;padding:10px 14px;gap:8px}
+.footer-partner-grid .partner-card-caption h3{font-size:11px;line-height:1.35}
+.footer-partner-grid .partner-card-caption>span{font-size:14px}
+.footer-partner-tier.partner-tier-silver .footer-partner-grid{display:flex;flex-wrap:wrap;justify-content:center}
+.footer-partner-tier.partner-tier-silver .partner-card{width:calc((100% - 56px)/5)}
+.footer-partner-tier.partner-tier-silver .partner-logo-panel{height:100px;padding:16px}
+.footer-partner-tier.partner-tier-silver .partner-logo-panel img{max-height:68px;max-width:166px}
+.footer-partner-tier.partner-tier-silver .partner-card-caption{min-height:44px;padding:8px 10px}
+.footer-partner-tier.partner-tier-silver .partner-card-caption h3{font-size:9px}
+.footer-partner-tier.partner-tier-bronze{max-width:660px}
+.footer-partner-tier.partner-tier-bronze .partner-logo-panel{height:74px;padding:16px}
+.footer-partner-tier.partner-tier-bronze .partner-logo-panel img{max-height:42px;max-width:156px}
+.footer-partner-tier.partner-tier-bronze .partner-card-caption{min-height:36px;padding:8px 10px}
+.footer-partner-tier.partner-tier-bronze .partner-card-caption h3{font-size:9px}
 .footer-league-links{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .footer-league-links .text-link{font-size:11px}
 @media(max-width:800px){
-  .home-partner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home-partner-showcase{grid-template-columns:1fr;gap:18px}
+  .home-platinum .partner-logo-panel{min-height:175px}
+  .partners-page .partner-tier-silver .partner-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .footer-partner-tier.partner-tier-silver .partner-card{width:calc((100% - 28px)/3)}
   .partner-grid{gap:16px}.partner-card-caption{padding:14px;gap:10px}.partner-card-caption h3{font-size:11px}
   .partner-tier-gold .partner-logo-panel{height:170px;padding:20px}
   .partner-tier-silver .partner-logo-panel{height:150px;padding:18px}
@@ -951,7 +996,7 @@ tbody tr:hover{background:#f0f5eb}
   .home-partners{padding-block:8px 28px}
   .home-partners-heading h2{font-size:38px}
   .home-partners-heading .text-link{margin-top:12px}
-  .home-partner-grid{gap:12px}.home-partner-grid .partner-logo-panel{height:125px;padding:18px}
+  .home-partner-grid{gap:10px}.home-partner-grid .partner-logo-panel{height:105px;padding:14px}
   .home-partner-grid .partner-card-caption{padding:12px;min-height:60px;gap:8px}
   .home-partner-grid .partner-card-caption h3{font-size:10px}.partner-card-tier{padding:10px 12px;font-size:7px}
   .partners-page .page-heading{min-height:0;padding:28px 24px}
@@ -965,12 +1010,29 @@ tbody tr:hover{background:#f0f5eb}
   .platinum-feature{grid-template-columns:1fr}.platinum-logo-link .partner-logo-panel{height:190px;padding:32px}
   .platinum-feature-copy{padding:28px}.platinum-feature-copy h3{font-size:44px}.platinum-feature-copy>p:not(.eyebrow){max-width:none}
   .partner-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .partner-tier-gold .partner-grid,.partner-tier-bronze .partner-grid{grid-template-columns:1fr}
+  .partners-page .partner-tier-silver .partner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .partners-page .partner-tier-gold .partner-grid{grid-template-columns:1fr}
   .partner-tier-gold .partner-logo-panel{height:180px;padding:28px}
   .partner-tier-silver .partner-logo-panel{height:142px;padding:16px}
-  .partner-tier-bronze .partner-logo-panel{height:130px;padding:30px}
+  .partners-page .partner-tier-bronze .partner-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .partner-tier-bronze .partner-logo-panel{height:86px;padding:14px}
+  .partner-tier-bronze .partner-card-caption{padding:10px;min-height:58px;gap:6px}
+  .partner-tier-bronze .partner-card-caption h3{font-size:10px}
   .partner-card-caption{padding:14px;min-height:66px}.partner-card-caption h3{font-size:11px}
   .footer-league-links{align-items:flex-start}
+  .home-platinum .partner-logo-panel{min-height:150px;height:150px;padding:24px}.home-platinum .partner-logo-panel img{max-width:290px;max-height:100px}
+  .footer-partners{padding-block:24px 28px}.footer-partners-heading{align-items:flex-start;gap:12px}.footer-partners-heading h2{font-size:28px}.footer-partners-heading .text-link{font-size:9px}
+  .footer-platinum{grid-template-columns:1fr;margin-bottom:22px}.footer-platinum-copy{padding:20px 24px;gap:8px}.footer-platinum-copy h3{font-size:32px}.footer-platinum .partner-logo-panel{height:142px;padding:26px}.footer-platinum .partner-logo-panel img{max-width:300px;max-height:90px}
+  .footer-partner-grid{gap:10px}.footer-partner-grid .partner-logo-panel{height:112px;padding:14px}.footer-partner-grid .partner-logo-panel img{max-height:84px}
+  .footer-partner-grid .partner-card-caption{padding:9px;min-height:52px}.footer-partner-grid .partner-card-caption h3{font-size:9px}.footer-partner-grid .partner-card-caption>span{display:none}
+  .footer-partner-tier.partner-tier-gold .footer-partner-grid{grid-template-columns:1fr}
+  .footer-partner-tier.partner-tier-gold .partner-card{display:grid;grid-template-columns:1fr 1fr}
+  .footer-partner-tier.partner-tier-gold .partner-logo-panel{height:120px;padding:18px}
+  .footer-partner-tier.partner-tier-gold .partner-card-caption{height:100%;margin:0;border-top:0;border-left:1px solid #e7ece6;padding:16px}
+  .footer-partner-tier.partner-tier-gold .partner-card-caption h3{font-size:12px}
+  .footer-partner-tier.partner-tier-silver .partner-card{width:calc((100% - 10px)/2)}
+  .footer-partner-tier.partner-tier-silver .partner-logo-panel{height:88px;padding:14px}.footer-partner-tier.partner-tier-silver .partner-logo-panel img{max-height:60px;max-width:140px}
+  .footer-partner-tier.partner-tier-bronze .partner-logo-panel{height:66px;padding:12px}.footer-partner-tier.partner-tier-bronze .partner-logo-panel img{max-height:42px;max-width:100px}
 }
-@media(max-width:359px){.partner-tier-silver .partner-grid{grid-template-columns:1fr}.home-partner-grid .partner-logo-panel{padding:12px;height:110px}}
+@media(max-width:359px){.partners-page .partner-tier-silver .partner-grid{grid-template-columns:1fr}.home-partner-grid .partner-logo-panel{padding:10px;height:90px}.home-partner-grid .partner-card-caption{padding:9px}.home-partner-grid .partner-card-caption h3{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.partner-card{transition:none}.partner-card:hover{transform:none}}
