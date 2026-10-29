@@ -31,7 +31,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .header nav a:hover{color:var(--lime)}
 @media(min-width:651px){
   .header>.brand{flex-shrink:0}
-  .header>#main-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));flex:1;min-width:0;height:100%;gap:0;margin-left:clamp(12px,3vw,56px)}
+  .header>#main-nav{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));flex:1;min-width:0;height:100%;gap:0;margin-left:clamp(12px,3vw,56px)}
   .header>#main-nav>a{display:flex;align-items:center;justify-content:center;height:100%;padding:0 8px;text-align:center;font-size:clamp(11px,1vw,15px)}
   .header>#main-nav>:is(.schedule-nav,.standings-nav,.teams-nav){height:100%;justify-content:center;gap:4px}
   .header>#main-nav>:is(.schedule-nav,.standings-nav,.teams-nav)>a{display:flex;align-items:center;height:100%;padding-block:0;font-size:clamp(11px,1vw,15px);border-bottom-color:transparent}
@@ -1036,3 +1036,92 @@ tbody tr:hover{background:#f0f5eb}
 }
 @media(max-width:359px){.partners-page .partner-tier-silver .partner-grid{grid-template-columns:1fr}.home-partner-grid .partner-logo-panel{padding:10px;height:90px}.home-partner-grid .partner-card-caption{padding:9px}.home-partner-grid .partner-card-caption h3{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.partner-card{transition:none}.partner-card:hover{transform:none}}
+
+/* About EP: the supplied organizational story and leadership photography. */
+.about-page .page-heading{min-height:176px;margin-bottom:36px}
+.about-page .page-heading .view-title{font-size:clamp(54px,5.5vw,80px);max-width:800px;line-height:1}
+.about-intro{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,5vw,72px);align-items:start}
+.about-intro h2{font-family:var(--display);font-size:clamp(40px,4.1vw,60px);line-height:1.05;margin-top:20px;letter-spacing:-.02em}
+.about-prose{min-width:0}
+.about-prose p{font-size:14px;line-height:1.85;color:var(--brand-muted);margin-top:16px}
+.about-prose p:first-child{margin-top:0}
+.about-prose .about-lead{font-size:17px;line-height:1.7;color:var(--brand-primary);font-weight:550}
+.about-prose .eyebrow{font-size:10px;color:var(--brand-primary);line-height:1.5;margin-bottom:18px}
+.about-prose h2{font-size:clamp(36px,3.1vw,46px);line-height:1.06;margin-bottom:22px}
+.about-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--brand-primary);margin:36px 0 48px;padding:22px 0}
+.about-facts>div{display:flex;flex-direction:column-reverse;justify-content:flex-end;gap:8px;padding-inline:28px;border-left:1px solid var(--line);min-width:0}
+.about-facts>div:first-child{border-left:0;padding-left:0}
+.about-facts dt{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-muted);line-height:1.6}
+.about-facts dd{font-family:var(--display);font-size:64px;line-height:1;font-weight:750;margin:0;color:var(--brand-primary);font-variant-numeric:tabular-nums}
+.about-facts dd span{font-size:.65em;color:#285a43}
+.about-competition{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,72px);align-items:start;margin-bottom:48px}
+.about-world-league{background:linear-gradient(125deg,#123e2c,#081f15);padding:36px;border-top:3px solid var(--lime)}
+.about-world-league h2{font-size:clamp(42px,3.7vw,56px);color:white}
+.about-world-league p{color:#d1ddd4}
+.about-world-league .eyebrow{color:var(--lime)}
+.about-world-league .text-link{color:white;margin-top:22px}
+.about-world-league .text-link span{color:var(--lime)}
+.about-world-league :focus-visible,.about-vision :focus-visible{outline-color:var(--lime)}
+.about-leadership{padding-top:30px;border-top:1px solid var(--line);margin-bottom:44px}
+.about-leadership>.section-heading{margin-bottom:24px}
+.about-leadership .section-heading h2{font-size:46px;line-height:1.05}
+.about-leadership .section-heading>p{font-size:12px;color:var(--brand-muted)}
+.about-founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.about-founder{min-width:0;background:white;display:flex;flex-direction:column;border-bottom:3px solid var(--brand-primary)}
+.founder-photo{width:100%;height:400px;display:block;object-fit:cover;object-position:50% 25%}
+.about-founder:nth-child(2) .founder-photo{object-position:50% 15%}
+.founder-copy{padding:26px 30px 30px}
+.founder-copy .eyebrow{font-size:9px;color:var(--brand-muted);margin-bottom:8px}
+.founder-copy h3{font-family:var(--display);font-size:38px;font-weight:750;color:var(--brand-primary);letter-spacing:-.01em}
+.founder-copy>p:not(.eyebrow){font-size:14px;line-height:1.85;color:var(--brand-muted);margin-top:16px}
+.about-leadership-note{font-size:12px;line-height:1.7;color:var(--brand-muted);margin-top:18px}
+.about-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(32px,5vw,72px);margin-bottom:40px}
+.about-values>section{padding-top:24px;border-top:1px solid var(--line)}
+.about-values .text-link{margin-top:18px}
+.about-vision{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;background:var(--brand-primary);padding:36px;color:white;border-top:3px solid var(--lime)}
+.about-vision .eyebrow{font-size:10px;color:var(--lime);margin-bottom:18px}
+.about-vision h2{color:white;font-size:clamp(38px,3.7vw,54px);line-height:1.05}
+.about-vision .about-prose p{color:#d1ddd4}
+.about-vision .about-vision-closing{font-weight:650;color:white}
+@media(min-width:801px) and (max-width:1000px){
+  .header{height:auto;min-height:128px;flex-direction:column;align-items:flex-start;gap:0;padding-top:10px}
+  .header .brand{padding-right:50px}
+  .header>#main-nav{width:100%;height:48px;flex:auto;margin:4px 0 0}
+  .header .league-search-toggle{position:absolute;right:var(--gutter);top:20px}
+}
+@media(max-width:800px){
+  .about-intro,.about-competition{gap:28px}
+  .about-intro h2{font-size:38px}
+  .about-prose p,.founder-copy>p:not(.eyebrow){font-size:13px}
+  .about-prose .about-lead{font-size:15px}
+  .about-facts>div{padding-inline:18px}.about-facts dd{font-size:52px}.about-facts dt{font-size:9px}
+  .about-world-league{padding:28px}.about-world-league h2{font-size:42px}
+  .founder-photo{height:310px}.about-founders{gap:20px}.founder-copy{padding:24px}
+  .about-values{gap:28px}.about-prose h2{font-size:36px}
+}
+@media(max-width:650px){
+  .header>#main-nav{display:grid;grid-template-columns:.8fr 1.35fr 1.45fr 1.1fr .95fr .7fr .8fr;width:100%;min-width:0;gap:0;align-items:stretch}
+  .header>#main-nav>a,.header>#main-nav>:is(.schedule-nav,.standings-nav,.teams-nav)>a{font-size:clamp(9px,2.6vw,11px);padding-inline:0;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+  .header>#main-nav>:is(.schedule-nav,.standings-nav,.teams-nav){justify-content:center;gap:0;min-width:0}
+  .header .nav-menu-toggle{width:12px;min-width:12px;flex-shrink:0;font-size:12px}
+  .about-page .page-heading{min-height:0;padding:28px 24px;margin-bottom:28px}
+  .about-page .page-heading .view-title{font-size:clamp(44px,11vw,62px)}
+  .about-page .page-heading>p{margin-top:18px}
+  .about-intro,.about-competition,.about-values,.about-vision{grid-template-columns:1fr;gap:26px}
+  .about-intro h2{font-size:clamp(36px,9.1vw,48px);margin-top:16px}
+  .about-facts{grid-template-columns:repeat(2,minmax(0,1fr));padding:0;margin:28px 0 36px}
+  .about-facts>div{padding:20px 16px;gap:8px}.about-facts>div:first-child{padding-left:16px}
+  .about-facts>div:nth-child(3){border-left:0}.about-facts>div:nth-child(n+3){border-top:1px solid var(--line)}
+  .about-facts dd{font-size:54px}.about-facts dt{font-size:9px;max-width:140px}
+  .about-competition{margin-bottom:32px}.about-world-league{padding:28px 24px}
+  .about-leadership{padding-top:24px;margin-bottom:32px}.about-leadership .section-heading h2{font-size:38px}
+  .about-founders{grid-template-columns:1fr;gap:24px}.founder-photo{height:390px}.founder-copy{padding:24px}.founder-copy h3{font-size:36px}
+  .about-values{gap:28px;margin-bottom:32px}.about-vision{padding:28px 24px;gap:24px}.about-vision h2{font-size:40px}
+}
+@media(max-width:359px){
+  .header>#main-nav{grid-template-columns:repeat(12,minmax(0,1fr));height:auto}
+  .header>#main-nav>*{grid-column:span 3}
+  .header>#main-nav>:nth-child(n+5){grid-column:span 4}
+  .header>#main-nav>a,.header>#main-nav>:is(.schedule-nav,.standings-nav,.teams-nav)>a{font-size:11px}
+  .header .nav-menu-toggle{width:14px;min-width:14px}
+}

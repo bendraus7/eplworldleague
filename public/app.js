@@ -46,7 +46,7 @@ window.EPL_READY = (async () => {
   refreshExploreArtwork();
 
   function showPage(page, scroll = true) {
-    if (!['home','schedule','standings','teams','players','stats','team','player','partners'].includes(page)) page = 'home';
+    if (!['home','schedule','standings','teams','players','stats','about','team','player','partners'].includes(page)) page = 'home';
     currentPage = page;
     document.body.dataset.view = page;
     scheduleNav.close();
