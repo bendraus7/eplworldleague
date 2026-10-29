@@ -20,6 +20,12 @@ export function sortPlayers(players,sort='name',getRating=()=>null){
   const rating=player=>{const value=getRating(player.id);return typeof value==='number'&&Number.isFinite(value)?value:-Infinity;};
   return [...players].sort((a,b)=>(sort==='rating'?(rating(b)-rating(a)||0):sort==='country'?a.team.name.localeCompare(b.team.name):0)||a.name.localeCompare(b.name));
 }
+export function teamDuprSummary(players,getRating=()=>null){
+  const ratings=players.map(player=>getRating(player.id)).filter(value=>typeof value==='number'&&Number.isFinite(value)&&value>0);
+  const complete=players.length>0&&ratings.length===players.length;
+  const total=complete?ratings.reduce((sum,value)=>sum+Math.round(value*1000),0)/1000:null;
+  return {rated:ratings.length,players:players.length,total,average:complete?total/players.length:null};
+}
 export function seasonStripMarkup(events,{now=Date.now(),currentId=null}={}){
   const sorted=eventsByRange(events,'all',now),next=eventsByRange(events,'upcoming',now).find(event=>event.status!=='cancelled');
   return `<nav class="season-strip" aria-label="2026–2027 season events">${sorted.map((event,i)=>{

@@ -2,11 +2,21 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {leagueEntries,searchLeague,sortPlayers,seasonStripMarkup,fixtureBoardMarkup} from '../public/league-hub.mjs';
+import {leagueEntries,searchLeague,sortPlayers,teamDuprSummary,seasonStripMarkup,fixtureBoardMarkup} from '../public/league-hub.mjs';
 const context={window:{}};
 vm.runInNewContext(fs.readFileSync(new URL('../public/data.js',import.meta.url),'utf8'),context);
 const teams=JSON.parse(JSON.stringify(context.window.EPL_DATA.teams));
 const season=JSON.parse(fs.readFileSync(new URL('../public/league-data.json',import.meta.url),'utf8'));
+
+test('team DUPR totals all rostered doubles ratings and never treats a missing rating as zero',()=>{
+  const players=[{id:'a'},{id:'b'},{id:'c'},{id:'d'}];
+  const ratings={a:4.593,b:4.2,c:3.8,d:4.001};
+  assert.deepEqual(teamDuprSummary(players,id=>ratings[id]),{rated:4,players:4,total:16.594,average:4.1485});
+  for(const missing of [null,undefined,NaN,Infinity,0,'4.001']){
+    assert.deepEqual(teamDuprSummary(players,id=>id==='d'?missing:ratings[id]),{rated:3,players:4,total:null,average:null});
+  }
+  assert.deepEqual(teamDuprSummary([]),{rated:0,players:0,total:null,average:null});
+});
 
 test('league search reaches every real player and country and ranks exact country first',()=>{
   const entries=leagueEntries(teams);

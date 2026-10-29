@@ -7,7 +7,7 @@ window.EPL_READY = (async () => {
   const {createTeamsNav}=await import('./teams-nav.mjs');
   const {renderPartners}=await import('./partners.mjs');
   const {renderLeagueStakes}=await import('./league-stakes.mjs');
-  const {bindLeagueSearch,sortPlayers}=await import('./league-hub.mjs');
+  const {bindLeagueSearch,sortPlayers,teamDuprSummary}=await import('./league-hub.mjs');
   let seasonError=false;
   let season;
   try{const response=await fetch('league-data.json');if(!response.ok)throw new Error('Schedule unavailable');season=await response.json();}catch{seasonError=true;season={events:[],rounds:[],results:[]};}
@@ -119,10 +119,20 @@ window.EPL_READY = (async () => {
     if (!rotationPaused && currentPage === 'home' && !document.hidden) heroTimer = setInterval(() => rotatePlayers(),6500);
   }
 
+  function teamDuprMarkup(team) {
+    const summary=teamDuprSummary(team.players,window.EPLPlayerRating);
+    const state=window.EPLRatingsState||'loading';
+    const note=state==='loading'?'Loading ratings…':state==='error'?'Ratings unavailable':summary.total===null?`${summary.rated}/${summary.players} players rated · Totals pending`:`DUPR doubles · ${summary.rated}/${summary.players} players`;
+    const value=number=>state==='ready'&&number!==null?number.toFixed(3):'—';
+    return `<div class="team-dupr-values"><div><span>Total team DUPR</span><strong>${value(summary.total)}</strong></div><div><span>Average team DUPR</span><strong>${value(summary.average)}</strong></div></div><small class="team-dupr-note">${note}</small>`;
+  }
+  function refreshTeamRatings() {
+    $$('[data-team-dupr]').forEach(element=>{element.innerHTML=teamDuprMarkup(byId(element.dataset.teamDupr));});
+  }
   function renderTeams() {
     const query = $('#team-search').value.trim().toLocaleLowerCase();
     const filtered = teams.filter(t => (teamFilter === 'All' || t.division === teamFilter) && `${t.name} ${t.code} ${t.players.map(p => p.name).join(' ')}`.toLocaleLowerCase().includes(query));
-    $('#team-grid').innerHTML = filtered.map(t => `<button class="team-card" data-open-team="${t.id}" aria-label="View Team ${escape(t.name)}: ${escape(t.players.map(p => p.name).join(', '))}"><div class="team-card-image"><img loading="lazy" src="${t.art}" alt="Team ${escape(t.name)} country reveal artwork" width="800" height="1050"><span class="division-tag">${t.division.toUpperCase()} CONFERENCE</span></div><div class="team-card-body"><div class="team-card-title">${flag(t)}<h3>${escape(t.name)}</h3><span aria-hidden="true">↗</span></div><p class="team-card-players">${t.players.map(p => escape(p.name)).join(' · ')}</p><div class="team-card-record"><span>SEASON RECORD</span><strong>${(()=>{const record=teamStats(regularSeasonResults(season,t.id));return record.played?`${record.wins}–${record.losses}`:"Awaiting play";})()}</strong></div><div class="team-card-bottom">VIEW TEAM &amp; ROSTER <span>4 players ↗</span></div></div></button>`).join('');
+    $('#team-grid').innerHTML = filtered.map(t => `<button class="team-card" data-open-team="${t.id}" aria-describedby="team-dupr-${t.id}" aria-label="View Team ${escape(t.name)}: ${escape(t.players.map(p => p.name).join(', '))}"><div class="team-card-image"><img loading="lazy" src="${t.art}" alt="Team ${escape(t.name)} country reveal artwork" width="800" height="1050"><span class="division-tag">${t.division.toUpperCase()} CONFERENCE</span></div><div class="team-card-body"><div class="team-card-title">${flag(t)}<h3>${escape(t.name)}</h3><span aria-hidden="true">↗</span></div><p class="team-card-players">${t.players.map(p => escape(p.name)).join(' · ')}</p><div class="team-dupr" id="team-dupr-${t.id}" data-team-dupr="${t.id}">${teamDuprMarkup(t)}</div><div class="team-card-record"><span>SEASON RECORD</span><strong>${(()=>{const record=teamStats(regularSeasonResults(season,t.id));return record.played?`${record.wins}–${record.losses}`:"Awaiting play";})()}</strong></div><div class="team-card-bottom">VIEW TEAM &amp; ROSTER <span>4 players ↗</span></div></div></button>`).join('');
     $('#team-count').textContent = `${filtered.length} ${filtered.length === 1 ? 'team' : 'teams'} / ${filtered.reduce((n,t) => n+t.players.length,0)} players${query ? ' · matching your search' : ''}`;
     $('#no-teams').hidden = filtered.length !== 0;
   }
@@ -214,5 +224,6 @@ window.EPL_READY = (async () => {
   window.addEventListener('hashchange',resolveHash);
   window.addEventListener('popstate',resolveHash);
   window.EPLrefreshPlayers=renderPlayers;
+  window.EPLrefreshTeamRatings=refreshTeamRatings;
   renderTeams(); renderSchedule(); renderStandings(); renderPlayers(); renderStats(); resolveHash();
 })();
