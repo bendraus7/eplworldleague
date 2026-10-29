@@ -4,6 +4,7 @@ window.EPL_READY = (async () => {
   const {conferenceStandings,championshipSeeds,regularSeasonResults,teamStats,REGULATION_GAMES}=await import('./season-model.mjs');
   const {createScheduleNav}=await import('./schedule-nav.mjs');
   const {createStandingsNav}=await import('./standings-nav.mjs');
+  const {createTeamsNav}=await import('./teams-nav.mjs');
   const {bindLeagueSearch,sortPlayers}=await import('./league-hub.mjs');
   let seasonError=false;
   let season;
@@ -23,6 +24,7 @@ window.EPL_READY = (async () => {
   const seasonView=createSeasonView({season,teams,error:seasonError});
   const scheduleNav=createScheduleNav({events:season.events,error:seasonError});
   const standingsNav=createStandingsNav({season,teams,error:seasonError});
+  const teamsNav=createTeamsNav({teams});
   bindLeagueSearch({teams});
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
@@ -48,6 +50,7 @@ window.EPL_READY = (async () => {
     document.body.dataset.view = page;
     scheduleNav.close();
     standingsNav.close();
+    teamsNav.close();
     $$('[data-page]').forEach(panel => { panel.hidden = panel.dataset.page !== page; });
     $$('#main-nav [data-route]').forEach(link => { if (link.dataset.route === (page === 'team' ? 'teams' : page === 'player' ? 'players' : page)) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
     document.title = page === 'home' ? 'EPL World League | Elite Pickleball' : `${page[0].toUpperCase()+page.slice(1)} | EPL World League`;
