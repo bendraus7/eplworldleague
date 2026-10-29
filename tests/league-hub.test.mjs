@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {leagueEntries,searchLeague,sortPlayers,teamDuprSummary,seasonStripMarkup,fixtureBoardMarkup} from '../public/league-hub.mjs';
+import {leagueEntries,searchLeague,sortPlayers,teamDuprSummary,teamDuprRankings,seasonStripMarkup,fixtureBoardMarkup} from '../public/league-hub.mjs';
 const context={window:{}};
 vm.runInNewContext(fs.readFileSync(new URL('../public/data.js',import.meta.url),'utf8'),context);
 const teams=JSON.parse(JSON.stringify(context.window.EPL_DATA.teams));
@@ -16,6 +16,24 @@ test('team DUPR totals all rostered doubles ratings and never treats a missing r
     assert.deepEqual(teamDuprSummary(players,id=>id==='d'?missing:ratings[id]),{rated:3,players:4,total:null,average:null});
   }
   assert.deepEqual(teamDuprSummary([]),{rated:0,players:0,total:null,average:null});
+});
+
+test('team DUPR ranks all 16 teams, shares tied places, and waits for a complete comparison',()=>{
+  const league=Array.from({length:16},(_,i)=>({id:`team-${i}`,players:Array.from({length:4},(_,j)=>({id:`${i}-${j}`}))}));
+  const ratings=Object.fromEntries(league.flatMap((team,i)=>team.players.map(player=>[player.id,5-i/100])));
+  const getRating=id=>ratings[id];
+  let ranks=teamDuprRankings(league,getRating);
+  assert.deepEqual(ranks.get('team-0'),{rank:1,tied:false});
+  assert.deepEqual(ranks.get('team-15'),{rank:16,tied:false});
+  league[2].players.forEach(player=>ratings[player.id]=4.99);
+  ranks=teamDuprRankings(league,getRating);
+  assert.deepEqual(ranks.get('team-1'),{rank:2,tied:true});
+  assert.deepEqual(ranks.get('team-2'),{rank:2,tied:true});
+  assert.deepEqual(ranks.get('team-3'),{rank:4,tied:false});
+  assert.deepEqual(teamDuprRankings([...league].reverse(),getRating).get('team-15'),ranks.get('team-15'));
+  ratings['15-0']=null;
+  assert([...teamDuprRankings(league,getRating).values()].every(row=>row.rank===null&&!row.tied));
+  assert.equal(league[0].id,'team-0');
 });
 
 test('league search reaches every real player and country and ranks exact country first',()=>{

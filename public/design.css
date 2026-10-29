@@ -603,6 +603,12 @@ tbody tr:hover{background:#f0f5eb}
 .team-card-record span{font-size:8px;letter-spacing:.07em;color:var(--brand-muted)}
 .team-card-record strong{font-size:11px;font-weight:650;color:var(--brand-primary)}
 .team-dupr{margin-top:18px;padding:16px;background:var(--brand-primary);color:#fff;text-align:left}
+.team-dupr-rank{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid #ffffff30}
+.team-dupr-rank>span{font-size:9px;line-height:1.4;color:#d7e4dc}
+.team-dupr-rank>strong{font-size:16px;line-height:1;font-weight:750;color:var(--lime);white-space:nowrap;font-variant-numeric:tabular-nums}
+.team-dupr-rank small{font-size:10px;font-weight:500;color:#d7e4dc}
+.team-card-record-note{display:block;margin-top:5px;font-size:9px;line-height:1.4;color:var(--brand-muted)}
+.team-card .team-card-record strong{font-family:var(--display);font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
 .team-dupr-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .team-dupr-values>div+div{border-left:1px solid #ffffff30;padding-left:12px}
 .team-dupr-values span{display:block;min-height:2.8em;font-size:10px;line-height:1.4;color:#d7e4dc}

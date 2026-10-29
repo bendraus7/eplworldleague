@@ -26,6 +26,14 @@ export function teamDuprSummary(players,getRating=()=>null){
   const milliTotal=complete?ratings.reduce((sum,value)=>sum+Math.round(value*1000),0):null;
   return {rated:ratings.length,players:players.length,total:complete?milliTotal/1000:null,average:complete?Math.round(milliTotal/players.length)/1000:null};
 }
+export function teamDuprRankings(teams,getRating=()=>null){
+  const totals=teams.map(team=>({id:team.id,total:teamDuprSummary(team.players,getRating).total}));
+  const complete=totals.every(team=>team.total!==null);
+  return new Map(totals.map(team=>[team.id,{
+    rank:complete?1+totals.filter(other=>other.total>team.total).length:null,
+    tied:complete&&totals.filter(other=>other.total===team.total).length>1
+  }]));
+}
 export function seasonStripMarkup(events,{now=Date.now(),currentId=null}={}){
   const sorted=eventsByRange(events,'all',now),next=eventsByRange(events,'upcoming',now).find(event=>event.status!=='cancelled');
   return `<nav class="season-strip" aria-label="2026–2027 season events">${sorted.map((event,i)=>{
