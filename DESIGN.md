@@ -49,7 +49,7 @@ Square panels and buttons; small 2px corners allowed for controls. Fine green di
 
 ## Components
 
-- Header: official EPL logo, compact wordmark, six visible navigation links, lime active underline. Schedule dropdown retains all real event dates and keyboard dismissal.
+- Header: official EPL logo and compact wordmark at left; six equal-width desktop tabs fill the remaining header width, with a lime active underline. Mobile tabs span the full row below the logo. Schedule dropdown retains all real event dates and keyboard dismissal.
 - Page masthead: chapter number, eyebrow, display title, concise supporting copy. Decorative chapter number is CSS-generated and nonessential.
 - Filters: light surface, 44px minimum controls, forest selected segments, visible keyboard focus. Counts remain text, not decorative badges.
 - Event rows: distinct date block, event name, phase/location/time, honest pending-link state. Championship has a forest edge; calendar uses the same palette.

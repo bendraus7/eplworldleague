@@ -29,8 +29,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .header nav a{font-size:12px;font-weight:650;padding:31px 0 28px;color:#c3cbc7;border-bottom:3px solid transparent;transition:color .15s,border-color .15s}
 .header nav a[aria-current=page]{color:#fff;border-color:var(--lime)}
 .header nav a:hover{color:var(--lime)}
+@media(min-width:651px){
+  .header>.brand{flex-shrink:0}
+  .header>#main-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));flex:1;min-width:0;height:100%;gap:0;margin-left:clamp(12px,3vw,56px)}
+  .header>#main-nav>a{display:flex;align-items:center;justify-content:center;height:100%;padding:0 8px;text-align:center;font-size:clamp(11px,1vw,15px)}
+  .header>#main-nav>.schedule-nav{height:100%;justify-content:center;gap:4px}
+  .header>#main-nav>.schedule-nav>a{display:flex;align-items:center;height:100%;padding-block:0;font-size:clamp(11px,1vw,15px);border-bottom-color:transparent}
+  .header>#main-nav>.schedule-nav:has(>a[aria-current=page]){box-shadow:inset 0 -3px var(--lime)}
+}
 .schedule-menu-toggle{min-height:44px;color:#c3cbc7}
 .schedule-dropdown{top:100%;border-top:3px solid var(--lime);padding:26px;width:540px;box-shadow:0 20px 50px #0004}
+@media(min-width:651px) and (max-width:1050px){
+  .header>#main-nav>.schedule-nav{position:static}
+  .header .schedule-dropdown{left:var(--gutter);right:auto;width:min(540px,calc(100% - var(--gutter)*2))}
+}
 .header .schedule-dropdown a{padding:12px;font-size:12px;color:var(--brand-primary)}
 .header .schedule-menu-heading>a{padding:0;font-size:11px}
 .schedule-menu-events time{font-size:11px}
