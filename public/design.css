@@ -292,7 +292,6 @@ thead{background:var(--brand-secondary)}
 #standings td{padding:20px 16px;font-size:14px;border-color:#e1e6df}
 #standings td:first-child{font-family:var(--display);font-size:24px;color:#52665a;padding:18px 12px}
 #standings td:nth-child(2) button{font-size:14px;min-height:32px}
-#standings td:nth-child(5){font-weight:750;background:#f1f5eb}
 #standings td:last-child{font-weight:750;color:var(--brand-primary)}
 tbody tr:hover{background:#f0f5eb}
 #standings .table-note{font-size:11px;line-height:1.8;max-width:1000px;margin-top:16px}
@@ -419,19 +418,12 @@ tbody tr:hover{background:#f0f5eb}
 .footer .powered-by{font-size:11px;gap:16px}
 /* Compact records keep every value visible, without sideways scrolling. */
 @media(max-width:800px){
-  #standings .table-scroll,.team-event-totals.table-scroll{overflow:visible;background:transparent;border:0}
-  #standings table,.team-event-totals table{display:block;min-width:0;width:100%;white-space:normal}
-  #standings table>thead,.team-event-totals table>thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  #standings tbody,.team-event-totals tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-  #standings tbody tr,.team-event-totals tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);background:white;min-width:0;align-content:start}
-  #standings tbody td{display:block;width:auto;min-width:0;padding:18px 16px;font-family:var(--display);font-size:27px;line-height:1.1;font-weight:650;text-align:left;border-bottom:1px solid #e1e6df;color:var(--brand-primary);overflow-wrap:anywhere}
-  #standings tbody td[data-label]:before,.team-event-totals tbody td[data-label]:before{content:attr(data-label) / "";display:block;font-family:var(--body);font-size:9px;font-weight:650;text-transform:uppercase;letter-spacing:.05em;line-height:1.5;color:var(--brand-muted);margin-bottom:10px}
-  #standings tbody td:first-child{width:auto;padding:18px 16px;font-size:30px;background:#edf2e9}
-  #standings tbody td.standings-country{grid-column:2/-1;display:flex;align-items:center;min-width:0;padding:18px 16px}
-  #standings tbody td.standings-country button{font-family:var(--display);font-size:27px;line-height:1.1;font-weight:700;gap:10px;min-width:0;text-align:left;white-space:normal}
-  #standings tbody td.standings-country button span{min-width:0;overflow-wrap:anywhere}
-  #standings tbody td[data-label="Championship seed"]{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px;background:var(--brand-primary);color:white;border:0}
-  #standings tbody td[data-label="Championship seed"]:before{color:#c3d3c6;margin:0;font-size:10px}
+  .team-event-totals.table-scroll{overflow:visible;background:transparent;border:0}
+  .team-event-totals table{display:block;min-width:0;width:100%;white-space:normal}
+  .team-event-totals table>thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .team-event-totals tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .team-event-totals tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);background:white;min-width:0;align-content:start}
+  .team-event-totals tbody td[data-label]:before{content:attr(data-label) / "";display:block;font-family:var(--body);font-size:9px;font-weight:650;text-transform:uppercase;letter-spacing:.05em;line-height:1.5;color:var(--brand-muted);margin-bottom:10px}
   .team-event-totals tbody tr{grid-template-columns:repeat(2,minmax(0,1fr))}
   .team-event-totals tbody th{grid-column:1/-1;display:block;min-width:0;width:auto;padding:22px;background:var(--brand-primary);color:white;text-align:left;border:0;white-space:normal}
   .team-event-totals tbody th a{font-family:var(--display);font-size:28px;line-height:1.1;color:white}
@@ -441,7 +433,7 @@ tbody tr:hover{background:#f0f5eb}
   .team-event-totals tbody td:last-child:before{margin:0}
 }
 @media(max-width:560px){
-  #standings tbody,.team-event-totals tbody{grid-template-columns:minmax(0,1fr);gap:20px}
+  .team-event-totals tbody{grid-template-columns:minmax(0,1fr);gap:20px}
 }
 /* Responsive composition. Nothing essential depends on hovering or motion. */
 @media(min-width:1600px){.hero{min-height:680px}.hero-art{height:580px}.hero-player{max-height:430px}}
@@ -834,3 +826,59 @@ tbody tr:hover{background:#f0f5eb}
   .teams-preview-columns{gap:20px}
 }
 @media(max-width:500px){.teams-preview-columns{grid-template-columns:1fr}}
+/* Cumulative league standings stay a table, including on phones. */
+#standings .page-heading{min-height:140px;padding:28px 36px;margin-bottom:24px}
+#standings .page-heading .view-title{font-size:68px}
+#standings .page-heading:after{font-size:180px}
+#standings .standings-top{padding-block:14px;gap:16px}
+.standings-table-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:24px 0 16px}
+.standings-table-heading h2{font-family:var(--display);font-size:32px;line-height:1.1}
+.standings-table-heading p{font-size:12px;color:var(--brand-muted);margin-top:6px}
+.standings-table-heading .text-link{font-size:11px;white-space:nowrap}
+#standings .season-standings-table{overflow:visible;border:1px solid var(--line);background:white}
+#standings table{display:table;width:100%;min-width:0;table-layout:fixed;white-space:normal;font-variant-numeric:tabular-nums}
+#standings .seed-column{width:11%}
+#standings .country-column{width:43%}
+#standings .record-column{width:10%}
+#standings .diff-column{width:16%}
+#standings thead{display:table-header-group;position:static;width:auto;height:auto;clip-path:none;overflow:visible}
+#standings tbody{display:table-row-group}
+#standings tr{display:table-row;background:white;border:0}
+#standings tbody tr:nth-child(even){background:#f4f6f2}
+#standings tbody tr:hover{background:#eaf1e5}
+#standings th,#standings td{width:auto;min-width:0;padding:8px 16px;text-align:center;border-bottom:1px solid #dfe5dd;line-height:1.4}
+#standings thead th{font-size:10px;color:white;letter-spacing:.04em;white-space:nowrap}
+#standings td{display:table-cell;font-family:var(--body);font-size:15px;font-weight:500;color:var(--brand-primary)}
+#standings tbody td:before{content:none}
+#standings th:nth-child(2),#standings td.standings-country{text-align:left;min-width:0}
+#standings td:first-child{width:auto;padding:12px 10px;font-family:var(--display);font-size:23px;font-weight:700;color:var(--brand-muted);background:transparent}
+#standings td.standings-wins{font-weight:750;background:#e2eddb;color:#123e2c}
+#standings td.standings-country button{display:flex;align-items:center;gap:12px;min-width:0;min-height:36px;padding:0;font-family:var(--body);font-size:14px;font-weight:700;line-height:1.4;white-space:normal;text-align:left}
+#standings td.standings-country button span{overflow-wrap:normal}
+#standings td.standings-country .country-flag{width:28px;height:21px;flex-shrink:0}
+#standings tbody tr:last-child td{border-bottom:0}
+#standings .table-note{font-size:11px;margin-top:14px;line-height:1.7;max-width:100%}
+#standings .standings-championship-note{padding-top:14px;border-top:1px solid var(--line)}
+.standings-short-label{display:none;text-decoration:none}
+@media(max-width:650px){
+  #standings .page-heading{padding:24px;min-height:0;margin-bottom:20px}
+  #standings .page-heading .view-title{font-size:54px}
+  #standings .page-heading:after{font-size:145px}
+  #standings .page-heading .eyebrow{margin-bottom:12px}
+  #standings .page-heading>p{margin-top:14px}
+  #standings .standings-top{align-items:stretch;gap:12px}
+  #standings .standings-top .segmented{display:flex}
+  #standings .standings-top .segmented button{flex:1;font-size:10px;padding:12px 8px}
+  #standings .status-pill{align-self:flex-start;font-size:8px}
+  .standings-table-heading{align-items:flex-start;gap:12px;margin-block:20px 14px}
+  .standings-table-heading h2{font-size:27px}
+  .standings-table-heading p{font-size:10px;max-width:180px}
+  .standings-table-heading .text-link{font-size:9px;min-height:32px}
+  #standings th,#standings td{padding:12px 4px;font-size:12px}
+  #standings thead th{font-size:8px;letter-spacing:0}
+  #standings td:first-child{padding:12px 4px;font-size:17px}
+  #standings td.standings-country button{font-size:11px;gap:6px;min-height:32px}
+  #standings td.standings-country .country-flag{width:20px;height:15px}
+  .standings-long-label{display:none}
+  .standings-short-label{display:inline}
+}

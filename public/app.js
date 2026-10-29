@@ -1,7 +1,7 @@
 window.EPL_READY = (async () => {
   'use strict';
   const {createSeasonView}=await import('./season-view.mjs');
-  const {conferenceStandings,championshipSeeds,regularSeasonResults,teamStats,REGULATION_GAMES}=await import('./season-model.mjs');
+  const {championshipSeeds,regularSeasonResults,teamStats,REGULATION_GAMES}=await import('./season-model.mjs');
   const {createScheduleNav}=await import('./schedule-nav.mjs');
   const {createStandingsNav}=await import('./standings-nav.mjs');
   const {createTeamsNav}=await import('./teams-nav.mjs');
@@ -18,7 +18,6 @@ window.EPL_READY = (async () => {
   const flag = team => `<img class="country-flag" src="assets/flags/${team.code.toLowerCase()}.svg" alt="${escape(team.name)} flag" width="32" height="24">`;
   let teamFilter = 'All';
   let standingsDivision = 'Atlantic';
-  let standingsEvent = '';
   let currentPage = 'home';
   const artDialog = $('#art-dialog');
   const seasonView=createSeasonView({season,teams,error:seasonError});
@@ -131,28 +130,17 @@ window.EPL_READY = (async () => {
   }
   function renderSchedule() {seasonView.renderSchedule();}
   function renderStandings() {
-    const selected=season.events.find(event=>event.id===standingsEvent);
-    const rows=conferenceStandings(season,teams,standingsDivision,{eventId:standingsEvent||null}),started=rows.some(row=>row.played);
-    const seeds=new Map(championshipSeeds(season,teams,standingsDivision).map(row=>[row.team.id,row]));
-    const number=value=>value===null?'—':value;
-    $('#standings-scope').innerHTML=`<option value="">Overall season</option>${season.events.filter(event=>event.phase!=='championship').map(event=>`<option value="${escape(event.id)}">${escape(event.title)} · ${escape(event.date)}</option>`).join('')}`;
-    $('#standings-scope').value=standingsEvent;
-    $('#standings-heading').textContent=selected?`${selected.title} results`:'Overall season results';
-    $('#standings table thead').innerHTML=`<tr><th scope="col">RANK</th><th scope="col">COUNTRY</th><th scope="col">W</th><th scope="col">L</th><th scope="col" title="Standings points">PTS</th><th scope="col" title="Regulation points scored">FOR</th><th scope="col" title="Regulation points allowed">AGAINST</th><th scope="col" title="Regulation points scored minus points allowed">DIFF.</th>${selected?'':'<th scope="col" title="Projected championship seed">SEED</th>'}</tr>`;
+    const rows=championshipSeeds(season,teams,standingsDivision),started=rows.some(row=>row.played);
+    $('#standings-heading').textContent=`${standingsDivision} Conference`;
     $('#standings-body').innerHTML=rows.map(row=>{
-      const tied=row.rank!==null&&rows.filter(other=>other.rank===row.rank).length>1;
-      const seed=seeds.get(row.team.id);
-      const metrics=[['Wins',row.played?row.wins:'—'],['Losses',row.played?row.losses:'—'],['Points',row.played?row.standingsPoints:'—'],['For',number(row.pointsFor)],['Against',number(row.pointsAgainst)],['Diff.',row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`]];
-      return `<tr><td data-label="Rank">${row.rank===null?'—':`${tied?'T':''}${row.rank}`}</td><td class="standings-country">${teamButton(row.team)}</td>${metrics.map(([label,value])=>`<td data-label="${label}">${value}</td>`).join('')}${selected?'':`<td data-label="Championship seed">${seed.seed??(seed.rank===null?'—':'TBD')}</td>`}</tr>`;
+      const seed=row.seed??(row.rank===null?'—':'TBD');
+      const diff=row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`;
+      return `<tr><td class="standings-seed" aria-label="${seed==='—'?'Seed pending':seed==='TBD'?'Seed tied':`Projected seed ${seed}`}">${seed}</td><td class="standings-country">${teamButton(row.team)}</td><td>${row.played||'—'}</td><td class="standings-wins">${row.played?row.wins:'—'}</td><td>${row.played?row.losses:'—'}</td><td>${diff}</td></tr>`;
     }).join('');
-    $('#standings-summary').innerHTML=`<div><strong>${rows.length}</strong><span>COUNTRIES IN ${standingsDivision.toUpperCase()}</span></div><div><strong>${new Set(rows.flatMap(row=>row.results.map(result=>result.id))).size}</strong><span>${selected?'MATCHUPS THIS EVENT':'RECORDED MATCHUPS'}</span></div><div><strong>${selected?'Event':'Season'}</strong><span>${selected?'RESULTS FOR THIS DATE':'CUMULATIVE REGULAR SEASON'}</span></div>`;
-    $('#standings table caption').textContent=`${standingsDivision} Conference — ${selected?`${selected.title}, ${selected.date}`:'cumulative regular season'}. For and against count regulation points only.`;
-    $('#standings .status-pill').textContent=started?(selected?'EVENT RESULTS':'REGULAR SEASON'):(selected?'NO EVENT RESULTS':'SEASON NOT STARTED');
-    $('#standings-note').textContent=seasonError?'Standings unavailable. Please reload the page.':selected?'This event only. Totals start fresh at each event; overall season results carry forward.':'Results across all four regular-season events determine conference seeds for the February 27 World Championship. The championship bracket decides the league winner.';
-    $('#standings-seed-note').hidden=Boolean(selected);
-    $('#standings-points-note').textContent=`Win = 1 point · Loss = 0 · Up to ${selected?'2 points per event':'8 regular-season points'}. Tiebreakers: wins, head-to-head among tied countries, then regulation point differential. PointBreak points are excluded.`;
+    $('#standings table caption').textContent=`${standingsDivision} Conference cumulative regular-season standings. Wins carry forward across all four events and determine championship seeding.`;
+    $('#standings .status-pill').textContent=seasonError?'RESULTS UNAVAILABLE':started?'REGULAR SEASON':'SEASON NOT STARTED';
+    $('#standings-note').textContent=seasonError?'Standings unavailable. Please reload the page.':started?'Wins and losses carry forward after every regular-season event. Seeds remain projected until the regular season is complete.':'Season starts November 21. Teams are listed alphabetically until results are recorded; seeds are pending.';
   }
-  $('#standings-scope').addEventListener('change',event=>{standingsEvent=event.target.value;renderStandings();});
   function openRoster(id) {
     const team = byId(id);
     if (!team) return;
@@ -210,7 +198,7 @@ window.EPL_READY = (async () => {
   artDialog.addEventListener('click',event => { if(event.target === artDialog) { const bounds=artDialog.getBoundingClientRect(); if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom) artDialog.close(); } });
   function resolveHash() {
     const hash=location.hash.slice(1);
-    if (/^standings\/(atlantic|pacific)$/.test(hash)) { standingsDivision=hash.endsWith('pacific')?'Pacific':'Atlantic';standingsEvent='';setSegment('data-standings',standingsDivision);renderStandings();showPage('standings');return; }
+    if (/^standings\/(atlantic|pacific)$/.test(hash)) { standingsDivision=hash.endsWith('pacific')?'Pacific':'Atlantic';setSegment('data-standings',standingsDivision);renderStandings();showPage('standings');return; }
     if (hash.startsWith('schedule/')) { showPage('schedule'); seasonView.openEvent(hash.slice(9)); return; }
     if (hash.startsWith('player/')) { showPage('player'); window.EPLopenProfile?.(hash.slice(7)); return; }
     if (hash.startsWith('team/')) { openRoster(decodeURIComponent(hash.slice(5))); return; }
