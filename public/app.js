@@ -24,6 +24,22 @@ window.EPL_READY = (async () => {
   const standingsNav=createStandingsNav({season,teams,error:seasonError});
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
+  function refreshExploreArtwork() {
+    let previous={};
+    try { previous=JSON.parse(sessionStorage.getItem('epl:explore-art')||'{}')||{}; } catch {}
+    const pick=(items,lastId)=>{
+      const choices=items.filter(item=>item.id!==lastId);
+      return choices[Math.floor(Math.random()*choices.length)]||items[0];
+    };
+    const team=pick(teams,previous.teamId);
+    const player=pick(teams.flatMap(team=>team.players.map(player=>({...player,team}))),previous.playerId);
+    const teamImage=$('[data-featured-team]'),playerImage=$('[data-featured-player]');
+    if(team&&teamImage){teamImage.src=team.art;teamImage.alt=`Team ${team.name} country artwork`;teamImage.dataset.featuredTeam=team.id;}
+    if(player&&playerImage){playerImage.src=player.image;playerImage.alt=`${player.name}, Team ${player.team.name} player artwork`;playerImage.dataset.featuredPlayer=player.id;}
+    try { sessionStorage.setItem('epl:explore-art',JSON.stringify({teamId:team?.id,playerId:player?.id})); } catch {}
+  }
+  refreshExploreArtwork();
+
   function showPage(page, scroll = true) {
     if (!['home','schedule','standings','teams','players','stats','team','player'].includes(page)) page = 'home';
     currentPage = page;

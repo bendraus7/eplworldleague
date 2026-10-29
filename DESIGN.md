@@ -33,7 +33,7 @@ Use white on forest or night, forest on white, and night on lime. Lime is an emp
 ## Layout
 
 - Content width: 1320px maximum, fluid gutters from 20px mobile to 56px desktop. Spacing follows 8px increments, with 24/32px component gaps and 64/88px section rhythm.
-- Homepage: dark split stage, white/lime headline, green globe behind rotating player cards; country links in visible rows; next-event rail; league introduction; two visual paths into teams and players; format and PointBreak.
+- Homepage: dark split stage, white/lime headline, green globe behind rotating player cards; country links in visible rows; next-event rail; league introduction; two visual paths into teams and players, each featuring randomly selected artwork on every page load (excluding the previous selection in the same tab); format and PointBreak.
 - Schedule, Standings, Teams, Players, Stats: the same numbered forest masthead, then light controls and content. Operational pages prioritize readable data over imagery.
 - Teams: four columns above 1100px, three above 800px, two on tablet/mobile, one below 360px. Artwork is contained in a portrait frame, never cropped. Player directories keep two columns on most phones, one below 360px.
 - Team profiles: flag and title on a forest identity panel, four roster cards, then season stats and results. Player profiles: portrait beside identity and prominent DUPR rating; section navigation, main stats/history column, supporting bio column.
