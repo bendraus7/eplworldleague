@@ -1127,8 +1127,7 @@ tbody tr:hover{background:#f0f5eb}
 .about-leadership .section-heading>p{font-size:12px;color:var(--brand-muted)}
 .about-founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
 .about-founder{min-width:0;background:white;display:flex;flex-direction:column;border-bottom:3px solid var(--brand-primary)}
-.founder-photo{width:100%;height:400px;display:block;object-fit:cover;object-position:50% 25%}
-.about-founder:nth-child(2) .founder-photo{object-position:50% 15%}
+.founder-photo{width:100%;height:auto;aspect-ratio:2/3;display:block;object-fit:contain;object-position:center;background:#050806}
 .founder-copy{padding:26px 30px 30px}
 .founder-copy .eyebrow{font-size:9px;color:var(--brand-muted);margin-bottom:8px}
 .founder-copy h3{font-family:var(--display);font-size:38px;font-weight:750;color:var(--brand-primary);letter-spacing:-.01em}
@@ -1155,7 +1154,7 @@ tbody tr:hover{background:#f0f5eb}
   .about-prose .about-lead{font-size:15px}
   .about-facts>div{padding-inline:18px}.about-facts dd{font-size:52px}.about-facts dt{font-size:9px}
   .about-world-league{padding:28px}.about-world-league h2{font-size:42px}
-  .founder-photo{height:310px}.about-founders{gap:20px}.founder-copy{padding:24px}
+  .about-founders{gap:20px}.founder-copy{padding:24px}
   .about-values{gap:28px}.about-prose h2{font-size:36px}
 }
 @media(max-width:650px){
@@ -1174,7 +1173,7 @@ tbody tr:hover{background:#f0f5eb}
   .about-facts dd{font-size:54px}.about-facts dt{font-size:9px;max-width:140px}
   .about-competition{margin-bottom:32px}.about-world-league{padding:28px 24px}
   .about-leadership{padding-top:24px;margin-bottom:32px}.about-leadership .section-heading h2{font-size:38px}
-  .about-founders{grid-template-columns:1fr;gap:24px}.founder-photo{height:390px}.founder-copy{padding:24px}.founder-copy h3{font-size:36px}
+  .about-founders{grid-template-columns:1fr;gap:24px}.founder-copy{padding:24px}.founder-copy h3{font-size:36px}
   .about-values{gap:28px;margin-bottom:32px}.about-vision{padding:28px 24px;gap:24px}.about-vision h2{font-size:40px}
 }
 @media(max-width:359px){
