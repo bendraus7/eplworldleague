@@ -882,3 +882,95 @@ tbody tr:hover{background:#f0f5eb}
   .standings-long-label{display:none}
   .standings-short-label{display:inline}
 }
+/* League partners: prominence follows the supplied sponsorship levels. */
+.season-bar .season-partners-link{color:#e7efea}
+.season-bar .season-partners-link:hover{color:var(--lime)}
+.home-partners{padding-block:12px 40px}
+.home-partners-heading{margin-bottom:22px;align-items:flex-end}
+.home-partners-heading h2{font-size:44px;line-height:1}
+.home-partners-heading .eyebrow{font-size:9px;margin-bottom:14px}
+.home-partners-heading .text-link{font-size:11px}
+.home-partner-grid{display:grid;grid-template-columns:1.18fr repeat(3,minmax(0,1fr));gap:16px}
+.partner-card{display:flex;flex-direction:column;min-width:0;background:white;border:1px solid var(--line);border-top:3px solid var(--tier-accent,#bcc5c1);color:var(--brand-primary);transition:transform .18s,box-shadow .18s}
+.partner-card:hover{transform:translateY(-2px);box-shadow:0 7px 20px #123e2c10}
+.partner-platinum,.partner-tier-platinum{--tier-accent:#b7c9cf}
+.partner-gold,.partner-tier-gold{--tier-accent:#b39a53}
+.partner-silver,.partner-tier-silver{--tier-accent:#aeb9c1}
+.partner-bronze,.partner-tier-bronze{--tier-accent:#a77750}
+.partner-card-tier{padding:12px 18px;font-size:8px;letter-spacing:.12em;text-transform:uppercase;font-weight:750;border-bottom:1px solid #e7ece6}
+.partner-logo-panel{display:flex;align-items:center;justify-content:center;min-width:0;background:#fff;padding:22px;height:168px}
+.partner-logo-panel img{display:block;width:100%;height:100%;object-fit:contain;max-width:300px;max-height:145px}
+.partner-logo-dark{background:#000}
+.partner-logo-monochrome img{filter:brightness(0) invert(1)}
+.partner-card-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;min-height:65px;border-top:1px solid #e7ece6;margin-top:auto}
+.partner-card-caption h3{font-family:var(--body);font-size:13px;line-height:1.5;font-weight:650;letter-spacing:0}
+.partner-card-caption>span{flex-shrink:0;color:var(--brand-muted);font-size:18px}
+.home-partner-grid .partner-logo-panel{height:142px;padding:22px}
+.home-partner-grid .partner-logo-panel img{max-height:110px;max-width:210px}
+.home-partner-grid .partner-platinum .partner-logo-panel img{max-width:260px}
+.home-partner-grid .partner-card-caption h3{font-size:11px}
+.home-partner-grid .partner-card-caption{min-height:60px;padding:14px 18px}
+.partners-page .page-heading{margin-bottom:24px;min-height:190px}
+.partners-page .page-heading .view-title{font-size:clamp(62px,5.8vw,88px)}
+.partner-tier-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--line);margin-bottom:40px}
+.partner-tier-nav a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-right:1px solid var(--line);font-size:12px;font-weight:700;min-height:54px}
+.partner-tier-nav a:first-child{padding-left:0}.partner-tier-nav a:last-child{border-right:0}
+.partner-tier-nav a:hover{color:var(--brand-primary);background:#e4ebdf}
+.partner-tier-nav span{font-size:10px;color:var(--brand-muted);font-weight:500}
+.partner-tier{margin-bottom:48px;scroll-margin-top:20px}
+.partner-tier:last-child{margin-bottom:0}
+.partner-tier-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:3px solid var(--tier-accent);padding-top:18px;margin-bottom:22px}
+.partner-tier-heading h2{font-family:var(--display);font-size:36px;line-height:1.05;letter-spacing:0}
+.partner-tier-heading>span{font-size:9px;letter-spacing:.08em;color:var(--brand-muted)}
+.platinum-feature{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--line);background:white}
+.platinum-logo-link{display:flex;align-items:center;justify-content:center;min-width:0}
+.platinum-logo-link .partner-logo-panel{width:100%;height:280px;padding:40px}
+.platinum-logo-link .partner-logo-panel img{max-width:440px;max-height:160px}
+.platinum-feature-copy{background:linear-gradient(120deg,#123e2c,#09291b);color:white;padding:38px 40px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;border-top:3px solid #b7c9cf}
+.platinum-feature-copy .eyebrow{font-size:9px;color:#b7c9cf}
+.platinum-feature-copy h3{font-family:var(--display);font-size:52px;font-weight:750;letter-spacing:-.01em;margin:14px 0 12px;color:white}
+.platinum-feature-copy>p:not(.eyebrow){font-size:13px;line-height:1.8;color:#c8d7cc;max-width:290px}
+.platinum-feature-copy .text-link{color:white;margin-top:20px;font-size:12px}
+.partner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.partner-tier-gold .partner-logo-panel{height:200px;padding:28px}
+.partner-tier-gold .partner-logo-panel img{max-height:155px;max-width:310px}
+.partner-tier-silver .partner-logo-panel{height:174px;padding:24px}
+.partner-tier-silver .partner-logo-panel img{max-height:136px;max-width:280px}
+.partner-tier-bronze .partner-logo-panel{height:144px;padding:30px}
+.partner-tier-bronze .partner-logo-panel img{max-height:100px;max-width:245px}
+.footer-league-links{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.footer-league-links .text-link{font-size:11px}
+@media(max-width:800px){
+  .home-partner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .partner-grid{gap:16px}.partner-card-caption{padding:14px;gap:10px}.partner-card-caption h3{font-size:11px}
+  .partner-tier-gold .partner-logo-panel{height:170px;padding:20px}
+  .partner-tier-silver .partner-logo-panel{height:150px;padding:18px}
+  .platinum-feature{grid-template-columns:1fr 1fr}.platinum-feature-copy{padding:28px}.platinum-feature-copy h3{font-size:42px}
+}
+@media(max-width:650px){
+  .home-partners{padding-block:8px 28px}
+  .home-partners-heading h2{font-size:38px}
+  .home-partners-heading .text-link{margin-top:12px}
+  .home-partner-grid{gap:12px}.home-partner-grid .partner-logo-panel{height:125px;padding:18px}
+  .home-partner-grid .partner-card-caption{padding:12px;min-height:60px;gap:8px}
+  .home-partner-grid .partner-card-caption h3{font-size:10px}.partner-card-tier{padding:10px 12px;font-size:7px}
+  .partners-page .page-heading{min-height:0;padding:28px 24px}
+  .partners-page .page-heading .view-title{font-size:clamp(48px,12vw,68px)}
+  .partner-tier-nav{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:28px}
+  .partner-tier-nav a{padding:14px 12px;font-size:11px}.partner-tier-nav a:first-child{padding-left:12px}
+  .partner-tier-nav a:nth-child(2){border-right:0}.partner-tier-nav a:nth-child(n+3){border-top:1px solid var(--line)}
+  .partner-tier{margin-bottom:32px;scroll-margin-top:20px}
+  .partner-tier:last-child{margin-bottom:0}
+  .partner-tier-heading{padding-top:16px;margin-bottom:18px;gap:12px}.partner-tier-heading h2{font-size:32px}.partner-tier-heading>span{font-size:8px}
+  .platinum-feature{grid-template-columns:1fr}.platinum-logo-link .partner-logo-panel{height:190px;padding:32px}
+  .platinum-feature-copy{padding:28px}.platinum-feature-copy h3{font-size:44px}.platinum-feature-copy>p:not(.eyebrow){max-width:none}
+  .partner-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .partner-tier-gold .partner-grid,.partner-tier-bronze .partner-grid{grid-template-columns:1fr}
+  .partner-tier-gold .partner-logo-panel{height:180px;padding:28px}
+  .partner-tier-silver .partner-logo-panel{height:142px;padding:16px}
+  .partner-tier-bronze .partner-logo-panel{height:130px;padding:30px}
+  .partner-card-caption{padding:14px;min-height:66px}.partner-card-caption h3{font-size:11px}
+  .footer-league-links{align-items:flex-start}
+}
+@media(max-width:359px){.partner-tier-silver .partner-grid{grid-template-columns:1fr}.home-partner-grid .partner-logo-panel{padding:12px;height:110px}}
+@media(prefers-reduced-motion:reduce){.partner-card{transition:none}.partner-card:hover{transform:none}}

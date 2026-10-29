@@ -5,6 +5,7 @@ window.EPL_READY = (async () => {
   const {createScheduleNav}=await import('./schedule-nav.mjs');
   const {createStandingsNav}=await import('./standings-nav.mjs');
   const {createTeamsNav}=await import('./teams-nav.mjs');
+  const {renderPartners}=await import('./partners.mjs');
   const {bindLeagueSearch,sortPlayers}=await import('./league-hub.mjs');
   let seasonError=false;
   let season;
@@ -25,6 +26,7 @@ window.EPL_READY = (async () => {
   const standingsNav=createStandingsNav({season,teams,error:seasonError});
   const teamsNav=createTeamsNav({teams});
   bindLeagueSearch({teams});
+  renderPartners();
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
   function refreshExploreArtwork() {
@@ -44,7 +46,7 @@ window.EPL_READY = (async () => {
   refreshExploreArtwork();
 
   function showPage(page, scroll = true) {
-    if (!['home','schedule','standings','teams','players','stats','team','player'].includes(page)) page = 'home';
+    if (!['home','schedule','standings','teams','players','stats','team','player','partners'].includes(page)) page = 'home';
     currentPage = page;
     document.body.dataset.view = page;
     scheduleNav.close();
@@ -52,6 +54,7 @@ window.EPL_READY = (async () => {
     teamsNav.close();
     $$('[data-page]').forEach(panel => { panel.hidden = panel.dataset.page !== page; });
     $$('#main-nav [data-route]').forEach(link => { if (link.dataset.route === (page === 'team' ? 'teams' : page === 'player' ? 'players' : page)) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
+    $$('[data-partners-link]').forEach(link=>{if(page==='partners')link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
     document.title = page === 'home' ? 'EPL World League | Elite Pickleball' : `${page[0].toUpperCase()+page.slice(1)} | EPL World League`;
     if (scroll) window.scrollTo({top:0,behavior:'instant'});
     updateRotation();
@@ -198,6 +201,7 @@ window.EPL_READY = (async () => {
   artDialog.addEventListener('click',event => { if(event.target === artDialog) { const bounds=artDialog.getBoundingClientRect(); if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom) artDialog.close(); } });
   function resolveHash() {
     const hash=location.hash.slice(1);
+    if (/^partners\/(platinum|gold|silver|bronze)$/.test(hash)) { showPage('partners',false);$(`#partner-tier-${hash.split('/')[1]}`).scrollIntoView({behavior:'instant'});return; }
     if (/^standings\/(atlantic|pacific)$/.test(hash)) { standingsDivision=hash.endsWith('pacific')?'Pacific':'Atlantic';setSegment('data-standings',standingsDivision);renderStandings();showPage('standings');return; }
     if (hash.startsWith('schedule/')) { showPage('schedule'); seasonView.openEvent(hash.slice(9)); return; }
     if (hash.startsWith('player/')) { showPage('player'); window.EPLopenProfile?.(hash.slice(7)); return; }
