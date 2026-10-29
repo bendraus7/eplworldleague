@@ -4,6 +4,7 @@ window.EPL_READY = (async () => {
   const {conferenceStandings,championshipSeeds,regularSeasonResults,teamStats,REGULATION_GAMES}=await import('./season-model.mjs');
   const {createScheduleNav}=await import('./schedule-nav.mjs');
   const {createStandingsNav}=await import('./standings-nav.mjs');
+  const {bindLeagueSearch,sortPlayers}=await import('./league-hub.mjs');
   let seasonError=false;
   let season;
   try{const response=await fetch('league-data.json');if(!response.ok)throw new Error('Schedule unavailable');season=await response.json();}catch{seasonError=true;season={events:[],rounds:[],results:[]};}
@@ -22,6 +23,7 @@ window.EPL_READY = (async () => {
   const seasonView=createSeasonView({season,teams,error:seasonError});
   const scheduleNav=createScheduleNav({events:season.events,error:seasonError});
   const standingsNav=createStandingsNav({season,teams,error:seasonError});
+  bindLeagueSearch({teams});
   const teamButton = team => `<button data-open-team="${team.id}" aria-label="View Team ${escape(team.name)} roster">${flag(team)}<span>${escape(team.name)}</span></button>`;
 
   function refreshExploreArtwork() {
@@ -57,7 +59,7 @@ window.EPL_READY = (async () => {
     const query = $('#player-search').value.trim().toLocaleLowerCase();
     const country = $('#player-country').value;
     const division = $('#player-division').value;
-    const players = teams.filter(t => (country === 'All' || country === t.id) && (division === 'All' || division === t.division)).flatMap(t => t.players.map(p => ({...p,team:t}))).filter(p => `${p.name} ${p.team.name}`.toLocaleLowerCase().includes(query)).sort((a,b) => a.name.localeCompare(b.name));
+    const players = sortPlayers(teams.filter(t => (country === 'All' || country === t.id) && (division === 'All' || division === t.division)).flatMap(t => t.players.map(p => ({...p,team:t}))).filter(p => `${p.name} ${p.team.name}`.toLocaleLowerCase().includes(query)),$('#player-sort').value,window.EPLPlayerRating);
     $('#player-directory').innerHTML = players.map(p => `<article class="directory-card"><button class="directory-art" data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img loading="lazy" src="${p.image}" alt="${escape(p.name)}, Team ${escape(p.team.name)} player reveal" width="800" height="1050"></button><div class="directory-info"><h2><a href="#player/${p.id}">${escape(p.name)}</a></h2>${window.EPLRating ? window.EPLRating(p.id) : '<p class="rating-loading">Loading DUPR…</p>'}<button class="player-country-link" data-open-team="${p.team.id}">${flag(p.team)}<span>${escape(p.team.name)}</span><span aria-hidden="true">↗</span></button><p>${p.team.division} Conference</p></div></article>`).join('');
     $('#player-count').textContent = `${players.length} ${players.length === 1 ? 'player' : 'players'}`;
     $('#no-players').hidden = players.length !== 0;
@@ -113,7 +115,7 @@ window.EPL_READY = (async () => {
   function renderTeams() {
     const query = $('#team-search').value.trim().toLocaleLowerCase();
     const filtered = teams.filter(t => (teamFilter === 'All' || t.division === teamFilter) && `${t.name} ${t.code} ${t.players.map(p => p.name).join(' ')}`.toLocaleLowerCase().includes(query));
-    $('#team-grid').innerHTML = filtered.map(t => `<button class="team-card" data-open-team="${t.id}" aria-label="View Team ${escape(t.name)}: ${escape(t.players.map(p => p.name).join(', '))}"><div class="team-card-image"><img loading="lazy" src="${t.art}" alt="Team ${escape(t.name)} country reveal artwork" width="800" height="1050"><span class="division-tag">${t.division.toUpperCase()} CONFERENCE</span></div><div class="team-card-body"><div class="team-card-title">${flag(t)}<h3>${escape(t.name)}</h3><span aria-hidden="true">↗</span></div><p class="team-card-players">${t.players.map(p => escape(p.name)).join(' · ')}</p><div class="team-card-bottom">VIEW THE ROSTER <span>4 players</span></div></div></button>`).join('');
+    $('#team-grid').innerHTML = filtered.map(t => `<button class="team-card" data-open-team="${t.id}" aria-label="View Team ${escape(t.name)}: ${escape(t.players.map(p => p.name).join(', '))}"><div class="team-card-image"><img loading="lazy" src="${t.art}" alt="Team ${escape(t.name)} country reveal artwork" width="800" height="1050"><span class="division-tag">${t.division.toUpperCase()} CONFERENCE</span></div><div class="team-card-body"><div class="team-card-title">${flag(t)}<h3>${escape(t.name)}</h3><span aria-hidden="true">↗</span></div><p class="team-card-players">${t.players.map(p => escape(p.name)).join(' · ')}</p><div class="team-card-record"><span>SEASON RECORD</span><strong>${(()=>{const record=teamStats(regularSeasonResults(season,t.id));return record.played?`${record.wins}–${record.losses}`:"Awaiting play";})()}</strong></div><div class="team-card-bottom">VIEW TEAM &amp; ROSTER <span>4 players ↗</span></div></div></button>`).join('');
     $('#team-count').textContent = `${filtered.length} ${filtered.length === 1 ? 'team' : 'teams'} / ${filtered.reduce((n,t) => n+t.players.length,0)} players${query ? ' · matching your search' : ''}`;
     $('#no-teams').hidden = filtered.length !== 0;
   }
@@ -140,6 +142,7 @@ window.EPL_READY = (async () => {
       const metrics=[['Wins',row.played?row.wins:'—'],['Losses',row.played?row.losses:'—'],['Points',row.played?row.standingsPoints:'—'],['For',number(row.pointsFor)],['Against',number(row.pointsAgainst)],['Diff.',row.pointDifferential===null?'—':`${row.pointDifferential>0?'+':''}${row.pointDifferential}`]];
       return `<tr><td data-label="Rank">${row.rank===null?'—':`${tied?'T':''}${row.rank}`}</td><td class="standings-country">${teamButton(row.team)}</td>${metrics.map(([label,value])=>`<td data-label="${label}">${value}</td>`).join('')}${selected?'':`<td data-label="Championship seed">${seed.seed??(seed.rank===null?'—':'TBD')}</td>`}</tr>`;
     }).join('');
+    $('#standings-summary').innerHTML=`<div><strong>${rows.length}</strong><span>COUNTRIES IN ${standingsDivision.toUpperCase()}</span></div><div><strong>${new Set(rows.flatMap(row=>row.results.map(result=>result.id))).size}</strong><span>${selected?'MATCHUPS THIS EVENT':'RECORDED MATCHUPS'}</span></div><div><strong>${selected?'Event':'Season'}</strong><span>${selected?'RESULTS FOR THIS DATE':'CUMULATIVE REGULAR SEASON'}</span></div>`;
     $('#standings table caption').textContent=`${standingsDivision} Conference — ${selected?`${selected.title}, ${selected.date}`:'cumulative regular season'}. For and against count regulation points only.`;
     $('#standings .status-pill').textContent=started?(selected?'EVENT RESULTS':'REGULAR SEASON'):(selected?'NO EVENT RESULTS':'SEASON NOT STARTED');
     $('#standings-note').textContent=seasonError?'Standings unavailable. Please reload the page.':selected?'This event only. Totals start fresh at each event; overall season results carry forward.':'Results across all four regular-season events determine conference seeds for the February 27 World Championship. The championship bracket decides the league winner.';
@@ -150,7 +153,7 @@ window.EPL_READY = (async () => {
   function openRoster(id) {
     const team = byId(id);
     if (!team) return;
-    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header"><span class="team-identity-art" style="background-image:url('${team.art}')" aria-hidden="true"></span>${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} CONFERENCE / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><button class="text-link team-results-jump" data-team-results>Team stats &amp; results ↓</button></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3><a href="#player/${p.id}">${escape(p.name)}</a></h3><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player to view their profile, DUPR rating, stats, and match log.</p><div id="team-season-content"></div>`;
+    $('#team-page-content').innerHTML = `<a class="text-link team-back-link" href="#teams" data-route="teams">← All teams</a><div class="roster-header"><span class="team-identity-art" style="background-image:url('${team.art}')" aria-hidden="true"></span>${flag(team)}<div><p class="eyebrow">${team.division.toUpperCase()} CONFERENCE / 2026–2027</p><h1 id="team-page-title" tabindex="-1">Team ${escape(team.name)}</h1></div><button class="text-link team-results-jump" data-team-results>Team stats &amp; results ↓</button></div><div class="team-quick-summary"><div><strong>04</strong><span>ROSTERED PLAYERS</span></div><div><strong>${(()=>{const record=teamStats(regularSeasonResults(season,team.id));return record.played?`${record.wins}–${record.losses}`:"—";})()}</strong><span>REGULAR-SEASON RECORD</span></div><a href="#standings/${team.division.toLowerCase()}">Conference standings <span aria-hidden="true">↗</span></a></div><div class="roster-grid">${team.players.map(p => `<article class="player-card"><button data-open-player="${p.id}" aria-label="View ${escape(p.name)} profile"><img src="${p.image}" alt="${escape(p.name)}, Team ${escape(team.name)} player reveal" width="800" height="1050"></button><div><h3><a href="#player/${p.id}">${escape(p.name)}</a></h3><div data-roster-rating="${p.id}">${window.EPLRating?window.EPLRating(p.id):""}</div><p>TEAM ${team.name.toUpperCase()} <span aria-hidden="true">/</span> ${team.division}</p></div></article>`).join('')}</div><p class="roster-footer">Select a player to view their profile, DUPR rating, stats, and match log.</p><div id="team-season-content"></div>`;
     seasonView.renderTeamDetails(id);
     showPage('team');
     document.title = `Team ${team.name} | EPL World League`;
@@ -169,6 +172,11 @@ window.EPL_READY = (async () => {
   $('#player-search').addEventListener('input',renderPlayers);
   $('#player-country').addEventListener('change',renderPlayers);
   $('#player-division').addEventListener('change',renderPlayers);
+  $('#player-sort').addEventListener('change',renderPlayers);
+  $$('[data-directory-view]').forEach(button=>button.addEventListener('click',()=>{
+    setSegment('data-directory-view',button.dataset.directoryView);
+    $('#player-directory').classList.toggle('directory-list-view',button.dataset.directoryView==='list');
+  }));
   $('#reset-players').addEventListener('click',() => { $('#player-search').value=''; $('#player-country').value='All'; $('#player-division').value='All'; renderPlayers(); $('#player-search').focus(); });
   $('#hero-pause').addEventListener('click',() => { rotationPaused = !rotationPaused; updateRotation(); });
   $('#hero-next').addEventListener('click',() => { rotatePlayers(); updateRotation(); });
